@@ -1,0 +1,22 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Gabriel Moreira"
+  navbar:
+    left:
+      - href: Principal.qmd
+        text: Sobre
+      - href: Projetos.qmd
+        text: Projetos
+
+format:
+  html:
+    lang: pt
+    theme: darkly
+    css: styles.css
+    toc: true
+
+editor: visual
+

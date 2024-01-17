@@ -1,0 +1,35 @@
+---
+title: "Projetos de DataScience"
+---
+
+Aqui mostrarei um pouco sobre meus projetos em andamento e concluídos
+
+# Projetos pessoais 
+
+## Projeto 1
+
+Projeto de extração de ceps de todo o brasil com webscrapping
+
+## Projeto 2
+
+Montagem de dashboards com shiny
+
+# Projetos do Pet
+
+## Projeto 1
+
+Modelo de recomendação de filmes com KNN
+
+## Projeto 2
+
+Webscrapping cnn e top250 filmes
+
+# Projetos do Trabalho
+
+## Projeto 1
+
+Geolocalização em distâncias e pa
+
+## Projeto 2
+
+Modelo de regressão linear para entendimento de lógica entre distância de capital e destino

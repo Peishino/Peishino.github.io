@@ -1,0 +1,23 @@
+---
+title: "Portifólio de DataScience"
+about:
+  template: solana
+  image: profile.jpg
+  image-shape: round
+  links: 
+    - icon: twitter
+      text: twitter
+      href: https://github.com
+    - icon: github
+      text: Github
+      href: https://github.com
+  
+---
+
+This is a Quarto website.
+
+To learn more about Quarto websites visit this [link](https://quarto.org/docs/websites).
+
+```{r}
+head(iris)
+```
