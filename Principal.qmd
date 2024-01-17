@@ -1,23 +1,74 @@
 ---
-title: "Portifólio de DataScience"
+title: "Gabriel Moreira"
 about:
-  template: solana
-  image: profile.jpg
-  image-shape: round
+  template: marquee
+  image: teste.png
+  image-width: 48em
+  image-shape: rounded
   links: 
-    - icon: twitter
-      text: twitter
-      href: https://github.com
-    - icon: github
-      text: Github
-      href: https://github.com
-  
+    - text: email
+      icon: envelope
+      href: mailto:gabriel.moreira419@gmail.com
+    - text: linkedin
+      icon: linkedin
+      href: https://www.linkedin.com/in/gabriel-moreira419/
+    - text: github
+      icon: github
+      href: https://github.com/Peishino
 ---
 
-This is a Quarto website.
+Olá e seja bem-vindo ao meu portfólio!
 
-To learn more about Quarto websites visit this [link](https://quarto.org/docs/websites).
+Aqui falarei um pouco sobre mim e sobre minhas experiências acadêmicas e profissionais.
 
-```{r}
-head(iris)
-```
+Sou Gabriel Moreira, um entusiasta da estatística e proficiente em diversas habilidades de cientista de dados tais como:
+
+- *Manipulação e processamento de dados;*
+ 
+- *Análise de dados;*
+ 
+- *Visualização de dados;*
+ 
+- *Desenvolvimento, Validação e Interpretação de modelos de machine learning;*
+ 
+- *Implementação de soluções analíticas;*
+ 
+- *Automações de rotinas.*
+ 
+
+---
+
+## Formação
+
+**Universidade Federal de Uberlândia**
+
+*Bacharelado em estatística | 2022 - 2027*
+
+---
+
+## Experiência profissional
+
+**Supporte Full Commerce** *- Estágio*
+
+*Cientista de dados | Abril/2023 - Setembro/2023*
+
+
+
+
+Principais atividades:
+
+- *Entendimento de negócio;*
+ 
+- *Implementação do software R para melhoria de cálculos, manipulação de dados, criação de modelos de machine learning e algumas aplicações com o pacote shiny;*
+ 
+- *Desenvolvimento de dashboards interativos com Power BI;*
+ 
+- *Realização de análises e simulações no Excel visando a redução de custos.*
+
+---
+
+**Supporte Full Commerce** *- Efetivo*
+
+*Cientista de dados jr | Setembro/2023 - Atualmente*
+
+

@@ -3,18 +3,20 @@ project:
   output-dir: docs
 
 website:
-  title: "Gabriel Moreira"
+  title: "Portifólio DataScientist"
   navbar:
     left:
       - href: Principal.qmd
         text: Sobre
+      - href: Estudos.qmd
+        text: Trilhas de Conhecimento
       - href: Projetos.qmd
         text: Projetos
 
 format:
   html:
     lang: pt
-    theme: darkly
+    theme: flatly
     css: styles.css
     toc: true
 
