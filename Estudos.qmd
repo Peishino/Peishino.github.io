@@ -1,5 +1,8 @@
 ---
 title: "Estudos"
+listing: 
+  contents: estudos
+  type: default
 ---
 
 

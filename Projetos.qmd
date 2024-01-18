@@ -1,5 +1,8 @@
 ---
 title: "Projetos de DataScience"
+listing: 
+  contents: projetos
+  type: default
 ---
 
 Aqui mostrarei um pouco sobre meus principais projetos

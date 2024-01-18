@@ -17,24 +17,22 @@ about:
       href: https://github.com/Peishino
 ---
 
-Olá e seja bem-vindo ao meu portfólio!
+#### Olá, seja bem-vindo ao meu portfólio!
 
-Aqui falarei um pouco sobre mim e sobre minhas experiências acadêmicas e profissionais.
+#### Aqui falarei um pouco sobre mim e sobre minhas experiências acadêmicas e profissionais.
 
-Sou Gabriel Moreira, um entusiasta da estatística e proficiente em diversas habilidades de cientista de dados tais como:
+---
 
-- *Manipulação e processamento de dados;*
- 
-- *Análise de dados;*
- 
-- *Visualização de dados;*
- 
-- *Desenvolvimento, Validação e Interpretação de modelos de machine learning;*
- 
-- *Implementação de soluções analíticas;*
- 
-- *Automações de rotinas.*
- 
+## Sobre mim
+
+Meu nome é Gabriel Moreira, estudante de estatística e atuante como cientista de dados. Desde a infância, sempre tive uma grande afinidade com números e operações matemáticas. Em 2019, meu irmão despertou em mim um grande interesse em programação, o que me levou a unir o útil ao agradável, cursando estatística com o objetivo de me tornar um cientista de dados.
+
+
+Antes mesmo de ingressar na faculdade, fiz uma pesquisa e identifiquei que a linguagem **Python** era amplamente utilizada na comunidade de cientistas de dados. Inicialmente, busquei cursos introdutórios online para aprimorar minhas habilidades de programação. Atualmente, embora tenha aprimorado consideravelmente meu conhecimento em **Python**, confesso que, devido às demandas do curso, tenho uma utilização mais frequente da **linguagem R**. Além dessas linguagens, também adquiri conhecimentos básicos em **SQL** para estruturação de bases de dados e execução de consultas.
+
+Na faculdade, discutimos situações comuns no mercado de trabalho, o que oferece algum preparo aos estudantes. Entretanto, ao progredir no estágio, percebi que muitas vezes as pessoas não têm clareza sobre os problemas ou sequer reconhecem que estão enfrentando um desafio que pode ser tratado. Assim, uma habilidade que desenvolvi consideravelmente nessa experiência foi o que costumam chamar de **"entendimento de negócios"**. Outro aprendizado significativo foi entender que nem sempre é necessário empregar soluções complexas para problemas simples. Por vezes, uma análise de dados feita com ferramentas acessíveis, como **Excel** e outras plataformas lowcode, pode fornecer resultados comparáveis a abordagens mais avançadas, como **Python**. Isso me fez valorizar essas análises mais práticas e eficientes, reconhecendo a importância de escolher a abordagem adequada para cada contexto.
+
+Ao longo desta jornada, adquiri diversas habilidades, incluindo manipulação, processamento e visualização de dados, desenvolvimento, validação e interpretação de modelos de **machine learning**, automações de rotinas, entre outros. Sinta-se à vontade para explorar meus projetos na seção **Projetos**!
 
 ---
 
@@ -42,7 +40,7 @@ Sou Gabriel Moreira, um entusiasta da estatística e proficiente em diversas hab
 
 **Universidade Federal de Uberlândia**
 
-*Bacharelado em estatística | 2022 - 2027*
+*Bacharelado em estatística | 2022 - Atualmente*
 
 ---
 
@@ -52,18 +50,6 @@ Sou Gabriel Moreira, um entusiasta da estatística e proficiente em diversas hab
 
 *Cientista de dados | Abril/2023 - Setembro/2023*
 
-
-
-
-Principais atividades:
-
-- *Entendimento de negócio;*
- 
-- *Implementação do software R para melhoria de cálculos, manipulação de dados, criação de modelos de machine learning e algumas aplicações com o pacote shiny;*
- 
-- *Desenvolvimento de dashboards interativos com Power BI;*
- 
-- *Realização de análises e simulações no Excel visando a redução de custos.*
 
 ---
 
