@@ -12,7 +12,8 @@ website:
         text: Trilhas de Conhecimento
       - href: Projetos.qmd
         text: Projetos
-
+        
+  favicon: iconfav.jpg
 format:
   html:
     code-overflow: scroll
