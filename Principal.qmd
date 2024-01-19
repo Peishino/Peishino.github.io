@@ -3,7 +3,6 @@ title: "Gabriel Moreira"
 about:
   template: marquee
   image: profile.png
-  image-width: 48em
   image-shape: rounded
   links: 
     - text: email
