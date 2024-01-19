@@ -7,6 +7,10 @@ description: Extração de todos os ceps do Brasil utilizando python e o pacote 
 jupyter: python3
 execute:
   eval: false
+code-block-bg: "#DDDDDD"
+highlight-style: github
+code-block-border-left: "#334061"
+code-line-numbers: true
 ---
 
 ## Explicação do projeto
