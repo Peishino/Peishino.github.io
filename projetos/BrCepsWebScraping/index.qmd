@@ -1,0 +1,198 @@
+---
+title: "CepScraping"
+image: BrasilRegioesUF.jpg
+categories: ["Python","WebScraping"]
+title-block-style: none
+description: Extração de todos os ceps do Brasil utilizando python e o pacote BeautifulSoup4
+jupyter: python3
+execute:
+  eval: false
+---
+
+## Explicação do projeto
+
+O projeto consiste em extrair informações sobre CEPs de um [site](https://listacep.com/) que organiza os dados por divisões, com links para cada CEP disponível.
+
+A abordagem envolve navegar através das diferentes camadas de informação: primeiro acessando o estado, seguido pela cidade, bairro e finalmente, a rua. O processo requer a coleta e armazenamento de todos esses links para, posteriormente, acessar cada rua e extrair as informações específicas necessárias.
+
+Em resumo, a tarefa principal envolve a navegação hierárquica pelos links para coletar dados precisos sobre CEPs em diferentes localidades.
+
+## Biliotecas
+
+[**Beautiful Soup 4**](https://beautiful-soup-4.readthedocs.io/en/latest/), que é uma biblioteca Python usada para extrair dados de HTML. É comumente usada para fazer web scraping.
+
+[**Requests**](https://requests.readthedocs.io/en/latest/), que é uma biblioteca HTTP para Python. Ela permite que você envie solicitações HTTP, facilitando a interação com APIs da web e a obtenção de conteúdo de páginas da web.
+
+[**Pandas**](https://pandas.pydata.org/docs/), que é uma poderosa biblioteca para manipulação e análise de dados.
+
+[**concurrent.futures**](https://docs.python.org/3/library/concurrent.futures.html), essa biblioteca faz parte da biblioteca padrão do Python, será utilizado para execução paralela de tarefas.
+
+Para instalá-las, basta executar o seguinte código:
+```{python}
+!pip install beautifulsoup4
+!pip install requests
+!pip install pandas
+
+```
+
+## Código
+
+### Importar bibliotecas
+
+```{python}
+import pandas as pd # Importar Pandas como "pd" é uma convenção comum na comunidade Python
+from bs4 import BeautifulSoup
+import requests
+from concurrent.futures import ThreadPoolExecutor 
+
+```
+
+---
+
+### Cabeçalho de consultas
+
+```{python}
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+}
+```
+*Ao incluir esse cabeçalho User-Agent em uma solicitação HTTP, você está informando ao servidor web sobre o tipo de navegador e sistema operacional que está sendo usado para acessar a página.*
+
+---
+
+### Funções
+
+
+```{python}
+def extract_links(url):
+    response = requests.get(url, headers=headers)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    empty_div = soup.find('div', class_='list__empty')
+    if empty_div:
+        print(f"Não há informações de links para {url}")
+        return None
+    else:
+        primeira_ul = soup.find('ul', class_='list__list')
+        if primeira_ul:
+            links = [a['href'] for a in primeira_ul.find_all('a')]
+            return links
+        else:
+            return []
+```
+*Essa função extrai links de uma página da web. Primeiro, faz uma solicitação HTTP para obter o HTML da URL usando* **requests** *com um cabeçalho definido. Em seguida, utiliza o* **BeautifulSoup** *para analisar o HTML. A função verifica se há uma div com a classe *"list__empty"*, indicando uma lista vazia de localidades. Se encontrada, imprime uma mensagem e retorna None. Caso contrário, procura a primeira ul com a classe *"list__list" *e extrai os links, retornando-os como uma lista. Se a lista não for encontrada, retorna uma lista vazia. Resumidamente, a função evita extrair dados de listas vazias e retorna os links encontrados, se existirem*
+
+
+```{python}
+def extract_links2(url, max_attempts=5):
+    for attempt in range(max_attempts):
+        try:
+            response = requests.get(url, headers=headers, timeout=10)
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, 'html.parser')
+            empty_div = soup.find('div', class_='list__empty')
+
+            if empty_div:
+                print(f"Não há informações de links para {url}")
+                return []
+            else:
+                primeira_ul = soup.find('ul', class_='list__list')
+
+                if primeira_ul:
+                    links = [a['href'] for a in primeira_ul.find_all('a')]
+                    return links
+                else:
+                    return []
+        except Exception as e:
+            print(f"Tentativa {attempt + 1} de {max_attempts} - Erro ao processar {url}: {e}")
+            if attempt < max_attempts - 1:
+                print("Tentando novamente...")
+            else:
+                print("Número máximo de tentativas atingido. Desistindo.")
+                return None
+```
+*A função extract_links2 é uma versão aprimorada da extract_links, trazendo mais robustez e habilidade para lidar com falhas usando tentativas múltiplas e captura de exceções. Essas melhorias serão particularmente valiosas quando precisarmos otimizar e acelerar o processo de extração de dados.*
+
+```{python}
+def extract_rua_data(rua, max_attempts=5):
+    for attempt in range(max_attempts):
+        try:
+            response = requests.get(rua, headers=headers, timeout=10)
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, 'html.parser')
+            busca = soup.find('div', class_="top__more-infos")
+            if busca:
+                texto = busca.text
+                dados = {}
+                for linha in texto.split("\n"):
+                    if linha.strip():
+                        chave, valor = linha.strip().split(":", 1)
+                        dados[chave] = valor
+                return dados
+            else:
+                return None
+        except Exception as e:
+            print(f"Tentativa {attempt + 1} de {max_attempts} - Erro ao processar {rua}: {e}")
+            if attempt < max_attempts - 1:
+                print("Tentando novamente...")
+            else:
+                print("Número máximo de tentativas atingido. Desistindo.")
+                return None
+```
+*Essa função serve para extrair informações do Logradouro, CEP, Bairro, Cidade e Estado do link final (Rua), lidando com erros de requisição e tentativas múltiplas para garantir uma extração mais robusta.*
+
+---
+
+### Acessando e extraindo os links
+
+```{python}
+url = "https://listacep.com/"
+
+estados_links = extract_links(url)
+
+cidades_links = []
+for estado_link in estados_links:
+    cidades_links.extend(extract_links(estado_link))
+
+cidades_links = list(set(cidades_links)) 
+cidades_links = [cidade for cidade in cidades_links if cidade not in estados_links]
+```
+*A função extract_links é chamada para extrair os links relacionados aos estados do Brasil. O código percorre os links de estados previamente obtidos e, para cada estado, utiliza novamente a função extract_links para extrair os links relacionados às cidades. A lista cidades_links passa por um processo de limpeza evitando duplicatas indesejadas.*
+
+```{python}
+with ThreadPoolExecutor(max_workers=40) as executor:
+    bairros = list(executor.map(extract_links2, cidades_links))
+
+bairros_links = [bairro for sublist in bairros for bairro in sublist]
+bairros_links = list(set(bairros_links))
+
+with ThreadPoolExecutor(max_workers=40) as executor:
+    ruas = list(executor.map(extract_links2, bairros_links))
+
+ruas_links = [rua for sublist in ruas for rua in sublist]
+ruas_links = list(set(ruas_links))
+```
+*Esse código utiliza ThreadPoolExecutor juntamente com a função extract_links2 para coletar paralelamente links de bairros e ruas de forma eficiente, removendo duplicatas nos resultados finais.*
+
+---
+
+### Coletando os CEPs
+
+```{python}
+rua_data_list = []
+
+with ThreadPoolExecutor(max_workers=40) as executor:
+    rua_data_list = list(executor.map(extract_rua_data, ruas_links))
+
+rua_data_list = [data for data in rua_data_list if data]
+
+df = pd.DataFrame(columns=["Logradouro", "CEP", "Bairro", "Cidade", "Estado"])
+df = df.append(rua_data_list, ignore_index=True)
+
+grupos_estados = df.groupby('Estado')
+
+with pd.ExcelWriter('DadosCeps_por_estado.xlsx') as writer:
+    for estado, dados_estado in grupos_estados:
+        dados_estado.to_excel(writer, sheet_name=estado, index=False)
+```
+*Esta parte do código coleta dados de diversas ruas também em paralelo, organizando esses dados em um DataFrame Pandas e, em seguida, exporta esses dados para um arquivo Excel com abas separadas para cada estado.*
+
