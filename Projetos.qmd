@@ -14,8 +14,9 @@ code-block-bg: "#DDDDDD"
 highlight-style: github
 code-block-border-left: "#334061"
 code-line-numbers: true
-  
 ---
+
+#### Aqui estão alguns projetos nos quais já trabalhei e gostaria de destacar de forma explicativa. Para acessá-los, basta clicar sobre cada um.
 
 ## Projetos
 

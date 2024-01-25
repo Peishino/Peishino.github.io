@@ -25,7 +25,7 @@
     "href": "Projetos.html",
     "title": "Projetos de DataScience",
     "section": "",
-    "text": "Python\n\n\nWebScraping\n\n\n\n\nExtração de todos os ceps do Brasil utilizando python e o pacote BeautifulSoup4\n\n\n\n\n \n\n\n\n\nNenhum item correspondente"
+    "text": "Aqui estão alguns projetos nos quais já trabalhei, e gostaria de destacá-los de maneira explicativa. Para acessá-los, basta clicar sobre cada um."
   },
   {
     "objectID": "Projetos.html#projeto-1",
@@ -164,8 +164,8 @@
     "objectID": "Projetos.html#projetos",
     "href": "Projetos.html#projetos",
     "title": "Projetos de DataScience",
-    "section": "",
-    "text": "Python\n\n\nWebScraping\n\n\n\n\nExtração de todos os ceps do Brasil utilizando python e o pacote BeautifulSoup4\n\n\n\n\n \n\n\n\n\nNenhum item correspondente"
+    "section": "Projetos",
+    "text": "Projetos\n\n\n\n\n  \n\n\n\n\nCepScraping\n\n\n\n\n\n\n\nPython\n\n\nWebScraping\n\n\n\n\nExtração de todos os ceps do Brasil utilizando python e o pacote BeautifulSoup4\n\n\n\n\n \n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "projetos/BrCepsWebScraping/index.html",

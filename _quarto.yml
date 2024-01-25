@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Portifólio DataScientist"
+  title: "Portfólio DataScientist"
   navbar:
     left:
       - href: Principal.qmd
