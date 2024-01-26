@@ -21,7 +21,7 @@ about:
 
 
 <h3> Meu nome é Gabriel Moreira! </h3>
-*Eu sou um estudante de estatística, me especializando em Data Science*
+*Eu sou um estudante de estatística, me especializando em Data Science.*
 
 <br>
 
