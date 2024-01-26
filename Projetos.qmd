@@ -1,5 +1,5 @@
 ---
-title: "Projetos de DataScience"
+title: "Projetos"
 listing: 
   id: lista-projetos
   contents: projetos
@@ -7,7 +7,6 @@ listing:
   sort: "title asc"
   date-format: DD/MM/YYYY
   categories: true
-title-block-banner: true
 execute:
   eval: false
 code-block-bg: "#DDDDDD"
@@ -16,9 +15,11 @@ code-block-border-left: "#334061"
 code-line-numbers: true
 ---
 
-#### Aqui estão alguns projetos nos quais já trabalhei e gostaria de destacar de forma explicativa. Para acessá-los, basta clicar sobre cada um.
+<h4> Aqui estão alguns projetos nos quais já trabalhei e gostaria de destacar. </h4>
 
-## Projetos
+*Para acessá-los, basta clicar sobre cada um.*
+
+<br>
 
 ::: {#lista-projetos}
 :::
