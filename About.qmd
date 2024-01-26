@@ -1,0 +1,47 @@
+---
+title: "Sobre mim"
+about:
+  template: marquee
+  links: 
+    - text: email
+      icon: envelope
+      href: mailto:gabriel.moreira419@gmail.com
+    - text: linkedin
+      icon: linkedin
+      href: https://www.linkedin.com/in/gabriel-moreira419/
+    - text: github
+      icon: github
+      href: https://github.com/Peishino
+---
+
+Meu nome é Gabriel Moreira, estudante de estatística e atuante como cientista de dados. Desde a infância, sempre tive uma grande afinidade com números e operações matemáticas. Em 2019, meu irmão despertou em mim um grande interesse em programação, o que me levou a unir o útil ao agradável, cursando estatística com o objetivo de me tornar um cientista de dados.
+
+Antes mesmo de ingressar na faculdade, fiz uma pesquisa e identifiquei que a linguagem <b>**Python**</b> era amplamente utilizada na comunidade de cientistas de dados. Inicialmente, busquei cursos introdutórios online para aprimorar minhas habilidades de programação. Atualmente, embora tenha aprimorado consideravelmente meu conhecimento em <b>**Python**</b>, confesso que, devido às demandas do curso, tenho uma utilização mais frequente da <b>**linguagem R**</b>. Além dessas linguagens, também adquiri conhecimentos básicos em <b>**SQL**</b> para estruturação de bases de dados e execução de consultas.
+
+Na faculdade, discutimos situações comuns no mercado de trabalho, o que oferece algum preparo aos estudantes. Entretanto, ao progredir no estágio, percebi que muitas vezes as pessoas não têm clareza sobre os problemas ou sequer reconhecem que estão enfrentando um desafio que pode ser tratado. Assim, uma habilidade que desenvolvi consideravelmente nessa experiência foi o que costumam chamar de <b>**"entendimento de negócios"**</b>. Outro aprendizado significativo foi entender que nem sempre é necessário empregar soluções complexas para problemas simples. Por vezes, uma análise de dados feita com ferramentas acessíveis, como <b>**Excel**</b> e outras plataformas lowcode, pode fornecer resultados comparáveis a abordagens mais avançadas, como <b>**Python**</b>. Isso me fez valorizar essas análises mais práticas e eficientes, reconhecendo a importância de escolher a abordagem adequada para cada contexto.
+
+Ao longo desta jornada, adquiri diversas habilidades, incluindo manipulação, processamento e visualização de dados, desenvolvimento, validação e interpretação de modelos de <b>**machine learning**</b>, automações de rotinas, entre outros. Sinta-se à vontade para explorar meus projetos na seção [Projetos](Projetos.qmd)!
+
+------------------------------------------------------------------------
+
+## Formação
+
+**Universidade Federal de Uberlândia**
+
+*Bacharelado em estatística \| 2022 - Atualmente*
+
+------------------------------------------------------------------------
+
+## Experiência profissional
+
+
+**Supporte Full Commerce** *- Efetivo*
+
+*Cientista de dados jr \| Setembro/2023 - Atualmente*
+
+------------------------------------------------------------------------
+
+
+**Supporte Full Commerce** *- Estágio*
+
+*Cientista de dados \| Abril/2023 - Setembro/2023*
