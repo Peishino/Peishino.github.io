@@ -8,7 +8,7 @@
 
 <meta name="description" content="Extração de todos os ceps do Brasil utilizando python e o pacote BeautifulSoup4">
 
-<title>Portfólio DataScientist - CepScraping</title>
+<title>Gabriel Moreira   DataScientist   - CepScraping</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Portfólio DataScientist</span>
+    <span class="navbar-title">Gabriel Moreira <br> <small> <em>DataScientist </em> </small></span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Procurar"></div>
@@ -117,12 +117,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../Principal.html" rel="" target="">
- <span class="menu-text">Sobre</span></a>
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Gabriel Moreira</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../Estudos.html" rel="" target="">
- <span class="menu-text">Trilhas de Conhecimento</span></a>
+    <a class="nav-link" href="../../About.html" rel="" target="">
+ <span class="menu-text">Sobre</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../Projetos.html" rel="" target="">
@@ -224,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-13"><a href="#cb4-13"></a>        <span class="cf">else</span>:</span>
 <span id="cb4-14"><a href="#cb4-14"></a>            <span class="cf">return</span> []</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><em>Essa função extrai links de uma página da web. Primeiro, faz uma solicitação HTTP para obter o HTML da URL usando</em> <strong>requests</strong> <em>com um cabeçalho definido. Em seguida, utiliza o</em> <strong>BeautifulSoup</strong> <em>para analisar o HTML. A função verifica se há uma div com a classe </em>”list__empty”<em>, indicando uma lista vazia de localidades. Se encontrada, imprime uma mensagem e retorna None. Caso contrário, procura a primeira ul com a classe </em>”list__list” <em>e extrai os links, retornando-os como uma lista. Se a lista não for encontrada, retorna uma lista vazia. Resumidamente, a função evita extrair dados de listas vazias e retorna os links encontrados, se existirem</em></p>
+<p><em>Essa função extrai links de uma página da web. Primeiro, faz uma solicitação HTTP para obter o HTML da URL usando</em> <strong>requests</strong> <em>com um cabeçalho definido. Em seguida, utiliza o</em> <strong>BeautifulSoup</strong> <em>para analisar o HTML. A função verifica se há uma div com a classe</em> “list__empty”<em>, indicando uma lista vazia de localidades. Se encontrada, imprime uma mensagem e retorna None. Caso contrário, procura a primeira ul com a classe</em> “list__list” <em>e extrai os links, retornando-os como uma lista. Se a lista não for encontrada, retorna uma lista vazia. Resumidamente, a função evita extrair dados de listas vazias e retorna os links encontrados, se existirem</em></p>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">def</span> extract_links2(url, max_attempts<span class="op">=</span><span class="dv">5</span>):</span>
 <span id="cb5-2"><a href="#cb5-2"></a>    <span class="cf">for</span> attempt <span class="kw">in</span> <span class="bu">range</span>(max_attempts):</span>
