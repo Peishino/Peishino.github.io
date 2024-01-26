@@ -1,0 +1,30 @@
+---
+title: "Gabriel Moreira"
+subtitle: "Data Scientist"
+about:
+  template: trestles
+  image: PerfilFoto.jpg
+  image-shape: round
+  links: 
+    - text: email
+      icon: envelope
+      href: mailto:gabriel.moreira419@gmail.com
+    - text: linkedin
+      icon: linkedin
+      href: https://www.linkedin.com/in/gabriel-moreira419/
+    - text: github
+      icon: github
+      href: https://github.com/Peishino
+---
+
+<h1> Olá, <br> seja bem vindo (a) ao meu portfólio. </h1>
+
+
+<h3> Meu nome é Gabriel Moreira! </h3>
+*Eu sou um estudante de estatística, me especializando em Data Science*
+
+<br>
+
+
+
+<h4> Aqui você encontrará informações [sobre mim](About.qmd) e alguns dos meus [projetos](Projetos.qmd). </h4>
