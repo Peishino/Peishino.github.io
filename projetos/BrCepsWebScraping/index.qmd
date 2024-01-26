@@ -32,6 +32,7 @@ Em resumo, a tarefa principal envolve a navegação hierárquica pelos links par
 [**concurrent.futures**](https://docs.python.org/3/library/concurrent.futures.html), essa biblioteca faz parte da biblioteca padrão do Python, será utilizado para execução paralela de tarefas.
 
 Para instalá-las, basta executar o seguinte código:
+
 ```{python}
 !pip install beautifulsoup4
 !pip install requests
@@ -51,7 +52,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 ```
 
----
+------------------------------------------------------------------------
 
 ### Cabeçalho de consultas
 
@@ -60,12 +61,12 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
 }
 ```
+
 *Ao incluir esse cabeçalho User-Agent em uma solicitação HTTP, você está informando ao servidor web sobre o tipo de navegador e sistema operacional que está sendo usado para acessar a página.*
 
----
+------------------------------------------------------------------------
 
 ### Funções
-
 
 ```{python}
 def extract_links(url):
@@ -83,8 +84,8 @@ def extract_links(url):
         else:
             return []
 ```
-*Essa função extrai links de uma página da web. Primeiro, faz uma solicitação HTTP para obter o HTML da URL usando* **requests** *com um cabeçalho definido. Em seguida, utiliza o* **BeautifulSoup** *para analisar o HTML. A função verifica se há uma div com a classe *"list__empty"*, indicando uma lista vazia de localidades. Se encontrada, imprime uma mensagem e retorna None. Caso contrário, procura a primeira ul com a classe *"list__list" *e extrai os links, retornando-os como uma lista. Se a lista não for encontrada, retorna uma lista vazia. Resumidamente, a função evita extrair dados de listas vazias e retorna os links encontrados, se existirem*
 
+*Essa função extrai links de uma página da web. Primeiro, faz uma solicitação HTTP para obter o HTML da URL usando* **requests** *com um cabeçalho definido. Em seguida, utiliza o* **BeautifulSoup** *para analisar o HTML. A função verifica se há uma div com a classe* "list\_\_empty"*, indicando uma lista vazia de localidades. Se encontrada, imprime uma mensagem e retorna None. Caso contrário, procura a primeira ul com a classe* "list\_\_list" *e extrai os links, retornando-os como uma lista. Se a lista não for encontrada, retorna uma lista vazia. Resumidamente, a função evita extrair dados de listas vazias e retorna os links encontrados, se existirem*
 
 ```{python}
 def extract_links2(url, max_attempts=5):
@@ -114,6 +115,7 @@ def extract_links2(url, max_attempts=5):
                 print("Número máximo de tentativas atingido. Desistindo.")
                 return None
 ```
+
 *A função extract_links2 é uma versão aprimorada da extract_links, trazendo mais robustez e habilidade para lidar com falhas usando tentativas múltiplas e captura de exceções. Essas melhorias serão particularmente valiosas quando precisarmos otimizar e acelerar o processo de extração de dados.*
 
 ```{python}
@@ -142,9 +144,10 @@ def extract_rua_data(rua, max_attempts=5):
                 print("Número máximo de tentativas atingido. Desistindo.")
                 return None
 ```
+
 *Essa função serve para extrair informações do Logradouro, CEP, Bairro, Cidade e Estado do link final (Rua), lidando com erros de requisição e tentativas múltiplas para garantir uma extração mais robusta.*
 
----
+------------------------------------------------------------------------
 
 ### Acessando e extraindo os links
 
@@ -160,6 +163,7 @@ for estado_link in estados_links:
 cidades_links = list(set(cidades_links)) 
 cidades_links = [cidade for cidade in cidades_links if cidade not in estados_links]
 ```
+
 *A função extract_links é chamada para extrair os links relacionados aos estados do Brasil. O código percorre os links de estados previamente obtidos e, para cada estado, utiliza novamente a função extract_links para extrair os links relacionados às cidades. A lista cidades_links passa por um processo de limpeza evitando duplicatas indesejadas.*
 
 ```{python}
@@ -175,9 +179,10 @@ with ThreadPoolExecutor(max_workers=40) as executor:
 ruas_links = [rua for sublist in ruas for rua in sublist]
 ruas_links = list(set(ruas_links))
 ```
+
 *Esse código utiliza ThreadPoolExecutor juntamente com a função extract_links2 para coletar paralelamente links de bairros e ruas de forma eficiente, removendo duplicatas nos resultados finais.*
 
----
+------------------------------------------------------------------------
 
 ### Coletando os CEPs
 
@@ -198,5 +203,5 @@ with pd.ExcelWriter('DadosCeps_por_estado.xlsx') as writer:
     for estado, dados_estado in grupos_estados:
         dados_estado.to_excel(writer, sheet_name=estado, index=False)
 ```
-*Esta parte do código coleta dados de diversas ruas também em paralelo, organizando esses dados em um DataFrame Pandas e, em seguida, exporta esses dados para um arquivo Excel com abas separadas para cada estado.*
 
+*Esta parte do código coleta dados de diversas ruas também em paralelo, organizando esses dados em um DataFrame Pandas e, em seguida, exporta esses dados para um arquivo Excel com abas separadas para cada estado.*
