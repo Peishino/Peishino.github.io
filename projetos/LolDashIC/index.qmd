@@ -1,0 +1,102 @@
+---
+title: "Worlds Analisis"
+image: LeagueoflegendsIcon.png
+categories: ["R","Shiny","DashBoard"]
+title-block-style: none
+description: Utilizando dados relacionados aos campeonatos mundiais de League of Legends (LOL) para criar Dashboards interativos no ambiente Shiny.
+execute:
+  eval: false
+code-block-bg: "#DDDDDD"
+highlight-style: github
+code-block-border-left: "#334061"
+code-line-numbers: true
+---
+
+## Explicação do projeto
+
+O objetivo é utilizar os dados coletados dos campeonatos mundiais de League of Legends (LOL) entre os anos de 2011 e 2022, disponibilizados no [Kaggle](https://www.kaggle.com/datasets/pedrocsar/league-of-legends-worlds-20112022-stats), como base para análise e desenvolvimento de dashboard.
+
+## Bibliotecas
+
+[Tidyverse](https://www.tidyverse.org/packages/), fornece ferramentas para manipulação, visualização e análise de dados de maneira consistente e eficiente.
+
+[Plotly](https://plotly.com/r/), para criação de gráficos interativos e visualizações de dados.
+
+[Shiny](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html), para a criação de aplicativos web interativos, permitindo a construção de interfaces dinâmicas e reativas para análise de dados.
+
+[ShinyDashboard](https://rstudio.github.io/shinydashboard/get_started.html), extensão do pacote Shiny que simplifica a criação de dashboards interativos.
+
+## Preparando os dados
+
+Nesta seção, estamos iniciando o processo de preparação dos dados para a análise.
+
+
+### Bases de dados
+
+Os dados fundamentais para esta análise estão organizados em três arquivos CSV:
+
+- champions_stats, que inclui estatísticas relacionadas aos personagens do jogo;
+
+- matchs_stats, que engloba estatísticas de partidas;
+
+- player_stats, que contém informações detalhadas sobre os jogadores. 
+
+```{r}
+Champions <- read.csv("champions_stats.csv")
+Matchs <- read.csv("matchs_stats.csv")
+Player <- read.csv("players_stats.csv")
+```
+*Este trecho de código realiza a leitura dos arquivos CSV e os salva nas variáveis "Champions", "Matchs" e "Player".*
+
+### Análise exploratória
+
+```{r}
+str(Champions)
+```
+*A função str() fornece uma visão geral da estrutura do dataframe "Champions". Ela exibe informações sobre as variáveis, seus tipos de dados e as primeiras observações dos dados.*
+
+```{r}
+table(Champions$season)
+```
+*Aqui, estou utilizando table() para contar a ocorrência de valores únicos na coluna "season" do dataframe "Champions". Isso é útil para entender a distribuição dos dados ao longo das temporadas.*
+
+```{r}
+table(Champions$event)
+
+```
+*Esta linha utiliza table() para contar as diferentes categorias na coluna "event" do dataframe "Champions". Isso fornece uma visão sobre os tipos de eventos, distinguindo entre jogos classificatórios ("Play in") e o torneio principal ("Main").*
+
+```{r}
+table(Champions$champion)
+```
+*Aqui, estou usando table() para contar as ocorrências de cada campeão na coluna "champion" do dataframe "Champions". Isso ajuda a verificar se existem diferentes formas de nomeação para os mesmos campeões.*
+
+```{r}
+str(Matchs)
+# patch são atualizações mensais que fazem no jogo.
+# os primeiros elementos da coluna patch, tem valores NA pois antigamente não faziam essas atualizações no jogo.
+```
+*Esta linha novamente utiliza str() para dar uma visão geral da estrutura do dataframe "Matchs", incluindo informações sobre variáveis e tipos de dados.*
+
+```{r}
+table(Matchs$blue_team)
+# é importante ter atenção no nome dos times pois alguns trocaram de nome, mas represantam a mesma coisa;
+# ex: SK_Telecom_T1 == T1, DWG_KIA == Dplus_KIA,  Gen_g == Gen_2e-G == KSV eSports e etc...
+```
+*Aqui, estou contando as ocorrências dos times presentes na coluna "blue_team" do dataframe "Matchs". A observação sobre os nomes dos times é relevante para garantir consistência nos dados.*
+```{r}
+str(Player)
+```
+*Mais uma vez, str() é utilizado para fornecer informações sobre a estrutura do dataframe "Player".*
+```{r}
+table(Player$player)
+```
+*Esta linha conta as ocorrências de cada jogador na coluna "player" do dataframe "Player". A observação sobre a consistência dos nomes dos jogadores é importante para evitar ambiguidades.*
+```{r}
+Player$teste <- ifelse(Player$wins + Player$loses == Player$games_played,0,1)
+```
+*Aqui, estou criando uma nova variável chamada "teste" que indica se a soma de vitórias e derrotas de um jogador é igual ao número total de jogos jogados. Essa linha serve como uma verificação de consistência nos dados.*
+
+### Tratando os dados
+
+## Criação do Dashboard

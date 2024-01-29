@@ -25,7 +25,7 @@
     "href": "Projetos.html",
     "title": "Projetos",
     "section": "",
-    "text": "Aqui estão alguns projetos nos quais já trabalhei e gostaria de destacar.\n\nPara acessá-los, basta clicar sobre cada um.\n\n\n\n\n\n  \n\n\n\n\nCepScraping\n\n\n\n\n\n\n\nPython\n\n\nWebScraping\n\n\n\n\nExtração de todos os ceps do Brasil utilizando python e o pacote BeautifulSoup4\n\n\n\n\n \n\n\n\n\nNenhum item correspondente"
+    "text": "Aqui estão alguns projetos nos quais já trabalhei e gostaria de destacar.\n\nPara acessá-los, basta clicar sobre cada um.\n\n\n\n\n\n  \n\n\n\n\nCepScraping\n\n\n\n\n\n\n\nPython\n\n\nWebScraping\n\n\n\n\nExtração de todos os ceps do Brasil utilizando python e o pacote BeautifulSoup4.\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\nWorlds Analisis\n\n\n\n\n\n\n\nR\n\n\nShiny\n\n\nDashBoard\n\n\n\n\nUtilizando dados relacionados aos campeonatos mundiais de League of Legends (LOL) para criar Dashboards interativos no ambiente Shiny.\n\n\n\n\n \n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "Projetos.html#projeto-1",
@@ -236,5 +236,54 @@
     "title": "Gabriel Moreira",
     "section": "",
     "text": "Aqui você encontrará informações sobre mim e alguns dos meus projetos."
+  },
+  {
+    "objectID": "projetos/LolDashIC/index.html",
+    "href": "projetos/LolDashIC/index.html",
+    "title": "Worlds Analisis",
+    "section": "",
+    "text": "O objetivo é utilizar os dados coletados dos campeonatos mundiais de League of Legends (LOL) entre os anos de 2011 e 2022, disponibilizados no Kaggle, como base para análise e desenvolvimento de dashboard."
+  },
+  {
+    "objectID": "projetos/LolDashIC/index.html#bibliotecas",
+    "href": "projetos/LolDashIC/index.html#bibliotecas",
+    "title": "Worlds Analisis",
+    "section": "Bibliotecas",
+    "text": "Bibliotecas\nTidyverse, fornece ferramentas para manipulação, visualização e análise de dados de maneira consistente e eficiente.\nPlotly, para criação de gráficos interativos e visualizações de dados.\nShiny, para a criação de aplicativos web interativos, permitindo a construção de interfaces dinâmicas e reativas para análise de dados.\nShinyDashboard, extensão do pacote Shiny que simplifica a criação de dashboards interativos."
+  },
+  {
+    "objectID": "projetos/LolDashIC/index.html#análise-exploratória",
+    "href": "projetos/LolDashIC/index.html#análise-exploratória",
+    "title": "Worlds Analisis",
+    "section": "Análise exploratória",
+    "text": "Análise exploratória"
+  },
+  {
+    "objectID": "projetos/LolDashIC/index.html#tratativas",
+    "href": "projetos/LolDashIC/index.html#tratativas",
+    "title": "Worlds Analisis",
+    "section": "Tratativas",
+    "text": "Tratativas"
+  },
+  {
+    "objectID": "projetos/LolDashIC/index.html#criação-do-dashboard",
+    "href": "projetos/LolDashIC/index.html#criação-do-dashboard",
+    "title": "Worlds Analisis",
+    "section": "Criação do Dashboard",
+    "text": "Criação do Dashboard"
+  },
+  {
+    "objectID": "projetos/LolDashIC/index.html#explicação-do-projeto",
+    "href": "projetos/LolDashIC/index.html#explicação-do-projeto",
+    "title": "Worlds Analisis",
+    "section": "",
+    "text": "O objetivo é utilizar os dados coletados dos campeonatos mundiais de League of Legends (LOL) entre os anos de 2011 e 2022, disponibilizados no Kaggle, como base para análise e desenvolvimento de dashboard."
+  },
+  {
+    "objectID": "projetos/LolDashIC/index.html#preparando-os-dados",
+    "href": "projetos/LolDashIC/index.html#preparando-os-dados",
+    "title": "Worlds Analisis",
+    "section": "Preparando os dados",
+    "text": "Preparando os dados\nNesta seção, estamos iniciando o processo de preparação dos dados para a análise.\n\nBases de dados\nOs dados fundamentais para esta análise estão organizados em três arquivos CSV:\n\nchampions_stats, que inclui estatísticas relacionadas aos personagens do jogo;\nmatchs_stats, que engloba estatísticas de partidas;\nplayer_stats, que contém informações detalhadas sobre os jogadores.\n\n\nChampions &lt;- read.csv(\"champions_stats.csv\")\nMatchs &lt;- read.csv(\"matchs_stats.csv\")\nPlayer &lt;- read.csv(\"players_stats.csv\")\n\nEste trecho de código realiza a leitura dos arquivos CSV e os salva nas variáveis “Champions”, “Matchs” e “Player”.\n\n\nAnálise exploratória\n\nstr(Champions)\n\nA função str() fornece uma visão geral da estrutura do dataframe “Champions”. Ela exibe informações sobre as variáveis, seus tipos de dados e as primeiras observações dos dados.\n\ntable(Champions$season)\n\nAqui, estou utilizando table() para contar a ocorrência de valores únicos na coluna “season” do dataframe “Champions”. Isso é útil para entender a distribuição dos dados ao longo das temporadas.\n\ntable(Champions$event)\n\nEsta linha utiliza table() para contar as diferentes categorias na coluna “event” do dataframe “Champions”. Isso fornece uma visão sobre os tipos de eventos, distinguindo entre jogos classificatórios (“Play in”) e o torneio principal (“Main”).\n\ntable(Champions$champion)\n\nAqui, estou usando table() para contar as ocorrências de cada campeão na coluna “champion” do dataframe “Champions”. Isso ajuda a verificar se existem diferentes formas de nomeação para os mesmos campeões.\n\nstr(Matchs)\n# patch são atualizações mensais que fazem no jogo.\n# os primeiros elementos da coluna patch, tem valores NA pois antigamente não faziam essas atualizações no jogo.\n\nEsta linha novamente utiliza str() para dar uma visão geral da estrutura do dataframe “Matchs”, incluindo informações sobre variáveis e tipos de dados.\n\ntable(Matchs$blue_team)\n# é importante ter atenção no nome dos times pois alguns trocaram de nome, mas represantam a mesma coisa;\n# ex: SK_Telecom_T1 == T1, DWG_KIA == Dplus_KIA,  Gen_g == Gen_2e-G == KSV eSports e etc...\n\nAqui, estou contando as ocorrências dos times presentes na coluna “blue_team” do dataframe “Matchs”. A observação sobre os nomes dos times é relevante para garantir consistência nos dados.\n\nstr(Player)\n\nMais uma vez, str() é utilizado para fornecer informações sobre a estrutura do dataframe “Player”.\n\ntable(Player$player)\n\nEsta linha conta as ocorrências de cada jogador na coluna “player” do dataframe “Player”. A observação sobre a consistência dos nomes dos jogadores é importante para evitar ambiguidades.\n\nPlayer$teste &lt;- ifelse(Player$wins + Player$loses == Player$games_played,0,1)\n\nAqui, estou criando uma nova variável chamada “teste” que indica se a soma de vitórias e derrotas de um jogador é igual ao número total de jogos jogados. Essa linha serve como uma verificação de consistência nos dados.\n\n\nTratando os dados"
   }
 ]

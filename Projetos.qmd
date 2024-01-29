@@ -15,7 +15,7 @@ code-block-border-left: "#334061"
 code-line-numbers: true
 ---
 
-<h4> Aqui estão alguns projetos nos quais já trabalhei e gostaria de destacar. </h4>
+<h4>Aqui estão alguns projetos nos quais já trabalhei e gostaria de destacar.</h4>
 
 *Para acessá-los, basta clicar sobre cada um.*
 

@@ -17,14 +17,12 @@ about:
       href: https://github.com/Peishino
 ---
 
-<h1> Olá, <br> seja bem vindo (a) ao meu portfólio. </h1>
+<h1>Olá, <br> seja bem vindo (a) ao meu portfólio.</h1>
 
+<h3>Meu nome é Gabriel Moreira!</h3>
 
-<h3> Meu nome é Gabriel Moreira! </h3>
 *Eu sou um estudante de estatística, me especializando em Data Science.*
 
 <br>
 
-
-
-<h4> Aqui você encontrará informações [sobre mim](About.qmd) e alguns dos meus [projetos](Projetos.qmd). </h4>
+<h4>Aqui você encontrará informações [sobre mim](About.qmd) e alguns dos meus [projetos](Projetos.qmd).</h4>
