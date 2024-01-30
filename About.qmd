@@ -2,6 +2,8 @@
 title: "Sobre mim"
 about:
   template: marquee
+  image: profile.png
+  image-shape: rounded
   links: 
     - text: email
       icon: envelope
@@ -34,13 +36,11 @@ Ao longo desta jornada, adquiri diversas habilidades, incluindo manipulação, p
 
 ## Experiência profissional
 
-
 **Supporte Full Commerce** *- Efetivo*
 
 *Cientista de dados jr \| Setembro/2023 - Atualmente*
 
 ------------------------------------------------------------------------
-
 
 **Supporte Full Commerce** *- Estágio*
 
