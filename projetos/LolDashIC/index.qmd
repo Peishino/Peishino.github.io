@@ -26,49 +26,65 @@ O objetivo é utilizar os dados coletados dos campeonatos mundiais de League of 
 
 [ShinyDashboard](https://rstudio.github.io/shinydashboard/get_started.html), extensão do pacote Shiny que simplifica a criação de dashboards interativos.
 
+Para instalar e carregar essas bibliotecas, utilize o código abaixo::
+
+```{r}
+install.packages(c("tidyverse","plotly","shiny","shinydashboard"))
+library(tidyverse)
+library(plotly)
+library(shiny)
+library(shinydashboard)
+```
+
 ## Preparando os dados
 
 Nesta seção, estamos iniciando o processo de preparação dos dados para a análise.
-
 
 ### Bases de dados
 
 Os dados fundamentais para esta análise estão organizados em três arquivos CSV:
 
-- champions_stats, que inclui estatísticas relacionadas aos personagens do jogo;
+-   champions_stats, que inclui estatísticas relacionadas aos personagens do jogo;
 
-- matchs_stats, que engloba estatísticas de partidas;
+-   matchs_stats, que engloba estatísticas de partidas;
 
-- player_stats, que contém informações detalhadas sobre os jogadores. 
+-   player_stats, que contém informações detalhadas sobre os jogadores.
 
 ```{r}
 Champions <- read.csv("champions_stats.csv")
 Matchs <- read.csv("matchs_stats.csv")
 Player <- read.csv("players_stats.csv")
 ```
+
 *Este trecho de código realiza a leitura dos arquivos CSV e os salva nas variáveis "Champions", "Matchs" e "Player".*
 
 ### Análise exploratória
 
+Nessa etapa, nossa abordagem inicial visa compreender a estrutura das bases de dados disponíveis. Investigamos os tipos de variáveis, diferenciando entre categóricas e numéricas, e examinamos a presença de dados faltantes.
+
 ```{r}
 str(Champions)
 ```
+
 *A função str() fornece uma visão geral da estrutura do dataframe "Champions". Ela exibe informações sobre as variáveis, seus tipos de dados e as primeiras observações dos dados.*
 
 ```{r}
 table(Champions$season)
 ```
+
 *Aqui, estou utilizando table() para contar a ocorrência de valores únicos na coluna "season" do dataframe "Champions". Isso é útil para entender a distribuição dos dados ao longo das temporadas.*
 
 ```{r}
 table(Champions$event)
 
 ```
+
 *Esta linha utiliza table() para contar as diferentes categorias na coluna "event" do dataframe "Champions". Isso fornece uma visão sobre os tipos de eventos, distinguindo entre jogos classificatórios ("Play in") e o torneio principal ("Main").*
 
 ```{r}
 table(Champions$champion)
 ```
+
 *Aqui, estou usando table() para contar as ocorrências de cada campeão na coluna "champion" do dataframe "Champions". Isso ajuda a verificar se existem diferentes formas de nomeação para os mesmos campeões.*
 
 ```{r}
@@ -76,6 +92,7 @@ str(Matchs)
 # patch são atualizações mensais que fazem no jogo.
 # os primeiros elementos da coluna patch, tem valores NA pois antigamente não faziam essas atualizações no jogo.
 ```
+
 *Esta linha novamente utiliza str() para dar uma visão geral da estrutura do dataframe "Matchs", incluindo informações sobre variáveis e tipos de dados.*
 
 ```{r}
@@ -83,20 +100,84 @@ table(Matchs$blue_team)
 # é importante ter atenção no nome dos times pois alguns trocaram de nome, mas represantam a mesma coisa;
 # ex: SK_Telecom_T1 == T1, DWG_KIA == Dplus_KIA,  Gen_g == Gen_2e-G == KSV eSports e etc...
 ```
+
 *Aqui, estou contando as ocorrências dos times presentes na coluna "blue_team" do dataframe "Matchs". A observação sobre os nomes dos times é relevante para garantir consistência nos dados.*
+
 ```{r}
 str(Player)
 ```
+
 *Mais uma vez, str() é utilizado para fornecer informações sobre a estrutura do dataframe "Player".*
+
 ```{r}
 table(Player$player)
 ```
+
 *Esta linha conta as ocorrências de cada jogador na coluna "player" do dataframe "Player". A observação sobre a consistência dos nomes dos jogadores é importante para evitar ambiguidades.*
+
 ```{r}
 Player$teste <- ifelse(Player$wins + Player$loses == Player$games_played,0,1)
 ```
+
 *Aqui, estou criando uma nova variável chamada "teste" que indica se a soma de vitórias e derrotas de um jogador é igual ao número total de jogos jogados. Essa linha serve como uma verificação de consistência nos dados.*
 
-### Tratando os dados
+### Tratamento dos dados
 
-## Criação do Dashboard
+Nesta etapa, focamos na correção de inconsistências, valores faltantes e outliers que possam prejudicar a qualidade das análises. O objetivo é preparar os dados de forma confiável e robusta, otimizando a qualidade para análises posteriores.
+
+```{r}
+Matchs %>%
+  mutate(
+    blue_team = in_case(blue_team, "SK_Telecom_T1" = "T1", "Gen_2e-G" = "Gen_g", "DWG_KIA" = "Dplus_KIA"),
+    red_team = in_case(red_team, "SK_Telecom_T1" = "T1", "Gen_2e-G" = "Gen_g", "DWG_KIA" = "Dplus_KIA"),
+    winner = in_case(winner, "SK_Telecom_T1" = "T1", "Gen_2e-G" = "Gen_g", "DWG_KIA" = "Dplus_KIA")
+  )
+
+Player %>%
+  mutate(
+    team = in_case(team, "SK_Telecom_T1" = "T1", "Gen_2e-G" = "Gen_g", "DWG_KIA" = "Dplus_KIA")
+  )
+```
+
+*Como discutido anteriormente, alguns times podem alterar seus nomes ao longo das temporadas. Para padronizar a nomenclatura desses times, implementamos essas substituições. O uso da função in_case oferece uma abordagem mais eficiente e legível, eliminando a necessidade de múltiplas instruções ifelse e simplificando o processo de substituição de forma prática.*
+
+```{r}
+Champions <- Champions %>%
+  mutate(
+    banned_games = if_else(is.na(banned_games), 0, banned_games),
+    played_games = if_else(is.na(played_games), 0, played_games),
+    played_by_number_of_players = if_else(is.na(played_by_number_of_players), 0, played_by_number_of_players)
+  )
+```
+
+*Nesse código, tratamos os valores ausentes, identificados anteriormente, atribuindo a eles o valor zero. Essa abordagem se mostrou adequada para a essa análise específica. Entretanto, é importante se manter a atento e examinar cuidadosamente a natureza da variável antes de aplicar tal tratamento. Algumas pessoas optam por simplesmente remover os valores ausentes, mas é importante reconhecer que essa abordagem pode resultar na perda de informações valiosas para a análise em questão.*
+
+```{r}
+ChampsRotas <- data.frame(Champs = unique(Champions$champion))
+ChampsRotas$Rota <- c("jg","sup","top","mid","mid","mid","jg","adc","sup","adc","jg","sup","jg","mid","jg","mid","sup","mid","jg","mid","adc","sup","jg","jg","top","sup","mid","top","top","adc","top","adc","top","top","jg","top","top","top","sup","top","top","mid","mid","top","jg","top","adc","top","top","mid","top","jg","adc","jg","top","top","jg","sup","top","sup","jg","top","mid","jg","sup","sup","mid","mid","mid","adc","jg","top","mid","adc","top","adc","mid","jg","sup","top","mid","top","jg","jg","adc","top", "mid","jg","top","sup","mid","top","top","mid","top","jg","sup","mid","jg","adc","jg","mid","sup","adc","mid","mid","top","top","jg","adc","mid","sup","top","top","mid","mid","mid","sup","sup","adc","mid","jg","top","jg","sup","adc","mid","top","jg","jg","adc","top","mid","mid","sup","mid","mid","sup","mid","top","mid","jg","top","sup","jg","adc","top","mid","sup","top","sup","jg","mid","jg","sup","adc","adc")
+Champions$lane <- ifelse(Champions$champion %in% ChampsRotas$Champs, ChampsRotas$Rota[match(Champions$champion, ChampsRotas$Champs)], NA)
+```
+
+*Senti falta de uma coluna com as rotas dos personagens, então resolvi criá-la por conta própria. Levei em consideração que um mesmo personagem pode atuar em diferentes rotas, e optei por considerar as rotas "principais" de cada personagem.*
+
+### Salvar bases tratadas
+
+```{r}
+save(Matchs, file = "Matchs.RData")
+save(Player, file = "Player.RData")
+save(Champions, file = "Champions.RData")
+```
+
+*Salvando as 3 bases em arquivos .RData, para trabalharmos com elas no dashboard.*
+
+## Introdução ao Shiny
+
+Como mencionado anteriormente, o Shiny é uma ferramenta poderosa que utilizaremos para desenvolver nossas aplicações interativas em R. Para começar, você pode explorar as instruções iniciais fornecidas no site [Curso-R](https://programando-em-shiny.curso-r.com/primeiro-app.html) para criar sua primeira aplicação Shiny.
+
+
+
+
+
+
+
+

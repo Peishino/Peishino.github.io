@@ -150,9 +150,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#bases-de-dados" id="toc-bases-de-dados" class="nav-link" data-scroll-target="#bases-de-dados">Bases de dados</a></li>
   <li><a href="#análise-exploratória" id="toc-análise-exploratória" class="nav-link" data-scroll-target="#análise-exploratória">Análise exploratória</a></li>
-  <li><a href="#tratando-os-dados" id="toc-tratando-os-dados" class="nav-link" data-scroll-target="#tratando-os-dados">Tratando os dados</a></li>
+  <li><a href="#tratamento-dos-dados" id="toc-tratamento-dos-dados" class="nav-link" data-scroll-target="#tratamento-dos-dados">Tratamento dos dados</a></li>
+  <li><a href="#salvar-bases-tratadas" id="toc-salvar-bases-tratadas" class="nav-link" data-scroll-target="#salvar-bases-tratadas">Salvar bases tratadas</a></li>
   </ul></li>
-  <li><a href="#criação-do-dashboard" id="toc-criação-do-dashboard" class="nav-link" data-scroll-target="#criação-do-dashboard">Criação do Dashboard</a></li>
+  <li><a href="#introdução-ao-shiny" id="toc-introdução-ao-shiny" class="nav-link" data-scroll-target="#introdução-ao-shiny">Introdução ao Shiny</a></li>
   </ul>
 </nav>
     </div>
@@ -174,6 +175,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a href="https://plotly.com/r/">Plotly</a>, para criação de gráficos interativos e visualizações de dados.</p>
 <p><a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html">Shiny</a>, para a criação de aplicativos web interativos, permitindo a construção de interfaces dinâmicas e reativas para análise de dados.</p>
 <p><a href="https://rstudio.github.io/shinydashboard/get_started.html">ShinyDashboard</a>, extensão do pacote Shiny que simplifica a criação de dashboards interativos.</p>
+<p>Para instalar e carregar essas bibliotecas, utilize o código abaixo::</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>,<span class="st">"plotly"</span>,<span class="st">"shiny"</span>,<span class="st">"shinydashboard"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(shinydashboard)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="preparando-os-dados" class="level2">
 <h2 class="anchored" data-anchor-id="preparando-os-dados">Preparando os dados</h2>
@@ -187,61 +196,102 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>player_stats, que contém informações detalhadas sobre os jogadores.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>Champions <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"champions_stats.csv"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>Matchs <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"matchs_stats.csv"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a>Player <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"players_stats.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>Champions <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"champions_stats.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>Matchs <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"matchs_stats.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>Player <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"players_stats.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Este trecho de código realiza a leitura dos arquivos CSV e os salva nas variáveis “Champions”, “Matchs” e “Player”.</em></p>
 </section>
 <section id="análise-exploratória" class="level3">
 <h3 class="anchored" data-anchor-id="análise-exploratória">Análise exploratória</h3>
+<p>Nessa etapa, nossa abordagem inicial visa compreender a estrutura das bases de dados disponíveis. Investigamos os tipos de variáveis, diferenciando entre categóricas e numéricas, e examinamos a presença de dados faltantes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">str</span>(Champions)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">str</span>(Champions)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>A função str() fornece uma visão geral da estrutura do dataframe “Champions”. Ela exibe informações sobre as variáveis, seus tipos de dados e as primeiras observações dos dados.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">table</span>(Champions<span class="sc">$</span>season)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">table</span>(Champions<span class="sc">$</span>season)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Aqui, estou utilizando table() para contar a ocorrência de valores únicos na coluna “season” do dataframe “Champions”. Isso é útil para entender a distribuição dos dados ao longo das temporadas.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">table</span>(Champions<span class="sc">$</span>event)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">table</span>(Champions<span class="sc">$</span>event)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Esta linha utiliza table() para contar as diferentes categorias na coluna “event” do dataframe “Champions”. Isso fornece uma visão sobre os tipos de eventos, distinguindo entre jogos classificatórios (“Play in”) e o torneio principal (“Main”).</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">table</span>(Champions<span class="sc">$</span>champion)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">table</span>(Champions<span class="sc">$</span>champion)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Aqui, estou usando table() para contar as ocorrências de cada campeão na coluna “champion” do dataframe “Champions”. Isso ajuda a verificar se existem diferentes formas de nomeação para os mesmos campeões.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">str</span>(Matchs)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># patch são atualizações mensais que fazem no jogo.</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co"># os primeiros elementos da coluna patch, tem valores NA pois antigamente não faziam essas atualizações no jogo.</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">str</span>(Matchs)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co"># patch são atualizações mensais que fazem no jogo.</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># os primeiros elementos da coluna patch, tem valores NA pois antigamente não faziam essas atualizações no jogo.</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Esta linha novamente utiliza str() para dar uma visão geral da estrutura do dataframe “Matchs”, incluindo informações sobre variáveis e tipos de dados.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">table</span>(Matchs<span class="sc">$</span>blue_team)</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="co"># é importante ter atenção no nome dos times pois alguns trocaram de nome, mas represantam a mesma coisa;</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># ex: SK_Telecom_T1 == T1, DWG_KIA == Dplus_KIA,  Gen_g == Gen_2e-G == KSV eSports e etc...</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">table</span>(Matchs<span class="sc">$</span>blue_team)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co"># é importante ter atenção no nome dos times pois alguns trocaram de nome, mas represantam a mesma coisa;</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co"># ex: SK_Telecom_T1 == T1, DWG_KIA == Dplus_KIA,  Gen_g == Gen_2e-G == KSV eSports e etc...</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Aqui, estou contando as ocorrências dos times presentes na coluna “blue_team” do dataframe “Matchs”. A observação sobre os nomes dos times é relevante para garantir consistência nos dados.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">str</span>(Player)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">str</span>(Player)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Mais uma vez, str() é utilizado para fornecer informações sobre a estrutura do dataframe “Player”.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">table</span>(Player<span class="sc">$</span>player)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">table</span>(Player<span class="sc">$</span>player)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Esta linha conta as ocorrências de cada jogador na coluna “player” do dataframe “Player”. A observação sobre a consistência dos nomes dos jogadores é importante para evitar ambiguidades.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>Player<span class="sc">$</span>teste <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Player<span class="sc">$</span>wins <span class="sc">+</span> Player<span class="sc">$</span>loses <span class="sc">==</span> Player<span class="sc">$</span>games_played,<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>Player<span class="sc">$</span>teste <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Player<span class="sc">$</span>wins <span class="sc">+</span> Player<span class="sc">$</span>loses <span class="sc">==</span> Player<span class="sc">$</span>games_played,<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Aqui, estou criando uma nova variável chamada “teste” que indica se a soma de vitórias e derrotas de um jogador é igual ao número total de jogos jogados. Essa linha serve como uma verificação de consistência nos dados.</em></p>
 </section>
-<section id="tratando-os-dados" class="level3">
-<h3 class="anchored" data-anchor-id="tratando-os-dados">Tratando os dados</h3>
+<section id="tratamento-dos-dados" class="level3">
+<h3 class="anchored" data-anchor-id="tratamento-dos-dados">Tratamento dos dados</h3>
+<p>Nesta etapa, focamos na correção de inconsistências, valores faltantes e outliers que possam prejudicar a qualidade das análises. O objetivo é preparar os dados de forma confiável e robusta, otimizando a qualidade para análises posteriores.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>Matchs <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-3"><a href="#cb12-3"></a>    <span class="at">blue_team =</span> <span class="fu">in_case</span>(blue_team, <span class="st">"SK_Telecom_T1"</span> <span class="ot">=</span> <span class="st">"T1"</span>, <span class="st">"Gen_2e-G"</span> <span class="ot">=</span> <span class="st">"Gen_g"</span>, <span class="st">"DWG_KIA"</span> <span class="ot">=</span> <span class="st">"Dplus_KIA"</span>),</span>
+<span id="cb12-4"><a href="#cb12-4"></a>    <span class="at">red_team =</span> <span class="fu">in_case</span>(red_team, <span class="st">"SK_Telecom_T1"</span> <span class="ot">=</span> <span class="st">"T1"</span>, <span class="st">"Gen_2e-G"</span> <span class="ot">=</span> <span class="st">"Gen_g"</span>, <span class="st">"DWG_KIA"</span> <span class="ot">=</span> <span class="st">"Dplus_KIA"</span>),</span>
+<span id="cb12-5"><a href="#cb12-5"></a>    <span class="at">winner =</span> <span class="fu">in_case</span>(winner, <span class="st">"SK_Telecom_T1"</span> <span class="ot">=</span> <span class="st">"T1"</span>, <span class="st">"Gen_2e-G"</span> <span class="ot">=</span> <span class="st">"Gen_g"</span>, <span class="st">"DWG_KIA"</span> <span class="ot">=</span> <span class="st">"Dplus_KIA"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6"></a>  )</span>
+<span id="cb12-7"><a href="#cb12-7"></a></span>
+<span id="cb12-8"><a href="#cb12-8"></a>Player <span class="sc">%&gt;%</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-10"><a href="#cb12-10"></a>    <span class="at">team =</span> <span class="fu">in_case</span>(team, <span class="st">"SK_Telecom_T1"</span> <span class="ot">=</span> <span class="st">"T1"</span>, <span class="st">"Gen_2e-G"</span> <span class="ot">=</span> <span class="st">"Gen_g"</span>, <span class="st">"DWG_KIA"</span> <span class="ot">=</span> <span class="st">"Dplus_KIA"</span>)</span>
+<span id="cb12-11"><a href="#cb12-11"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>Como discutido anteriormente, alguns times podem alterar seus nomes ao longo das temporadas. Para padronizar a nomenclatura desses times, implementamos essas substituições. O uso da função in_case oferece uma abordagem mais eficiente e legível, eliminando a necessidade de múltiplas instruções ifelse e simplificando o processo de substituição de forma prática.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>Champions <span class="ot">&lt;-</span> Champions <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-3"><a href="#cb13-3"></a>    <span class="at">banned_games =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(banned_games), <span class="dv">0</span>, banned_games),</span>
+<span id="cb13-4"><a href="#cb13-4"></a>    <span class="at">played_games =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(played_games), <span class="dv">0</span>, played_games),</span>
+<span id="cb13-5"><a href="#cb13-5"></a>    <span class="at">played_by_number_of_players =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(played_by_number_of_players), <span class="dv">0</span>, played_by_number_of_players)</span>
+<span id="cb13-6"><a href="#cb13-6"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>Nesse código, tratamos os valores ausentes, identificados anteriormente, atribuindo a eles o valor zero. Essa abordagem se mostrou adequada para a essa análise específica. Entretanto, é importante se manter a atento e examinar cuidadosamente a natureza da variável antes de aplicar tal tratamento. Algumas pessoas optam por simplesmente remover os valores ausentes, mas é importante reconhecer que essa abordagem pode resultar na perda de informações valiosas para a análise em questão.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>ChampsRotas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Champs =</span> <span class="fu">unique</span>(Champions<span class="sc">$</span>champion))</span>
+<span id="cb14-2"><a href="#cb14-2"></a>ChampsRotas<span class="sc">$</span>Rota <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"adc"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>, <span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"adc"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3"></a>Champions<span class="sc">$</span>lane <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Champions<span class="sc">$</span>champion <span class="sc">%in%</span> ChampsRotas<span class="sc">$</span>Champs, ChampsRotas<span class="sc">$</span>Rota[<span class="fu">match</span>(Champions<span class="sc">$</span>champion, ChampsRotas<span class="sc">$</span>Champs)], <span class="cn">NA</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>Senti falta de uma coluna com as rotas dos personagens, então resolvi criá-la por conta própria. Levei em consideração que um mesmo personagem pode atuar em diferentes rotas, e optei por considerar as rotas “principais” de cada personagem.</em></p>
+</section>
+<section id="salvar-bases-tratadas" class="level3">
+<h3 class="anchored" data-anchor-id="salvar-bases-tratadas">Salvar bases tratadas</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">save</span>(Matchs, <span class="at">file =</span> <span class="st">"Matchs.RData"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">save</span>(Player, <span class="at">file =</span> <span class="st">"Player.RData"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="fu">save</span>(Champions, <span class="at">file =</span> <span class="st">"Champions.RData"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>Salvando as 3 bases em arquivos .RData, para trabalharmos com elas no dashboard.</em></p>
 </section>
 </section>
-<section id="criação-do-dashboard" class="level2">
-<h2 class="anchored" data-anchor-id="criação-do-dashboard">Criação do Dashboard</h2>
+<section id="introdução-ao-shiny" class="level2">
+<h2 class="anchored" data-anchor-id="introdução-ao-shiny">Introdução ao Shiny</h2>
+<p>Como mencionado anteriormente, o Shiny é uma ferramenta poderosa que utilizaremos para desenvolver nossas aplicações interativas em R. Para começar, você pode explorar as instruções iniciais fornecidas no site <a href="https://programando-em-shiny.curso-r.com/primeiro-app.html">Curso-R</a> para criar sua primeira aplicação Shiny.</p>
 
 
 </section>
