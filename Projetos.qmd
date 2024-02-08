@@ -12,7 +12,6 @@ execute:
 code-block-bg: "#DDDDDD"
 highlight-style: github
 code-block-border-left: "#334061"
-code-line-numbers: true
 ---
 
 <h4>Aqui estão alguns projetos nos quais já trabalhei e gostaria de destacar.</h4>

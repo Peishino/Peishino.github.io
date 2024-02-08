@@ -16,13 +16,13 @@ website:
   favicon: iconfav.jpg
 format:
   html:
+    css: styles.css
     code-overflow: scroll
     lang: pt
     theme: 
       light: lux
     linkcolor: red
-    css: styles.css
     toc: true
-
 editor: visual
+
 

@@ -5,11 +5,11 @@ categories: ["R","Shiny","DashBoard"]
 title-block-style: none
 description: Utilizando dados relacionados aos campeonatos mundiais de League of Legends (LOL) para criar Dashboards interativos no ambiente Shiny.
 execute:
-  eval: false
+  freeze: true
+  results: markup
 code-block-bg: "#DDDDDD"
 highlight-style: github
 code-block-border-left: "#334061"
-code-line-numbers: true
 ---
 
 ## Explicação do projeto
@@ -29,7 +29,12 @@ O objetivo é utilizar os dados coletados dos campeonatos mundiais de League of 
 Para instalar e carregar essas bibliotecas, utilize o código abaixo::
 
 ```{r}
+#| eval: false
 install.packages(c("tidyverse","plotly","shiny","shinydashboard"))
+```
+
+```{r}
+#| output: false
 library(tidyverse)
 library(plotly)
 library(shiny)
@@ -62,32 +67,37 @@ Player <- read.csv("players_stats.csv")
 
 Nessa etapa, nossa abordagem inicial visa compreender a estrutura das bases de dados disponíveis. Investigamos os tipos de variáveis, diferenciando entre categóricas e numéricas, e examinamos a presença de dados faltantes.
 
+
 ```{r}
+#| class-output: custom-code-output
 str(Champions)
 ```
 
 *A função str() fornece uma visão geral da estrutura do dataframe "Champions". Ela exibe informações sobre as variáveis, seus tipos de dados e as primeiras observações dos dados.*
 
 ```{r}
+#| class-output: custom-code-output
 table(Champions$season)
 ```
 
 *Aqui, estou utilizando table() para contar a ocorrência de valores únicos na coluna "season" do dataframe "Champions". Isso é útil para entender a distribuição dos dados ao longo das temporadas.*
 
 ```{r}
+#| class-output: custom-code-output
 table(Champions$event)
-
 ```
 
 *Esta linha utiliza table() para contar as diferentes categorias na coluna "event" do dataframe "Champions". Isso fornece uma visão sobre os tipos de eventos, distinguindo entre jogos classificatórios ("Play in") e o torneio principal ("Main").*
 
 ```{r}
+#| class-output: custom-code-output
 table(Champions$champion)
 ```
 
 *Aqui, estou usando table() para contar as ocorrências de cada campeão na coluna "champion" do dataframe "Champions". Isso ajuda a verificar se existem diferentes formas de nomeação para os mesmos campeões.*
 
 ```{r}
+#| class-output: custom-code-output
 str(Matchs)
 # patch são atualizações mensais que fazem no jogo.
 # os primeiros elementos da coluna patch, tem valores NA pois antigamente não faziam essas atualizações no jogo.
@@ -96,6 +106,7 @@ str(Matchs)
 *Esta linha novamente utiliza str() para dar uma visão geral da estrutura do dataframe "Matchs", incluindo informações sobre variáveis e tipos de dados.*
 
 ```{r}
+#| class-output: custom-code-output
 table(Matchs$blue_team)
 # é importante ter atenção no nome dos times pois alguns trocaram de nome, mas represantam a mesma coisa;
 # ex: SK_Telecom_T1 == T1, DWG_KIA == Dplus_KIA,  Gen_g == Gen_2e-G == KSV eSports e etc...
@@ -104,18 +115,21 @@ table(Matchs$blue_team)
 *Aqui, estou contando as ocorrências dos times presentes na coluna "blue_team" do dataframe "Matchs". A observação sobre os nomes dos times é relevante para garantir consistência nos dados.*
 
 ```{r}
+#| class-output: custom-code-output
 str(Player)
 ```
 
 *Mais uma vez, str() é utilizado para fornecer informações sobre a estrutura do dataframe "Player".*
 
 ```{r}
+#| class-output: custom-code-output
 table(Player$player)
 ```
 
 *Esta linha conta as ocorrências de cada jogador na coluna "player" do dataframe "Player". A observação sobre a consistência dos nomes dos jogadores é importante para evitar ambiguidades.*
 
 ```{r}
+#| class-output: custom-code-output
 Player$teste <- ifelse(Player$wins + Player$loses == Player$games_played,0,1)
 ```
 
@@ -126,27 +140,61 @@ Player$teste <- ifelse(Player$wins + Player$loses == Player$games_played,0,1)
 Nesta etapa, focamos na correção de inconsistências, valores faltantes e outliers que possam prejudicar a qualidade das análises. O objetivo é preparar os dados de forma confiável e robusta, otimizando a qualidade para análises posteriores.
 
 ```{r}
-Matchs %>%
+Matchs <- Matchs %>%
   mutate(
-    blue_team = in_case(blue_team, "SK_Telecom_T1" = "T1", "Gen_2e-G" = "Gen_g", "DWG_KIA" = "Dplus_KIA"),
-    red_team = in_case(red_team, "SK_Telecom_T1" = "T1", "Gen_2e-G" = "Gen_g", "DWG_KIA" = "Dplus_KIA"),
-    winner = in_case(winner, "SK_Telecom_T1" = "T1", "Gen_2e-G" = "Gen_g", "DWG_KIA" = "Dplus_KIA")
+    blue_team = case_when(
+      blue_team == "SK_Telecom_T1" ~ "T1",
+      blue_team == "Gen_2e-G" ~ "Gen_g",
+      blue_team == "DWG_KIA" ~ "Dplus_KIA",
+      TRUE ~ blue_team
+    ),
+    red_team = case_when(
+      red_team == "SK_Telecom_T1" ~ "T1",
+      red_team == "Gen_2e-G" ~ "Gen_g",
+      red_team == "DWG_KIA" ~ "Dplus_KIA",
+      TRUE ~ red_team
+    ),
+    winner = case_when(
+      winner == "SK_Telecom_T1" ~ "T1",
+      winner == "Gen_2e-G" ~ "Gen_g",
+      winner == "DWG_KIA" ~ "Dplus_KIA",
+      TRUE ~ winner
+    )
   )
 
-Player %>%
+Player <- Player %>%
   mutate(
-    team = in_case(team, "SK_Telecom_T1" = "T1", "Gen_2e-G" = "Gen_g", "DWG_KIA" = "Dplus_KIA")
+    team = case_when(
+      team == "SK_Telecom_T1" ~ "T1",
+      team == "Gen_2e-G" ~ "Gen_g",
+      team == "DWG_KIA" ~ "Dplus_KIA",
+      TRUE ~ team
+    )
   )
+
 ```
 
-*Como discutido anteriormente, alguns times podem alterar seus nomes ao longo das temporadas. Para padronizar a nomenclatura desses times, implementamos essas substituições. O uso da função in_case oferece uma abordagem mais eficiente e legível, eliminando a necessidade de múltiplas instruções ifelse e simplificando o processo de substituição de forma prática.*
+*Como discutido anteriormente, alguns times podem alterar seus nomes ao longo das temporadas. Para padronizar a nomenclatura desses times, implementamos essas substituições. O uso da função case_when oferece uma abordagem mais eficiente e legível, eliminando a necessidade de múltiplas instruções ifelse e simplificando o processo de substituição de forma prática.*
 
 ```{r}
 Champions <- Champions %>%
   mutate(
     banned_games = if_else(is.na(banned_games), 0, banned_games),
     played_games = if_else(is.na(played_games), 0, played_games),
-    played_by_number_of_players = if_else(is.na(played_by_number_of_players), 0, played_by_number_of_players)
+    played_by_number_of_players = if_else(is.na(played_by_number_of_players), 0, played_by_number_of_players),
+    damage = if_else(is.na(damage), 0, damage),
+    damage.min = if_else(is.na(damage.min), 0, damage.min),
+    kill_participation = if_else(is.na(kill_participation), 0, kill_participation),
+    kill_share = if_else(is.na(kill_share), 0, kill_share),
+    gold_share = if_else(is.na(gold_share), 0, gold_share)
+  )
+Player <- Player %>%
+  mutate(
+    damage = if_else(is.na(damage), 0, damage),
+    damage.min = if_else(is.na(damage.min), 0, damage.min),
+    kill_participation = if_else(is.na(kill_participation), 0, kill_participation),
+    kill_share = if_else(is.na(kill_share), 0, kill_share),
+    gold_share = if_else(is.na(gold_share), 0, gold_share)
   )
 ```
 
@@ -159,6 +207,13 @@ Champions$lane <- ifelse(Champions$champion %in% ChampsRotas$Champs, ChampsRotas
 ```
 
 *Senti falta de uma coluna com as rotas dos personagens, então resolvi criá-la por conta própria. Levei em consideração que um mesmo personagem pode atuar em diferentes rotas, e optei por considerar as rotas "principais" de cada personagem.*
+
+```{r}
+#| class-output: custom-code-output
+head(Matchs)
+head(Player)
+head(Champions)
+```
 
 ### Salvar bases tratadas
 
