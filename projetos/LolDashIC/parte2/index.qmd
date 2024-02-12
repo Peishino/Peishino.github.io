@@ -1,11 +1,12 @@
-
-## Shiny Dashboard
+---
+title: Shiny Dashboard
+---
 
 O Shiny é um framework em R que simplifica o desenvolvimento de aplicativos web, dispensando a necessidade de conhecimentos em HTML, CSS e JavaScript.
 
-### Estrutura
+Ele possui uma arquitetura composta por duas partes principais: a interface do usuário (UI) e a lógica do servidor (server).
 
-O Shiny, possui uma arquitetura composta por duas partes principais: a interface do usuário (UI) e a lógica do servidor (server).
+E é em cima disso que iremos trabalhar.
 
 Primeiramente vamos carregar as bases que salvamos:
 

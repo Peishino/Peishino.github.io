@@ -1,4 +1,7 @@
-## Pré-processamento dos dados
+---
+title: Pré-processamento dos dados
+---
+
 
 Nesta etapa, vamos manipular os dados usando algumas funcionalidades do R e seus pacotes.
 
