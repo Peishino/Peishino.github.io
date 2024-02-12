@@ -2,8 +2,14 @@ project:
   type: website
   output-dir: docs
 
+code-block-bg: "#DDDDDD"
+highlight-style: github
+code-block-border-left: "#334061"
+sidebar: false
+
 website:
-  title: "Gabriel Moreira  <br> <small> *DataScientist * </small>"
+  title: "Gabriel Moreira  <br> <small> *DataScientist* </small>"
+  page-navigation: true
   navbar:
     left:
       - href: index.qmd
@@ -12,8 +18,21 @@ website:
         text: Sobre
       - href: Projetos.qmd
         text: Projetos
-        
-  favicon: iconfav.jpg
+  favicon: iconfav.png
+  
+  sidebar:
+    - id: loldash
+      contents:
+        - projetos/LolDashIC/index.qmd
+        - section: Prática
+          contents:
+            - href: projetos/LolDashIC/parte1/index.qmd
+              text: Pré-processamento dos dados
+            - href: projetos/LolDashIC/parte2/index.qmd
+              text: Shiny Dashboard (UI)
+            - href: projetos/LolDashIC/parte3/index.qmd
+              text: Shiny Dashboard (Server)
+
 format:
   html:
     css: styles.css

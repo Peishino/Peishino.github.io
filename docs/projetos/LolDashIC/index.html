@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="description" content="Utilizando dados relacionados aos campeonatos mundiais de League of Legends (LOL) para criar Dashboards interativos no ambiente Shiny.">
 
-<title>Gabriel Moreira   DataScientist   - Worlds Analisis</title>
+<title>Gabriel Moreira   DataScientist  - Worlds Analisis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,6 +31,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../projetos/LolDashIC/parte1/index.html" rel="next">
 <link href="../../iconfav.jpg" rel="icon" type="image/jpeg">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -91,7 +58,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "mais correspondências neste documento",
     "search-clear-button-title": "Limpar",
     "search-detached-cancel-button-title": "Cancelar",
-    "search-submit-button-title": "Enviar"
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
   }
 }</script>
 
@@ -99,7 +67,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -107,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Gabriel Moreira <br> <small> <em>DataScientist </em> </small></span>
+    <span class="navbar-title">Gabriel Moreira <br> <small> <em>DataScientist</em> </small></span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Procurar"></div>
@@ -134,28 +102,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../projetos/LolDashIC/index.html">Worlds Analisis</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projetos/LolDashIC/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Worlds Analisis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Prática</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projetos/LolDashIC/parte1/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pré-processamento dos dados</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projetos/LolDashIC/parte2/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Shiny Dashboard (UI)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projetos/LolDashIC/parte3/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Shiny Dashboard (Server)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Nesta página</h2>
-   
-  <ul>
-  <li><a href="#explicação-do-projeto" id="toc-explicação-do-projeto" class="nav-link active" data-scroll-target="#explicação-do-projeto">Explicação do projeto</a></li>
-  <li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link" data-scroll-target="#bibliotecas">Bibliotecas</a></li>
-  <li><a href="#preparando-os-dados" id="toc-preparando-os-dados" class="nav-link" data-scroll-target="#preparando-os-dados">Preparando os dados</a>
-  <ul class="collapse">
-  <li><a href="#bases-de-dados" id="toc-bases-de-dados" class="nav-link" data-scroll-target="#bases-de-dados">Bases de dados</a></li>
-  <li><a href="#análise-exploratória" id="toc-análise-exploratória" class="nav-link" data-scroll-target="#análise-exploratória">Análise exploratória</a></li>
-  <li><a href="#tratamento-dos-dados" id="toc-tratamento-dos-dados" class="nav-link" data-scroll-target="#tratamento-dos-dados">Tratamento dos dados</a></li>
-  <li><a href="#salvar-bases-tratadas" id="toc-salvar-bases-tratadas" class="nav-link" data-scroll-target="#salvar-bases-tratadas">Salvar bases tratadas</a></li>
-  </ul></li>
-  <li><a href="#introdução-ao-shiny" id="toc-introdução-ao-shiny" class="nav-link" data-scroll-target="#introdução-ao-shiny">Introdução ao Shiny</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -165,947 +170,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="explicação-do-projeto" class="level2">
-<h2 class="anchored" data-anchor-id="explicação-do-projeto">Explicação do projeto</h2>
-<p>O objetivo é utilizar os dados coletados dos campeonatos mundiais de League of Legends (LOL) entre os anos de 2011 e 2022, disponibilizados no <a href="https://www.kaggle.com/datasets/pedrocsar/league-of-legends-worlds-20112022-stats">Kaggle</a>, como base para análise e desenvolvimento de dashboard.</p>
-</section>
-<section id="bibliotecas" class="level2">
-<h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
-<p><a href="https://www.tidyverse.org/packages/">Tidyverse</a>, fornece ferramentas para manipulação, visualização e análise de dados de maneira consistente e eficiente.</p>
-<p><a href="https://plotly.com/r/">Plotly</a>, para criação de gráficos interativos e visualizações de dados.</p>
-<p><a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html">Shiny</a>, para a criação de aplicativos web interativos, permitindo a construção de interfaces dinâmicas e reativas para análise de dados.</p>
-<p><a href="https://rstudio.github.io/shinydashboard/get_started.html">ShinyDashboard</a>, extensão do pacote Shiny que simplifica a criação de dashboards interativos.</p>
-<p>Para instalar e carregar essas bibliotecas, utilize o código abaixo::</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>,<span class="st">"plotly"</span>,<span class="st">"shiny"</span>,<span class="st">"shinydashboard"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinydashboard)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="preparando-os-dados" class="level2">
-<h2 class="anchored" data-anchor-id="preparando-os-dados">Preparando os dados</h2>
-<p>Nesta seção, estamos iniciando o processo de preparação dos dados para a análise.</p>
-<section id="bases-de-dados" class="level3">
-<h3 class="anchored" data-anchor-id="bases-de-dados">Bases de dados</h3>
-<p>Os dados fundamentais para esta análise estão organizados em três arquivos CSV:</p>
+<p>O objetivo deste projeto é criar um dashboard interativo e informativo dedicado aos campeonatos mundiais de League of Legends. A ferramenta será desenvolvida utilizando a linguagem de programação <a href="https://www.r-project.org/other-docs.html">R</a> para manipulação de dados e o framework <a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html">Shiny</a> para construção do dashboard interativo.</p>
+<p>Os dados referentes aos mundiais de 2011 a 2022 foram obtidos no <a href="https://www.kaggle.com/datasets/pedrocsar/league-of-legends-worlds-20112022-stats">Kaggle</a>.</p>
+<p>O conjunto de dados consiste em três arquivos CSV, cada um fornecendo informações específicas:</p>
 <ul>
-<li><p>champions_stats, que inclui estatísticas relacionadas aos personagens do jogo;</p></li>
-<li><p>matchs_stats, que engloba estatísticas de partidas;</p></li>
-<li><p>player_stats, que contém informações detalhadas sobre os jogadores.</p></li>
+<li><p>Um arquivo que detalha o desempenho dos jogadores em cada partida, incluindo estatísticas individuais.</p></li>
+<li><p>Um arquivo que apresenta os personagens utilizados durante os campeonatos, acompanhado de suas estatísticas relevantes.</p></li>
+<li><p>Um arquivo que fornece informações sobre cada partida, incluindo detalhes dos jogadores e os vencedores de cada confronto.</p></li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Champions <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"champions_stats.csv"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Matchs <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"matchs_stats.csv"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Player <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"players_stats.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><em>Este trecho de código realiza a leitura dos arquivos CSV e os salva nas variáveis “Champions”, “Matchs” e “Player”.</em></p>
-</section>
-<section id="análise-exploratória" class="level3">
-<h3 class="anchored" data-anchor-id="análise-exploratória">Análise exploratória</h3>
-<p>Nessa etapa, nossa abordagem inicial visa compreender a estrutura das bases de dados disponíveis. Investigamos os tipos de variáveis, diferenciando entre categóricas e numéricas, e examinamos a presença de dados faltantes.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Champions)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="custom-code-output"><code>'data.frame':   1345 obs. of  24 variables:
- $ season                     : int  1 1 1 1 1 1 1 1 1 1 ...
- $ event                      : chr  "Main" "Main" "Main" "Main" ...
- $ champion                   : chr  "Nunu" "Alistar" "Rumble" "Vladimir" ...
- $ games_contests             : int  27 25 23 22 22 20 20 20 19 19 ...
- $ pick_ban_ratio             : num  96.4 89.3 82.1 78.6 78.6 71.4 71.4 71.4 67.9 67.9 ...
- $ banned_games               : num  9 12 21 14 18 5 7 12 1 2 ...
- $ played_games               : int  18 13 2 8 4 15 13 8 18 17 ...
- $ played_by_number_of_players: num  6 4 2 5 2 8 5 5 6 8 ...
- $ win                        : int  12 8 2 3 2 8 8 4 10 13 ...
- $ lose                       : int  6 5 0 5 2 7 5 4 8 4 ...
- $ win_rate                   : num  66.7 61.5 100 37.5 50 53.3 61.5 50 55.6 76.5 ...
- $ kills                      : num  1.06 3.46 3.5 4.5 2 4.67 2.77 5.75 0.28 4.29 ...
- $ deaths                     : num  2.67 2.69 1.5 3.5 4.5 2.73 2.77 4.38 2.33 2.18 ...
- $ assists                    : num  8.61 7.38 9 3.88 5.5 4.27 10 5.5 9.5 7 ...
- $ kill_death_assist_ratio    : num  3.63 4.03 8.33 2.39 1.67 3.27 4.61 2.57 4.19 5.19 ...
- $ creep_score                : num  90.2 114 162 224.6 206.5 ...
- $ cs.min                     : num  2.46 3.11 5.02 5.99 5.43 7.07 3.75 6.1 0.63 6.26 ...
- $ gold                       : num  9.4 9.6 10.1 11.2 11.4 12.6 12.5 12.1 8.1 13.2 ...
- $ gold.min                   : num  256 261 311 298 299 334 306 322 204 340 ...
- $ damage                     : num  NA NA NA NA NA NA NA NA NA NA ...
- $ damage.min                 : num  NA NA NA NA NA NA NA NA NA NA ...
- $ kill_participation         : num  NA NA NA NA NA NA NA NA NA NA ...
- $ kill_share                 : num  NA NA NA NA NA NA NA NA NA NA ...
- $ gold_share                 : num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
-</div>
-</div>
-<p><em>A função str() fornece uma visão geral da estrutura do dataframe “Champions”. Ela exibe informações sobre as variáveis, seus tipos de dados e as primeiras observações dos dados.</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Champions<span class="sc">$</span>season)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="custom-code-output"><code>
-  1   2   3   4   5   6   7   8   9  10  11  12 
- 46  59  69  61  74  57 146 157 174 158 160 184 </code></pre>
-</div>
-</div>
-<p><em>Aqui, estou utilizando table() para contar a ocorrência de valores únicos na coluna “season” do dataframe “Champions”. Isso é útil para entender a distribuição dos dados ao longo das temporadas.</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Champions<span class="sc">$</span>event)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="custom-code-output"><code>
-   Main Play in 
-    867     478 </code></pre>
-</div>
-</div>
-<p><em>Esta linha utiliza table() para contar as diferentes categorias na coluna “event” do dataframe “Champions”. Isso fornece uma visão sobre os tipos de eventos, distinguindo entre jogos classificatórios (“Play in”) e o torneio principal (“Main”).</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Champions<span class="sc">$</span>champion)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="custom-code-output"><code>
-      Aatrox         Ahri        Akali      Alistar        Amumu       Anivia 
-          11            8           11           17            7            8 
-       Annie     Aphelios         Ashe Aurelion Sol         Azir         Bard 
-           4            6           14            3           11            9 
-    Bel'Veth   Blitzcrank        Brand        Braum      Caitlyn      Camille 
-           2           12            5           15           15           12 
-  Cassiopeia     Cho'Gath        Corki       Darius        Diana    Dr. Mundo 
-          11            8           10            5            3            5 
-      Draven         Ekko        Elise      Evelynn       Ezreal Fiddlesticks 
-          13            9           10            7           16            6 
-       Fiora         Fizz        Galio    Gangplank        Garen         Gnar 
-          12            4           13           14            4           13 
-      Gragas       Graves         Gwen      Hecarim Heimerdinger       Irelia 
-          17           14            4           10            5           14 
-       Ivern        Janna    Jarvan IV          Jax        Jayce         Jhin 
-           1            6           17           14           14           11 
-        Jinx       Kai'Sa      Kalista        Karma      Karthus     Kassadin 
-           9            8           12           12            9           13 
-    Katarina        Kayle         Kayn       Kennen      Kha'Zix      Kindred 
-           2            6            3           11            7            6 
-        Kled      Kog'Maw      LeBlanc      Lee Sin        Leona       Lillia 
-           5            9           13           18           15            5 
-   Lissandra       Lucian         Lulu          Lux     Malphite     Malzahar 
-          13           15           14            7            9            7 
-      Maokai Miss Fortune  Mordekaiser      Morgana         Nami        Nasus 
-          11           10           10           11            9            3 
-    Nautilus        Neeko      Nidalee        Nilah     Nocturne         Nunu 
-          13            2           15            2           13            6 
-        Olaf      Orianna         Ornn     Pantheon        Poppy         Pyke 
-          13           15            9            6           10            7 
-      Qiyana        Quinn        Rakan       Rammus      Rek'Sai         Rell 
-           4            4           12            2            7            4 
-Renata Glasc     Renekton       Rengar        Riven       Rumble         Ryze 
-           2           12            5            4           13           15 
-      Samira      Sejuani        Senna    Seraphine         Sett        Shaco 
-           1            9            4            4            6            1 
-        Shen      Shyvana       Singed         Sion        Sivir      Skarner 
-          16            2            9            9           12            8 
-        Sona       Soraka        Swain        Sylas       Syndra   Tahm Kench 
-           6            9            9            8           16           11 
-     Taliyah        Talon        Taric        Teemo       Thresh     Tristana 
-          10            3            9            3           15           16 
-     Trundle   Tryndamere Twisted Fate       Twitch         Udyr        Urgot 
-          10            4           13            8            1            9 
-       Varus        Vayne       Veigar      Vel'Koz          Vex           Vi 
-          12           14            4            4            1            6 
-       Viego       Viktor     Vladimir     Volibear      Warwick       Wukong 
-           4            8           13            4            1            6 
-       Xayah       Xerath     Xin Zhao        Yasuo         Yone       Yorick 
-          11            1            9           10            4            3 
-       Yuumi          Zac          Zed        Ziggs       Zilean          Zoe 
-           7            8            5            8           12            9 
-        Zyra 
-           3 </code></pre>
-</div>
-</div>
-<p><em>Aqui, estou usando table() para contar as ocorrências de cada campeão na coluna “champion” do dataframe “Champions”. Isso ajuda a verificar se existem diferentes formas de nomeação para os mesmos campeões.</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Matchs)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="custom-code-output"><code>'data.frame':   1070 obs. of  37 variables:
- $ season           : int  1 1 1 1 1 1 1 1 1 1 ...
- $ date             : chr  "2011-06-20" "2011-06-20" "2011-06-20" "2011-06-20" ...
- $ event            : chr  "Main" "Main" "Main" "Main" ...
- $ patch            : num  NA NA NA NA NA NA NA NA NA NA ...
- $ blue_team        : chr  "Against_All_authority" "Fnatic" "Against_All_authority" "Epik_Gamer" ...
- $ red_team         : chr  "Fnatic" "Against_All_authority" "TSM" "TSM" ...
- $ winner           : chr  "Fnatic" "Against_All_authority" "Against_All_authority" "TSM" ...
- $ ban_1_blue_team  : chr  "Alistar" "Nunu" "Jarvan IV" "Zilean" ...
- $ ban_2_blue_team  : chr  "Gragas" "Warwick" "Annie" "Vayne" ...
- $ ban_3_blue_team  : chr  "Anivia" "Amumu" "Singed" "Alistar" ...
- $ ban_4_blue_team  : chr  "" "" "" "" ...
- $ ban_5_blue_team  : chr  "" "" "" "" ...
- $ ban_1_red_team   : chr  "Rumble" "Gragas" "Rumble" "Akali" ...
- $ ban_2_red_team   : chr  "Nunu" "Alistar" "Corki" "Vladimir" ...
- $ ban_3_red_team   : chr  "Amumu" "Rumble" "Vladimir" "Corki" ...
- $ ban_4_red_team   : chr  "" "" "" "" ...
- $ ban_5_red_team   : chr  "" "" "" "" ...
- $ pick_1_blue_team : chr  "Malzahar" "Brand" "Sion" "Singed" ...
- $ pick_2_blue_team : chr  "Jarvan IV" "Rammus" "Nunu" "Amumu" ...
- $ pick_3_blue_team : chr  "Irelia" "Malzahar" "Malzahar" "Annie" ...
- $ pick_4_blue_team : chr  "Corki" "Corki" "Vayne" "Miss Fortune" ...
- $ pick_5_blue_team : chr  "Janna" "Janna" "Janna" "Janna" ...
- $ pick_1_red_team  : chr  "Brand" "Irelia" "Cho'Gath" "Teemo" ...
- $ pick_2_red_team  : chr  "Warwick" "Jarvan IV" "Warwick" "Nunu" ...
- $ pick_3_red_team  : chr  "Karthus" "Anivia" "Twisted Fate" "Twisted Fate" ...
- $ pick_4_red_team  : chr  "Ashe" "Ashe" "Teemo" "Ashe" ...
- $ pick_5_red_team  : chr  "Sona" "Sona" "Alistar" "Taric" ...
- $ top_blue_team    : chr  "MoMa" "Shushei" "YellOwStaR" "Dyrus" ...
- $ jungler_blue_team: chr  " Linak" " Cyanide" " Linak" " Dan Dinh" ...
- $ mid_blue_team    : chr  " sOAZ" " xPeke" " MoMa" " Salce" ...
- $ adc_blue_team    : chr  " YellOwStaR" " Lamia" " sOAZ" " Westrice" ...
- $ support_blue_team: chr  " Kujaa" " Mellisan" " Kujaa" " Doublelift" ...
- $ top_red_team     : chr  "Shushei" "sOAZ" "Chaox" "TheRainMan" ...
- $ jungler_red_team : chr  " Cyanide" " Linak" " TheOddOne" " TheOddOne" ...
- $ mid_red_team     : chr  " xPeke" " MoMa" " Reginald" " Reginald" ...
- $ adc_red_team     : chr  " Lamia" " YellOwStaR" " TheRainMan" " Chaox" ...
- $ support_red_team : chr  " Mellisan" " Kujaa" " Xpecial" " Xpecial" ...</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># patch são atualizações mensais que fazem no jogo.</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># os primeiros elementos da coluna patch, tem valores NA pois antigamente não faziam essas atualizações no jogo.</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><em>Esta linha novamente utiliza str() para dar uma visão geral da estrutura do dataframe “Matchs”, incluindo informações sobre variáveis e tipos de dados.</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Matchs<span class="sc">$</span>blue_team)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="custom-code-output"><code>
-                                 100_Thieves 
-                                           9 
-                       Against_All_authority 
-                                           8 
-                            Ahq_eSports_Club 
-                                          16 
-                              Albus_NoX_Luna 
-                                           4 
-                                    Alliance 
-                                           3 
-                            Ascension_Gaming 
-                                           2 
-                                 Azubu_Frost 
-                                           6 
-                              Bangkok_Titans 
-                                           3 
-                               Beyond_Gaming 
-                                           6 
-                         Chiefs_Esports_Club 
-                                           2 
-                                      Cloud9 
-                                          50 
-                               Clutch_Gaming 
-                                           9 
-                        Counter_Logic_Gaming 
-                                           8 
-                 Counter_Logic_Gaming_Europe 
-                                           5 
-                          CTBC_Flying_Oyster 
-                                           3 
-                                Dark_Passage 
-                                           3 
-                          DetonatioN_FocusMe 
-                                          18 
-                                    Dignitas 
-                                           3 
-                                 Dire_Wolves 
-                                           5 
-                                         DRX 
-                                          18 
-                                     DWG_KIA 
-                                          31 
-                               EDward_Gaming 
-                                          42 
-                                  Epik_Gamer 
-                                           4 
-                         Evil_Geniuses_2e-NA 
-                                           9 
-                   Fenerbah_c3-_a7-e_Esports 
-                                           8 
-                            Flamengo_Esports 
-                                           2 
-                                Flash_Wolves 
-                                          15 
-                                    FlyQuest 
-                                           3 
-                                      Fnatic 
-                                          64 
-                             FunPlus_Phoenix 
-                                          15 
-                                    G_2d-Rex 
-                                           7 
-                                  G2_Esports 
-                                          36 
-                         Galatasaray_Esports 
-                                           6 
-                                 GAM_Esports 
-                                          10 
-                               Gamania_Bears 
-                                           1 
-                              Gambit_Esports 
-                                           6 
-                               Gambit_Gaming 
-                                           6 
-                            GamingGear_2e-eu 
-                                           4 
-                                    Gen_2e-G 
-                                          26 
-                 Griffin__28-Korean_Team_29- 
-                                           5 
-                               H2k_2d-Gaming 
-                                          10 
-                         Hanwha_Life_Esports 
-                                          10 
-                          Hong_Kong_Attitude 
-                                          10 
-                                       I_May 
-                                           3 
-                                   Immortals 
-                                           3 
-                                    INFINITY 
-                                           6 
-                                        INTZ 
-                                           5 
-                             Invictus_Gaming 
-                                          20 
-                           Istanbul_Wildcats 
-                                           2 
-                                      Isurus 
-                                           6 
-                                      J_Team 
-                                           3 
-                                   JD_Gaming 
-                                          12 
-                           KaBuM_21-_Esports 
-                                           5 
-                           Kaos_Latin_Gamers 
-                                           4 
-                                  KT_Rolster 
-                                          13 
-                            Kwangdong_Freecs 
-                                           3 
-                              Legacy_Esports 
-                                           5 
-                                   Lemondogs 
-                                           4 
-                                  LGD_Gaming 
-                                          10 
-                                         LMQ 
-                                           3 
-                                 LNG_Esports 
-                                           5 
-                              Longzhu_Gaming 
-                                           5 
-                                        LOUD 
-                                           7 
-                   Lowkey_Esports_2e-Vietnam 
-                                           4 
-Lyon_Gaming__28-2013_Latin_American_Team_29- 
-                                           3 
-                               Machi_Esports 
-                                           3 
-                                   MAD_Lions 
-                                          17 
-                                    MAD_Team 
-                                           3 
-                                     MAMMOTH 
-                                           3 
-                                        MEGA 
-                                           2 
-                                     Mineski 
-                                           4 
-                              Misfits_Gaming 
-                                           6 
-                                 Moscow_Five 
-                                           3 
-                                 Movistar_R7 
-                                           4 
-                           NaJin_Black_Sword 
-                                           5 
-                          NaJin_White_Shield 
-                                           6 
-                                   Oh_My_God 
-                                          11 
-                                      Origen 
-                                           6 
-                                 PaiN_Gaming 
-                                           3 
-                         Papara_SuperMassive 
-                                          10 
-                  PEACE__28-Oceanic_Team_29- 
-                                           7 
-                     Phong_V_c5-_a9-_Buffalo 
-                                           3 
-                                   PSG_Talon 
-                                           8 
-                                     Rampage 
-                                           2 
-                                  RED_Canids 
-                                           4 
-                 Rogue__28-European_Team_29- 
-                                          11 
-                                  ROX_Tigers 
-                                          17 
-                                  Royal_Club 
-                                          15 
-                         Royal_Never_Give_Up 
-                                          36 
-                                 Royal_Youth 
-                                           3 
-                              Saigon_Buffalo 
-                                           4 
-                               Saigon_Jokers 
-                                           1 
-                                Samsung_Blue 
-                                           7 
-                              Samsung_Galaxy 
-                                          19 
-                               Samsung_White 
-                                          13 
-                                   SK_Gaming 
-                                           5 
-                               SK_Telecom_T1 
-                                          44 
-                                      Splyce 
-                                          12 
-                                      Suning 
-                                           9 
-                                          T1 
-                                          15 
-                            Taipei_Assassins 
-                                           7 
-                            Team_gamed_21-de 
-                                           3 
-                                 Team_Liquid 
-                                          15 
-                            Team_oNe_eSports 
-                                           3 
-                               Team_Vitality 
-                                           3 
-                                 Team_Vulcun 
-                                           4 
-                                     Team_WE 
-                                          13 
-                                 Top_Esports 
-                                          11 
-                                         TSM 
-                                          28 
-                     Unicorns_of_Love_2e-CIS 
-                                          15 
-                                  V3_Esports 
-                                           2 
-                            Young_Generation 
-                                           3 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># é importante ter atenção no nome dos times pois alguns trocaram de nome, mas represantam a mesma coisa;</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ex: SK_Telecom_T1 == T1, DWG_KIA == Dplus_KIA,  Gen_g == Gen_2e-G == KSV eSports e etc...</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><em>Aqui, estou contando as ocorrências dos times presentes na coluna “blue_team” do dataframe “Matchs”. A observação sobre os nomes dos times é relevante para garantir consistência nos dados.</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Player)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="custom-code-output"><code>'data.frame':   1283 obs. of  21 variables:
- $ season                 : int  1 1 1 1 1 1 1 1 1 1 ...
- $ event                  : chr  "Main" "Main" "Main" "Main" ...
- $ team                   : chr  "Against_All_authority" "Against_All_authority" "Against_All_authority" "Against_All_authority" ...
- $ player                 : chr  "Kujaa" "Linak" "MoMa" "sOAZ" ...
- $ games_played           : int  12 12 12 12 12 6 6 6 6 6 ...
- $ wins                   : int  7 7 7 7 7 3 3 3 3 3 ...
- $ loses                  : int  5 5 5 5 5 3 3 3 3 3 ...
- $ win_rate               : num  58.3 58.3 58.3 58.3 58.3 50 50 50 50 50 ...
- $ kills                  : num  0.25 1.75 4.17 4 3.75 2.5 3.17 1 1.83 2.5 ...
- $ deaths                 : num  2.58 3.58 2.75 2.92 3.25 2.5 1.67 2.33 2.67 2.67 ...
- $ assists                : num  8.33 7.67 5.58 7.08 5.17 5.33 2.5 6.33 3.83 5 ...
- $ kill_death_assist_ratio: num  3.32 2.63 3.55 3.8 2.74 3.13 3.4 3.14 2.13 2.81 ...
- $ creep_score            : num  13.6 113.2 242.2 214.7 276.3 ...
- $ cs.min                 : num  0.34 2.86 6.13 5.43 6.99 5.37 6.21 1.42 5.31 3.15 ...
- $ gold                   : num  7.8 10.3 12.1 11.6 13.2 9.8 10.4 7.1 9.7 9.2 ...
- $ gold.min               : int  198 259 307 293 333 275 293 200 273 258 ...
- $ damage                 : num  NA NA NA NA NA NA NA NA NA NA ...
- $ damage.min             : num  NA NA NA NA NA NA NA NA NA NA ...
- $ kill_participation     : num  NA NA NA NA NA NA NA NA NA NA ...
- $ kill_share             : num  NA NA NA NA NA NA NA NA NA NA ...
- $ gold_share             : num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
-</div>
-</div>
-<p><em>Mais uma vez, str() é utilizado para fornecer informações sobre a estrutura do dataframe “Player”.</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Player<span class="sc">$</span>player)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="custom-code-output"><code>
-         007x           369            3Z          4LaN           957 
-            1             2             2             1             2 
-    Abbedagge       Absolut          Acce           Ace         Achie 
-            2             1             1             1             1 
-     ackerman      Ackerman         Acorn          Adam           ADD 
-            1             1             2             1             1 
-        Aegis      AHaHaCiK      Aladoric         Albis           Ale 
-            1             4             2             3             2 
-         Alex      Alex Ich         Alive        Aloned       Alphari 
-            1             2             1             1             2 
-       Alunir       Amazing      AmazingJ      Ambition      aMiracle 
-            1             2             2             3             1 
-           AN          AnDa         Angel          Apex      aphromoo 
-            3             1             1             1             3 
-      Araneae          Arce        Archer        Archie      Argonavt 
-            1             1             1             2             1 
-         Aria         Armut         Arrow        Arthur      Artifact 
-            2             4             1             1             1 
-       Athena         Atlen        Attila       Avenger     Avoidless 
-            1             1             1             1             1 
-        Axion         Babip         BaeMe         Balls          Bang 
-            1             3             1             3             3 
-       Baolan        baybay           Bdd          BEAN         BeanJ 
-            2             1             3             1             1 
-         bebe          BeBe           Ben         bengi         Bengi 
-            1             1             2             1             2 
-        Benny     Berserker         BeryL         Betty           Bie 
-            1             1             6             2             1 
-     bigfatlp       BigKoro     Bigpomelo           Bin      Biofrost 
-            2             2             1             1             3 
-   BioPanther      Bjergsen        Blaber         Blank      Blasting 
-            1             5             6             2             1 
-   BloodWater        Bolulu          BOSS        Brance       Breathe 
-            1             2             4             1             2 
-       Breeze  Broken Blade   BrokenBlade        Broxah          brTT 
-            1             1             1             6             2 
-        Bruce        Brucer        Buggax          Bugi        Burdol 
-            1             1             2             1             1 
-        Bwipo     Cabochard          Cain         Candy    CandyPanda 
-            4             1             2             2             2 
-        Canna        Canyon        Caomei          caPs          Caps 
-            1             5             1             1             5 
-       Carzzy     Celebrity          Ceos         Ceros         Chaox 
-            2             1             1             2             2 
-     Chauster         Chawy       Chippys         Chovy     Clearlove 
-            2             2             1             5             5 
-    ClearLove    Clearlove7          Clid        Closer         Cloud 
-            1             1             3             3             1 
- CloudTemplar          cody      Cody Sun          Cola          comA 
-            1             1             3             1             1 
-         Comp         Condi     Contractz          cool          Cool 
-            1             2             2             1             1 
-       CoreJJ          corn      Cotopaco         Crash         Crazy 
-            7             1             1             4             1 
-        Crisp          Croc         Crown       Crumbzz         Cryin 
-            2             1             3             1             1 
-      Crystal       Cupcake         CuVee          Cuzz       Cyanide 
-            1             1             3             1             3 
-        Cyeol      d4rkness          dabe       DaDa777          Dade 
-            1             1             1             1             2 
-      Damonte      Dan Dinh      Danagorn         Dandy         DanDy 
-            2             1             1             1             1 
-         dans          Dara        Darien       Darshan DeadlyBrother 
-            1             1             2             1             1 
-          Dee          Deft        Deftly       deokdam       Destiny 
-            1             9             1             1             2 
-         DeuL        Dexter   Diamondprox         Dioud           DNK 
-            1             1             4             1             1 
-        Doggo         Doinb         Doran    Doublelift          Duke 
-            1             2             2             8             2 
-     dyNquedo         Dyrus      Easyhoon        Edward        EDward 
-            1             5             1             2             1 
-       Effort      Elementz        Elyoya        Empt2y          Envy 
-            1             1             2             2             1 
-          Evi           Exo        Expect     Expession   fabFabulous 
-            6             1             2             1             2 
-        Faker      Farfetch           FBI       Febiven        Ferret 
-            7             1             2             1             1 
-         Finn           Fix       Flakked         Flame       Flandre 
-            1             2             1             2             2 
-         FoFo      FORG1VEN      fredy122       Froggen        Froggy 
-            1             1             1             2             1 
-       Frozen         Fudge          Fzzf            G4        Gadget 
-            2             4             2             3             2 
-        Gaeng          GALA   GarnetDevil       Gavotto           GBM 
-            3             3             1             1             1 
-       Gemini         Genja       Genthix        Ggoong         Ghost 
-            3             2             1             1             2 
-         gibo        Gilius       GimGoon       Godkwai       GoDlike 
-            1             1             1             1             1 
-         GODV       Gogoing          Goku       GorillA   GoSu Pepper 
-            1             2             1             4             1 
-     GreenTea         Grell      Grevthar         Guigo      Gumayusi 
-            1             1             1             1             2 
-          Hai          Hana        Hanabi          Hani     Hans sama 
-            3             1             4             1             2 
-    Hans Sama          Haro          Harp          Haru        Hasmed 
-            1             2             1             2             1 
-     Hauntzer         Heart         Hieu3       Hjarnan         Hojin 
-            2             1             1             3             1 
-  HolyPhoenix          Hope     HotshotGG      huanfeng          huhi 
-            2             1             2             1             2 
-         Huhi      Humanoid          Huni         Husha     Hylissang 
-            1             6             4             2             6 
-         iBoy          icon          iddo         IgNar      illuSioN 
-            3             2             1             2             1 
-     Imaqtpie           imp        Impact   Incarnati0n        Innaxe 
-            1             3            10             1             1 
-        inSec      Inspired      Inspirro     iNtrigueD         Isles 
-            1             4             1             1             1 
-       Iwandy IWillDominate    JackeyLove      Jactroll        Jankos 
-            2             1             4             1             6 
-       Japone           Jay         Jelly        Jensen         Jesiz 
-            2             1             1            10             3 
-       JieJie       Jiizuke       Jinjiao        Jirall      Jockster 
-            2             1             1             1             1 
-         Jojo      jojopyun     Josedeodo         Juhan         Junie 
-            1             2             1             2             1 
-            K          k1ng         Kaigu        Kaiser       Kaiwing 
-            1             3             1             3             6 
-        KaKAO         KAKAO          Kami        Kanavi         Kaori 
-            1             1             1             2             2 
-        Karsa        kaSing          Kati        Kellin         Keria 
-            6             1             1             1             3 
-        Kev1n          Khan         Kiaya           kid           Kid 
-            2             3             2             1             1 
-         Kiin         Kikis        Kingen          Kino          Kira 
-            1             1             2             2             3 
-      Kitties       Kkramer        knight         Koala         Kobbe 
-            1             1             2             5             3 
-      Kongyue         Koro1        Kramer         Krepo         Kujaa 
-            2             3             3             1             1 
-         Kuro         Lamia         Langx       Larssen       Lehends 
-            3             1             3             3             2 
-  LemonNation           LEP         Letme          Levi         Leyan 
-            3             1             2             3             1 
-         Leza         Liang      Licorice          Life         Light 
-            1             3             3             2             2 
-        Likai       Likkrit      Lilballz          Lilv         Linak 
-            1             1             1             1             1 
-         Lira         Lloyd         Lodik         LokeN        Looper 
-            2             3             1             1             3 
-       loulex       LoveLin      Loveling          Luci         Lucky 
-            1             1             1             1             1 
-      Lustboy         LvMao           Lwx       M1ssion       MadLife 
-            2             1             2             3             1 
-      MaKNooN       Malrang      mancloud    MANTARRAYA         Maoan 
-            1             1             1             1             1 
-        Maple          Marf         MaRin          Mark          Mata 
-            6             1             1             3             5 
-      Maxlore      Mazzerin         Meiko      Meliodas      Mellisan 
-            1             1             7             1             1 
-       Meteos         micaO         Mikyx       Minerva          Ming 
-            3             2             3             1             6 
-        Minji        Misaya       Missing       Mission       MiSTakE 
-            1             1             1             2             1 
-        mithy         Mithy          Mlxg           MMD           MnM 
-            2             2             3             2             1 
-       Mojito          MoMa        Moojin           Mor        Morgan 
-            1             1             1             1             2 
-      Morning          Moss      Mountain         Mouse        Mowgli 
-            1             1             3             2             1 
-        Mylon        Mystic         Nagne         NaMei          Naru 
-            1             2             2             1             1 
-         Nate          Naul           NAZ           Nbs       Nemesis 
-            1             2             1             1             2 
-        Nevan        NhocTy         Niels        Niksar          Ning 
-            1             1             1             1             2 
-        Nisqy      NIXWATER            NL        Nomanz        NoName 
-            3             1             3             4             1 
-    Norskeren         Noway        nRated       Nuclear        Nuguri 
-            2             1             1             2             5 
-     Nukeduck          Nyph       ocelote         Oddie       Odoamne 
-            1             3             1             2             4 
-        Olleh          Oner       Optimus         Orome        padden 
-            2             2             1             1             1 
-       Padden       Palette         Patoy          PawN           Paz 
-            1             2             1             3             1 
-          Pdd        Peanut         Perkz      Phantiks      Piccaboo 
-            1             5             8             1             1 
-       Piglet         Pilot            PK         Plugo      Pobelter 
-            1             1             4             2             3 
-    PoohManDu           PoP   PowerOfEvil          Pray          PraY 
-            1             1             2             1             4 
-        Prydz         Puszu     PvPStejos           Pyl        Pyosik 
-            1             1             3             1             3 
-          QTV    Radeon6870          Raes         Raina       Rainbow 
-            1             1             2             1             1 
-       Ramune        Ranger     RapidStar        Rascal           Ray 
-            1             1             1             3             2 
-       Razork       RedBert      Reginald     Reignover       Rekkles 
-            2             2             3             1             7 
-        Relic           Ren         Renyu          Rest       Revolta 
-            1             1             1             2             1 
-         Reyk        Rhuckz          Rich        Rikara         Riris 
-            1             1             1             1             1 
-        River         Riyev          Road          Robo        Rockky 
-            2             1             1             2             2 
-       Rookie         Ruler           Ryu  Saintvicious         Salce 
-            3             6             3             1             1 
-          san           San        SaNTaS      Santorin          Save 
-            1             1             3             3             1 
-       scarra         Score         Scout         seiya         Seiya 
-            1             2             6             1             2 
-     Selfmade        Sencux         Serin        Shad0w        Shadow 
-            1             1             1             1             1 
-    shernfire     Shernfire         Shini        Shogun         Shook 
-            1             1             1             1             1 
-    ShowMaker        Shrimp         Shunn       Shushei           Shy 
-            5             1             1             1             1 
-         SirT          Slay          Slow          Smeb      Smoothie 
-            1             1             3             3             3 
-        Smurf        Sneaky       Snoopeh    SnowFlower          Snoy 
-            1             9             1             2             1 
-         sOAZ          Soaz          SofM    SolidSnake          Solo 
-            6             1             1             2             1 
-        Spica        Spirit         SSONG       Ssumday       Stanley 
-            1             2             1             4             1 
-   StarScreen         Steak         Steal        Stitch       Stixxay 
-            1             2             5             2             1 
-     Stomaged         Sty1e    Svenskeren         Sword      SwordArt 
-            1             1             6             1             5 
-     SwordArT           Sya     Sycho Sid          Tabe         Tabzz 
-            1             1             1             1             2 
-     Tactical          Taki         Tally          Tank      Targamas 
-            3             1             3             1             1 
-       Tarzan           Tay           TBQ         Teddy          Tgee 
-            3             1             1             1             1 
-     Thaldrin     TheOddOne    TheRainMan        TheShy          Tian 
-            2             3             1             2             3 
-     Tierwulf          Time       tinowns       TinOwns         Titan 
-            2             1             1             1             1 
-        TitaN       tockers      Tolerant        Topoon         Touch 
-            1             1             1             2             1 
-         Toyz        Trashy         Trick        Triple        Trymbi 
-            1             1             2             2             2 
-        TusiN        Tussle             U          Ucal        UDYSOF 
-            1             1             1             1             1 
-   UNF0RGIVEN        Uniboy       Unified         Upset           Uzi 
-            1             2             6             2             6 
-       Vander       Vasilii          Vech         Venus        Violet 
-            2             1             1             2             2 
-        Viper         viviD    Vizicsacsi        Voidle        Voyboy 
-            3             1             3             1             1 
-         Vsta        Vulcan        VVvert            vy         Wadid 
-            2             6             1             1             2 
-         Wako    Warangelus       WarL0cK         Watch       Wayward 
-            2             1             1             3             1 
-          Wei       Weixiao      westdoor      Westdoor      Westrice 
-            3             1             1             3             1 
- wewillfailer       Wh1t3zZ    Whitelotus    WhiteLotus         Wickd 
-            1             1             1             1             2 
-   WildTurtle        Willer         Winds          Wolf         Woong 
-            4             2             2             3             1 
-        wormy        Wraith        Wunder         Xerxe        Xiaohu 
-            1             1             7             2             7 
-  XiaoWeiXiao      XiaoXiao          xiye       Xmithie       Xpecial 
-            1             1             4             6             3 
-        xPeke         XuHao         Yagao      Yaharong          Yang 
-            4             1             2             1             1 
-   yellowpete    YellOwStar    YellOwStaR         Ysera          Yume 
-            1             1             4             1             1 
-      Yutapon  YutoriMoyasi      yuyanjia       Zantins          Zefa 
-            5             1             1             1             1 
-      Zeitnot          Zeka     Zergsting          Zero         Zeros 
-            2             2             1             2             2 
-         Zeus        Zeyzal           Zin   ZionSpartan           Ziv 
-            1             3             1             1             4 
-         Zoom      Zorozero          Zuna          Zven         Zylor 
-            1             1             1             5             1 
-       zz1tai        Zz1tai 
-            1             1 </code></pre>
-</div>
-</div>
-<p><em>Esta linha conta as ocorrências de cada jogador na coluna “player” do dataframe “Player”. A observação sobre a consistência dos nomes dos jogadores é importante para evitar ambiguidades.</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Player<span class="sc">$</span>teste <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Player<span class="sc">$</span>wins <span class="sc">+</span> Player<span class="sc">$</span>loses <span class="sc">==</span> Player<span class="sc">$</span>games_played,<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><em>Aqui, estou criando uma nova variável chamada “teste” que indica se a soma de vitórias e derrotas de um jogador é igual ao número total de jogos jogados. Essa linha serve como uma verificação de consistência nos dados.</em></p>
-</section>
-<section id="tratamento-dos-dados" class="level3">
-<h3 class="anchored" data-anchor-id="tratamento-dos-dados">Tratamento dos dados</h3>
-<p>Nesta etapa, focamos na correção de inconsistências, valores faltantes e outliers que possam prejudicar a qualidade das análises. O objetivo é preparar os dados de forma confiável e robusta, otimizando a qualidade para análises posteriores.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Matchs <span class="ot">&lt;-</span> Matchs <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">blue_team =</span> <span class="fu">case_when</span>(</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>      blue_team <span class="sc">==</span> <span class="st">"SK_Telecom_T1"</span> <span class="sc">~</span> <span class="st">"T1"</span>,</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>      blue_team <span class="sc">==</span> <span class="st">"Gen_2e-G"</span> <span class="sc">~</span> <span class="st">"Gen_g"</span>,</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>      blue_team <span class="sc">==</span> <span class="st">"DWG_KIA"</span> <span class="sc">~</span> <span class="st">"Dplus_KIA"</span>,</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> blue_team</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">red_team =</span> <span class="fu">case_when</span>(</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>      red_team <span class="sc">==</span> <span class="st">"SK_Telecom_T1"</span> <span class="sc">~</span> <span class="st">"T1"</span>,</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>      red_team <span class="sc">==</span> <span class="st">"Gen_2e-G"</span> <span class="sc">~</span> <span class="st">"Gen_g"</span>,</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>      red_team <span class="sc">==</span> <span class="st">"DWG_KIA"</span> <span class="sc">~</span> <span class="st">"Dplus_KIA"</span>,</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> red_team</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">winner =</span> <span class="fu">case_when</span>(</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>      winner <span class="sc">==</span> <span class="st">"SK_Telecom_T1"</span> <span class="sc">~</span> <span class="st">"T1"</span>,</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>      winner <span class="sc">==</span> <span class="st">"Gen_2e-G"</span> <span class="sc">~</span> <span class="st">"Gen_g"</span>,</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>      winner <span class="sc">==</span> <span class="st">"DWG_KIA"</span> <span class="sc">~</span> <span class="st">"Dplus_KIA"</span>,</span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> winner</span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>Player <span class="ot">&lt;-</span> Player <span class="sc">%&gt;%</span></span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">team =</span> <span class="fu">case_when</span>(</span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>      team <span class="sc">==</span> <span class="st">"SK_Telecom_T1"</span> <span class="sc">~</span> <span class="st">"T1"</span>,</span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>      team <span class="sc">==</span> <span class="st">"Gen_2e-G"</span> <span class="sc">~</span> <span class="st">"Gen_g"</span>,</span>
-<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>      team <span class="sc">==</span> <span class="st">"DWG_KIA"</span> <span class="sc">~</span> <span class="st">"Dplus_KIA"</span>,</span>
-<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> team</span>
-<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><em>Como discutido anteriormente, alguns times podem alterar seus nomes ao longo das temporadas. Para padronizar a nomenclatura desses times, implementamos essas substituições. O uso da função case_when oferece uma abordagem mais eficiente e legível, eliminando a necessidade de múltiplas instruções ifelse e simplificando o processo de substituição de forma prática.</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Champions <span class="ot">&lt;-</span> Champions <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">banned_games =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(banned_games), <span class="dv">0</span>, banned_games),</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">played_games =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(played_games), <span class="dv">0</span>, played_games),</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">played_by_number_of_players =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(played_by_number_of_players), <span class="dv">0</span>, played_by_number_of_players),</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">damage =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(damage), <span class="dv">0</span>, damage),</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">damage.min =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(damage.min), <span class="dv">0</span>, damage.min),</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">kill_participation =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(kill_participation), <span class="dv">0</span>, kill_participation),</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">kill_share =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(kill_share), <span class="dv">0</span>, kill_share),</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">gold_share =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(gold_share), <span class="dv">0</span>, gold_share)</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>Player <span class="ot">&lt;-</span> Player <span class="sc">%&gt;%</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">damage =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(damage), <span class="dv">0</span>, damage),</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">damage.min =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(damage.min), <span class="dv">0</span>, damage.min),</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">kill_participation =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(kill_participation), <span class="dv">0</span>, kill_participation),</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">kill_share =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(kill_share), <span class="dv">0</span>, kill_share),</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">gold_share =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(gold_share), <span class="dv">0</span>, gold_share)</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><em>Nesse código, tratamos os valores ausentes, identificados anteriormente, atribuindo a eles o valor zero. Essa abordagem se mostrou adequada para a essa análise específica. Entretanto, é importante se manter a atento e examinar cuidadosamente a natureza da variável antes de aplicar tal tratamento. Algumas pessoas optam por simplesmente remover os valores ausentes, mas é importante reconhecer que essa abordagem pode resultar na perda de informações valiosas para a análise em questão.</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ChampsRotas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Champs =</span> <span class="fu">unique</span>(Champions<span class="sc">$</span>champion))</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>ChampsRotas<span class="sc">$</span>Rota <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"adc"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>, <span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"adc"</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>Champions<span class="sc">$</span>lane <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Champions<span class="sc">$</span>champion <span class="sc">%in%</span> ChampsRotas<span class="sc">$</span>Champs, ChampsRotas<span class="sc">$</span>Rota[<span class="fu">match</span>(Champions<span class="sc">$</span>champion, ChampsRotas<span class="sc">$</span>Champs)], <span class="cn">NA</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><em>Senti falta de uma coluna com as rotas dos personagens, então resolvi criá-la por conta própria. Levei em consideração que um mesmo personagem pode atuar em diferentes rotas, e optei por considerar as rotas “principais” de cada personagem.</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Matchs)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="custom-code-output"><code>  season       date event patch             blue_team              red_team
-1      1 2011-06-20  Main    NA Against_All_authority                Fnatic
-2      1 2011-06-20  Main    NA                Fnatic Against_All_authority
-3      1 2011-06-20  Main    NA Against_All_authority                   TSM
-4      1 2011-06-20  Main    NA            Epik_Gamer                   TSM
-5      1 2011-06-20  Main    NA                   TSM            Epik_Gamer
-6      1 2011-06-20  Main    NA                Fnatic Against_All_authority
-                 winner ban_1_blue_team ban_2_blue_team ban_3_blue_team
-1                Fnatic         Alistar          Gragas          Anivia
-2 Against_All_authority            Nunu         Warwick           Amumu
-3 Against_All_authority       Jarvan IV           Annie          Singed
-4                   TSM          Zilean           Vayne         Alistar
-5                   TSM           Akali        Vladimir           Taric
-6                Fnatic            Nunu         Warwick           Amumu
-  ban_4_blue_team ban_5_blue_team ban_1_red_team ban_2_red_team ban_3_red_team
-1                                         Rumble           Nunu          Amumu
-2                                         Gragas        Alistar         Rumble
-3                                         Rumble          Corki       Vladimir
-4                                          Akali       Vladimir          Corki
-5                                          Vayne         Zilean   Twisted Fate
-6                                        Alistar         Rumble         Gragas
-  ban_4_red_team ban_5_red_team pick_1_blue_team pick_2_blue_team
-1                                       Malzahar        Jarvan IV
-2                                          Brand           Rammus
-3                                           Sion             Nunu
-4                                         Singed            Amumu
-5                                      Jarvan IV          Warwick
-6                                         Anivia        Jarvan IV
-  pick_3_blue_team pick_4_blue_team pick_5_blue_team pick_1_red_team
-1           Irelia            Corki            Janna           Brand
-2         Malzahar            Corki            Janna          Irelia
-3         Malzahar            Vayne            Janna        Cho'Gath
-4            Annie     Miss Fortune            Janna           Teemo
-5            Annie            Corki          Alistar        Tristana
-6         Malzahar             Ashe             Sona         Karthus
-  pick_2_red_team pick_3_red_team pick_4_red_team pick_5_red_team top_blue_team
-1         Warwick         Karthus            Ashe            Sona          MoMa
-2       Jarvan IV          Anivia            Ashe            Sona       Shushei
-3         Warwick    Twisted Fate           Teemo         Alistar    YellOwStaR
-4            Nunu    Twisted Fate            Ashe           Taric         Dyrus
-5            Nunu        Malzahar    Miss Fortune           Janna    TheRainMan
-6        Nocturne           Annie           Corki           Janna       Shushei
-  jungler_blue_team mid_blue_team adc_blue_team support_blue_team top_red_team
-1             Linak          sOAZ    YellOwStaR             Kujaa      Shushei
-2           Cyanide         xPeke         Lamia          Mellisan         sOAZ
-3             Linak          MoMa          sOAZ             Kujaa        Chaox
-4          Dan Dinh         Salce      Westrice        Doublelift   TheRainMan
-5         TheOddOne      Reginald         Chaox           Xpecial     Westrice
-6           Cyanide         xPeke         Lamia          Mellisan         MoMa
-  jungler_red_team mid_red_team adc_red_team support_red_team
-1          Cyanide        xPeke        Lamia         Mellisan
-2            Linak         MoMa   YellOwStaR            Kujaa
-3        TheOddOne     Reginald   TheRainMan          Xpecial
-4        TheOddOne     Reginald        Chaox          Xpecial
-5         Dan Dinh        Salce        Dyrus       Doublelift
-6            Linak         sOAZ   YellOwStaR            Kujaa</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Player)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="custom-code-output"><code>  season event                  team     player games_played wins loses
-1      1  Main Against_All_authority      Kujaa           12    7     5
-2      1  Main Against_All_authority      Linak           12    7     5
-3      1  Main Against_All_authority       MoMa           12    7     5
-4      1  Main Against_All_authority       sOAZ           12    7     5
-5      1  Main Against_All_authority YellOwStaR           12    7     5
-6      1  Main  Counter_Logic_Gaming   bigfatlp            6    3     3
-  win_rate kills deaths assists kill_death_assist_ratio creep_score cs.min gold
-1     58.3  0.25   2.58    8.33                    3.32       13.58   0.34  7.8
-2     58.3  1.75   3.58    7.67                    2.63      113.17   2.86 10.3
-3     58.3  4.17   2.75    5.58                    3.55      242.25   6.13 12.1
-4     58.3  4.00   2.92    7.08                    3.80      214.67   5.43 11.6
-5     58.3  3.75   3.25    5.17                    2.74      276.33   6.99 13.2
-6     50.0  2.50   2.50    5.33                    3.13      191.17   5.37  9.8
-  gold.min damage damage.min kill_participation kill_share gold_share teste
-1      198      0          0                  0          0          0     0
-2      259      0          0                  0          0          0     0
-3      307      0          0                  0          0          0     0
-4      293      0          0                  0          0          0     0
-5      333      0          0                  0          0          0     0
-6      275      0          0                  0          0          0     0</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Champions)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="custom-code-output"><code>  season event     champion games_contests pick_ban_ratio banned_games
-1      1  Main         Nunu             27           96.4            9
-2      1  Main      Alistar             25           89.3           12
-3      1  Main       Rumble             23           82.1           21
-4      1  Main     Vladimir             22           78.6           14
-5      1  Main Twisted Fate             22           78.6           18
-6      1  Main        Corki             20           71.4            5
-  played_games played_by_number_of_players win lose win_rate kills deaths
-1           18                           6  12    6     66.7  1.06   2.67
-2           13                           4   8    5     61.5  3.46   2.69
-3            2                           2   2    0    100.0  3.50   1.50
-4            8                           5   3    5     37.5  4.50   3.50
-5            4                           2   2    2     50.0  2.00   4.50
-6           15                           8   8    7     53.3  4.67   2.73
-  assists kill_death_assist_ratio creep_score cs.min gold gold.min damage
-1    8.61                    3.63       90.17   2.46  9.4      256      0
-2    7.38                    4.03      114.00   3.11  9.6      261      0
-3    9.00                    8.33      162.00   5.02 10.1      311      0
-4    3.88                    2.39      224.63   5.99 11.2      298      0
-5    5.50                    1.67      206.50   5.43 11.4      299      0
-6    4.27                    3.27      266.13   7.07 12.6      334      0
-  damage.min kill_participation kill_share gold_share lane
-1          0                  0          0          0   jg
-2          0                  0          0          0  sup
-3          0                  0          0          0  top
-4          0                  0          0          0  mid
-5          0                  0          0          0  mid
-6          0                  0          0          0  mid</code></pre>
-</div>
-</div>
-</section>
-<section id="salvar-bases-tratadas" class="level3">
-<h3 class="anchored" data-anchor-id="salvar-bases-tratadas">Salvar bases tratadas</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(Matchs, <span class="at">file =</span> <span class="st">"Matchs.RData"</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(Player, <span class="at">file =</span> <span class="st">"Player.RData"</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(Champions, <span class="at">file =</span> <span class="st">"Champions.RData"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><em>Salvando as 3 bases em arquivos .RData, para trabalharmos com elas no dashboard.</em></p>
-</section>
-</section>
-<section id="introdução-ao-shiny" class="level2">
-<h2 class="anchored" data-anchor-id="introdução-ao-shiny">Introdução ao Shiny</h2>
-<p>Como mencionado anteriormente, o Shiny é uma ferramenta poderosa que utilizaremos para desenvolver nossas aplicações interativas em R. Para começar, você pode explorar as instruções iniciais fornecidas no site <a href="https://programando-em-shiny.curso-r.com/primeiro-app.html">Curso-R</a> para criar sua primeira aplicação Shiny.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1341,6 +415,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../projetos/LolDashIC/parte1/index.html" class="pagination-link">
+        <span class="nav-page-text">Pré-processamento dos dados</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

@@ -1,0 +1,186 @@
+## Server
+
+### 1. Leitura das Bases de Dados
+```R
+PlayersData <- reactive({
+  df <- Player
+  df <- df[df$event == "Main", ]
+  return(df)
+})
+
+ChampionsData <- reactive({
+  df <- Champions
+  df <- df[df$event == "Main", ]
+  return(df)
+})
+
+MatchsData <- reactive({
+  df <- Matchs
+  df <- df[df$event == "Main",]
+  return(df)
+})
+```
+Nessa parte, são criadas funções reativas para ler as bases de dados dos jogadores, personagens e partidas, filtrando apenas os eventos principais.
+
+### 2. Inputs e Filtros para Jogadores
+```R
+observe({
+  updateSelectInput(session, "Player", choices = unique(PlayersData()$player),selected = "Faker")
+})
+
+observeEvent(input$Player, {
+  base <- PlayersData()
+  base <- base %>% filter(player == input$Player)
+  updateSelectInput(session, "Season", choices = unique(base$season))
+  base <- base %>% filter(season == input$Season)
+})
+
+Players_Inputs <- reactive({
+  base <- PlayersData()
+  base <- base %>% filter(player == input$Player)
+  base <- base %>% filter(season == input$Season)
+  return(base)
+})
+```
+Aqui, são criados observadores para atualizar os menus suspensos de jogadores e temporadas, além de gerar uma base filtrada para jogadores selecionados.
+
+### 3. Inputs e Filtros para Personagens
+```R
+Champions_filtered <- reactive({
+  base <- ChampionsData()
+  if (input$SeasonChamp == "Todas" & input$Lane == "Todas") {
+    df <- base
+  } else {
+    # Lógica para filtrar personagens com base nos inputs SeasonChamp e Lane
+  }
+  # Manipulação dos dados para obter informações desejadas
+  return(champs)
+})
+
+observe({
+  choices <- c("Todas", unique(ChampionsData()$season))
+  updateSelectInput(session, "SeasonChamp", choices = choices, selected = if (input$SeasonChamp %in% choices) input$SeasonChamp else "Todas")
+})
+
+observe({
+  choices <- c("Todas", unique(ChampionsData()$lane))
+  updateSelectInput(session, "Lane", choices = choices, selected = if (input$Lane %in% choices) input$Lane else "Todas")
+})
+```
+Nesta parte, são criadas funções reativas e observadores para lidar com a seleção e filtragem de personagens com base nas temporadas e rotas escolhidas.
+
+### 4. Inputs e Filtros para Partidas
+```R
+Matchs_filtered <- reactive({
+  base <- MatchsData()
+  # Lógica para filtrar partidas com base no input SeasonMatch
+  # Manipulação dos dados para obter informações desejadas
+  return(top5composicoes)
+})
+
+Matchs_RedBlue <- reactive({
+  base <- MatchsData()
+  # Lógica para filtrar partidas com base no input SeasonMatch
+  # Manipulação dos dados para obter informações desejadas
+  return(somawinner)
+})
+
+observe({
+  choices <- c("Todas", unique(MatchsData()$season))
+  updateSelectInput(session, "SeasonMatch", choices = choices, selected = if (input$SeasonMatch %in% choices) input$SeasonMatch else "Todas")
+})
+```
+Essas seções lidam com a filtragem de partidas com base na temporada escolhida, além de gerar informações específicas sobre composições e vitórias.
+
+### 5. Info Boxes e Gráficos
+
+
+```R
+output$Team <- renderInfoBox({
+  infoBox(
+    title = "Time",
+    value = Players_Inputs()$team,
+    icon = icon("headset"),
+    color = "yellow"
+  )
+})
+
+output$KDA <- renderInfoBox({
+  infoBox(
+    title = "Média de KDA",
+    value = mean(Players_Inputs()$kill_death_assist_ratio),
+    icon = icon("hand-fist"),
+    color = "yellow"
+  )
+})
+
+output$CreepScore <- renderInfoBox({
+  infoBox(
+    title = "Média de Minions por minuto",
+    value = mean(Players_Inputs()$cs.min),
+    icon = icon("chess-pawn"),
+    color = "yellow"
+  )
+})
+
+output$Damage <- renderInfoBox({
+  infoBox(
+    title = "Média de Dano",
+    value = mean(Players_Inputs()$damage),
+    icon = icon("wand-sparkles"),
+    color = "yellow"
+  )
+})
+```
+
+Nesse bloco, são criadas caixas de informação (Info Boxes) que exibem médias de diferentes estatísticas (Time, Média de KDA, Média de Minions por minuto e Média de Dano) relacionadas ao jogador selecionado. Cada caixa de informação possui um título, um valor, um ícone e uma cor.
+
+
+```R
+output$KDA_Season <- renderPlotly({
+  df <- PlayersData()
+  df_filtered <- df %>% filter(player == input$Player)
+  
+  plot_ly(df_filtered, x = ~kill_death_assist_ratio, y = ~season, type = 'bar', orientation = 'h', marker = list(color = 'orange')) %>%
+    layout(title = "Média de KDA por Temporada", xaxis = list(title = "KDA Média"), yaxis = list(title = "Temporada"),
+           sliders = list(list(currentvalue = list(prefix = "Temporada:"), steps = list())))
+})
+
+output$Wr_Season <- renderPlotly({
+  df <- PlayersData()
+  df_filtered <- df %>% filter(player == input$Player)
+  
+  plot_ly(df_filtered, x = ~factor(season), y = ~wins, type = 'scatter', mode = 'lines+markers', name = 'Win', marker = list(color = 'green')) %>%
+    add_trace(y = ~loses, name = 'Lose', marker = list(color = 'red')) %>%
+    layout(title = "Vitórias e Derrotas por Temporada", xaxis = list(title = "Temporada"), yaxis = list(title = "Quantidade"))
+})
+
+output$gauge <- renderPlotly({
+  df <- PlayersData()
+  df_filtered <- df %>% filter(player == input$Player)
+  valor <- sum(df_filtered$wins) / sum(df_filtered$games_played) * 100
+  
+  plot_ly(
+    type = "indicator",
+    title = "Winrate do jogador",
+    mode = "gauge+number",
+    value = valor,
+    gauge = list(
+      axis = list(range = list(0, 100)),
+      bar = list(color = "#ff9933"),
+      steps = list(
+        list(range = c(0, 25), color = "#ffd9b3"),
+        list(range = c(25, 50), color = "#ffcc99"),
+        list(range = c(50, 75), color = "#ffbf80"),
+        list(range = c(75, 100), color = "#ffb366")
+      )
+    )
+  )
+})
+
+# Outros gráficos são renderizados da mesma forma
+```
+
+Nesse bloco, são criados gráficos dinâmicos utilizando a biblioteca Plotly. Os gráficos representam diferentes métricas em relação ao jogador escolhido, como a média de KDA por temporada, vitórias e derrotas por temporada, e o Winrate do jogador exibido em um medidor de gauge. Cada gráfico é renderizado com base nos dados filtrados do jogador selecionado.
+
+## [Resultado](https://peishino.shinyapps.io/LOLDashBoard/)

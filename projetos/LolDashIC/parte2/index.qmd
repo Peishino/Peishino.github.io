@@ -1,0 +1,88 @@
+
+## Shiny Dashboard
+
+O Shiny é um framework em R que simplifica o desenvolvimento de aplicativos web, dispensando a necessidade de conhecimentos em HTML, CSS e JavaScript.
+
+### Estrutura
+
+O Shiny, possui uma arquitetura composta por duas partes principais: a interface do usuário (UI) e a lógica do servidor (server).
+
+Primeiramente vamos carregar as bases que salvamos:
+
+```R
+load("Matchs.RData")
+load("Champions.RData")
+load("Player.RData")
+```
+
+## Código
+
+O código deste Dashboard pode ser acessado no [Github](https://github.com/Peishino/I.C/blob/main/LOLDashBoard/app.R). Aqui, fornecerei explicações sobre algumas partes e funções cruciais. Caso deseje examinar o código completo, sinta-se à vontade para visitar o repositório. Além disso, estou aberto a sugestões de aprimoramento e feedback.
+
+
+## UI
+
+### 1. Definição da Página do Dashboard
+```R
+ui <- dashboardPage(
+  skin = "black",
+  dashboardHeader(title = "League of Legends Worlds"),
+  dashboardSidebar(
+    sidebarMenu(
+      menuItem("Jogadores", tabName = "dashboard1", icon = icon("chart-line")),
+      menuItem("Personagens", tabName = "dashboard2", icon = icon("chart-bar")),
+      menuItem("Partidas", tabName = "dashboard3", icon = icon("chart-area"))
+    )
+  ),
+```
+Nesta parte, estamos criando a estrutura principal do dashboard. `dashboardPage` define a página, `dashboardHeader` configura o cabeçalho, e `dashboardSidebar` especifica a barra lateral com itens para cada um dos 3 dashboards.
+
+### 2. Conteúdo da Aba "Jogadores"
+```R
+dashboardBody(
+  tabItems(
+    tabItem(
+      tabName = "dashboard1",
+      fluidRow(
+        # Aqui colocaremos caixas de informaçãos e/ou gráficos
+      )
+  ),
+```
+Aqui, definimos o conteúdo específico da aba "Jogadores". `tabItem` cria uma aba, e `fluidRow` organiza os elementos em uma linha fluida.
+Como são 3 Dashboards precisamos de 3 tabItem por isso utilizamos a função `tabItems` e o `tabItem` finaliza-se com uma vírgula.
+
+### 3. Caixas de Informação e Gráficos da Aba "Jogadores"
+```R
+box(width = 12, status = "warning", solidHeader = TRUE,
+    infoBoxOutput("Team", width = 3),
+    infoBoxOutput("KDA", width = 3),
+    infoBoxOutput("CreepScore", width = 3),
+    infoBoxOutput("Damage", width = 3)
+)
+```
+Aqui, estamos criando uma caixa `box` que exibe informações usando `infoBoxOutput` sobre a equipe, KDA, Creep Score e Dano dos jogadores, que mais tarde serão passadas de maneira reativa pelo servidor.
+
+```R
+column(7,
+  box(width = 12, status = "warning", solidHeader = TRUE,
+      plotlyOutput("Wr_Season")
+  ),
+  box(width = 12, status = "warning", solidHeader = TRUE,
+      plotlyOutput("gauge")
+  )
+),
+```
+Estamos dividindo a linha fluida em duas colunas `column`. À esquerda, temos dois gráficos `plotlyOutput`, como um gráfico de desempenho sazonal (Wr_Season) e um medidor (gauge).
+
+```R
+column(5,
+  selectInput("Player", "Selecione o jogador", choices =  NULL),
+  selectInput("Season", "Filtrar por temporada", choices = NULL),
+  plotlyOutput("KDA_Season", height = 642)
+)
+```
+À direita, adicionamos elementos interativos para seleção de jogador `selectInput` e temporada, além de um gráfico de desempenho sazonal (KDA_Season).
+
+Em geral, aplicaremos essas funções aos três gráficos, ajustando apenas alguns parâmetros, nomes e estruturas, pois cada caso é único e deve ser tratado de maneira específica.
+
+

@@ -1,17 +1,13 @@
 ---
 title: "Projetos"
 listing: 
-  id: lista-projetos
-  contents: projetos
+  id: projetos
+  contents:
+    - "projetos/*/index.qmd"
   type: default
   sort: "title asc"
   date-format: DD/MM/YYYY
   categories: true
-execute:
-  eval: false
-code-block-bg: "#DDDDDD"
-highlight-style: github
-code-block-border-left: "#334061"
 ---
 
 <h4>Aqui estão alguns projetos nos quais já trabalhei e gostaria de destacar.</h4>
@@ -20,5 +16,5 @@ code-block-border-left: "#334061"
 
 <br>
 
-::: {#lista-projetos}
+::: {#projetos}
 :::
