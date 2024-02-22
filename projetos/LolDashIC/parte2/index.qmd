@@ -1,89 +1,76 @@
----
-title: Shiny Dashboard
----
+## Shiny Dashboard
 
-O Shiny é um framework em R que simplifica o desenvolvimento de aplicativos web, dispensando a necessidade de conhecimentos em HTML, CSS e JavaScript.
+Por meio do pacote Shiny, desenvolvi três visualizações distintas, cada uma dedicada às bases de dados previamente exploradas na página anterior. 
 
-Ele possui uma arquitetura composta por duas partes principais: a interface do usuário (UI) e a lógica do servidor (server).
+O código inteiro deste Dashboard pode ser acessado no [Github](https://github.com/Peishino/I.C/blob/main/LOLDashBoard/app.R). Aqui, fornecerei explicações apenas sobre a primeira visualização das 3 que montei. Caso deseje examinar o código completo, sinta-se à vontade para visitar o repositório. Além disso, estou aberto a sugestões e feedback.
 
-E é em cima disso que iremos trabalhar.
 
-Primeiramente vamos carregar as bases que salvamos:
+## Carregando a base "Player" que tratamos:
 
-```R
-load("Matchs.RData")
-load("Champions.RData")
-load("Player.RData")
+``` r
+# Antes de iniciar a interface ou o servidor: # <1>
+load("Player.RData") # <1>
+
+# Dentro do servidor: # <2>
+PlayersData <- reactive({ # <2>
+      df <- Player # <2>
+      df <- df[df$event == "Main", ] # <2>
+      return(df) # <2>
+    }) # <2>
+
 ```
+1. Carrega dados previamente salvos em arquivo do tipo ".RData".
+2. Chama essa base de forma reativa, ou seja, algo que é recalculado automaticamente quando as dependências mudam (é muito útil nesse caso onde a base muda toda vez que um filtro é realizado). Aproveitei para filtrar o evento como "Main" que seriam os jogos principais do campeonato.
 
-## Código
+## Filtros & Reações aos filtros
 
-O código deste Dashboard pode ser acessado no [Github](https://github.com/Peishino/I.C/blob/main/LOLDashBoard/app.R). Aqui, fornecerei explicações sobre algumas partes e funções cruciais. Caso deseje examinar o código completo, sinta-se à vontade para visitar o repositório. Além disso, estou aberto a sugestões de aprimoramento e feedback.
+![Filtros](Filtros.png)
 
+Esses são os dois filtros que iremos utilizar nesse dashboard.
 
-## UI
+Um para os jogadores, contendo os nomes de todos os jogadores que participaram de pelo menos um mundial.
 
-### 1. Definição da Página do Dashboard
-```R
-ui <- dashboardPage(
-  skin = "black",
-  dashboardHeader(title = "League of Legends Worlds"),
-  dashboardSidebar(
-    sidebarMenu(
-      menuItem("Jogadores", tabName = "dashboard1", icon = icon("chart-line")),
-      menuItem("Personagens", tabName = "dashboard2", icon = icon("chart-bar")),
-      menuItem("Partidas", tabName = "dashboard3", icon = icon("chart-area"))
-    )
-  ),
+Outro para as temporadas, contendo as temporadas na qual aquele jogador participou.
+
+```r
+# UI
+box(width = 12, status = "warning",solidHeader = T, # <1>
+    selectInput("Player", "Selecione o jogador", choices =  NULL), # <1>
+    selectInput("Season", "Filtrar por temporada", choices = NULL) # <1>
+
+# Server
+observe({ # <2>
+      updateSelectInput(session, "Player", choices = unique(PlayersData()$player),selected = "Faker")# <2>
+    })# <2>
+    
+observeEvent(input$Player, { # <3>
+      base <- PlayersData() %>% filter(player == input$Player) # <3>
+      updateSelectInput(session, "Season", choices = unique(base$season)) # <3>
+    }) # <3>
+    
+Players_Inputs <- reactive({ # <4>
+      base <- PlayersData() %>% filter(player == input$Player, season == input$Season) # <4>
+      return(base) # <4>
+    }) # <4>
 ```
-Nesta parte, estamos criando a estrutura principal do dashboard. `dashboardPage` define a página, `dashboardHeader` configura o cabeçalho, e `dashboardSidebar` especifica a barra lateral com itens para cada um dos 3 dashboards.
+1. Criamos uma caixa com os parâmetros `width`, `status` e `solidHeader`, os quais são utilizados para personalizar a aparência dessa caixa específica. O parâmetro `width` foi definido como 12 (máximo), garantindo que a caixa ocupe toda a largura da coluna em que está inserida. O parâmetro `status` foi configurado como "warning", dando à caixa uma coloração laranja no fundo. Já o `solidHeader` foi ajustado para verdadeiro (T), proporcionando um contorno laranja ao redor de toda a caixa. Em seguida, por meio da função `selectInput`, implementamos dois filtros (inputs) que estarão contidos dentro dessa caixa personalizada.
 
-### 2. Conteúdo da Aba "Jogadores"
-```R
-dashboardBody(
-  tabItems(
-    tabItem(
-      tabName = "dashboard1",
-      fluidRow(
-        # Aqui colocaremos caixas de informaçãos e/ou gráficos
-      )
-  ),
-```
-Aqui, definimos o conteúdo específico da aba "Jogadores". `tabItem` cria uma aba, e `fluidRow` organiza os elementos em uma linha fluida.
-Como são 3 Dashboards precisamos de 3 tabItem por isso utilizamos a função `tabItems` e o `tabItem` finaliza-se com uma vírgula.
+2. É uma expressão reativa que observa mudanças no ambiente e, sempre que ocorrem, atualiza o input da seleção "Player" na interface gráfica.
 
-### 3. Caixas de Informação e Gráficos da Aba "Jogadores"
-```R
-box(width = 12, status = "warning", solidHeader = TRUE,
-    infoBoxOutput("Team", width = 3),
-    infoBoxOutput("KDA", width = 3),
-    infoBoxOutput("CreepScore", width = 3),
-    infoBoxOutput("Damage", width = 3)
-)
-```
-Aqui, estamos criando uma caixa `box` que exibe informações usando `infoBoxOutput` sobre a equipe, KDA, Creep Score e Dano dos jogadores, que mais tarde serão passadas de maneira reativa pelo servidor.
+3. Observa eventos relacionados à seleção no input "Player".Sempre que o usuário seleciona um jogador a base é filtrada pelo nome do jogador, em seguida atualiza o input da seleção "Season" fazendo com que mostre somente as temporadas onde aquele jogador atuou.
 
-```R
-column(7,
-  box(width = 12, status = "warning", solidHeader = TRUE,
-      plotlyOutput("Wr_Season")
-  ),
-  box(width = 12, status = "warning", solidHeader = TRUE,
-      plotlyOutput("gauge")
-  )
-),
-```
-Estamos dividindo a linha fluida em duas colunas `column`. À esquerda, temos dois gráficos `plotlyOutput`, como um gráfico de desempenho sazonal (Wr_Season) e um medidor (gauge).
+4. Por fim criamos outra base reativa, que irá interagir diretamente com os filtros feitos pelo usuário.
 
-```R
-column(5,
-  selectInput("Player", "Selecione o jogador", choices =  NULL),
-  selectInput("Season", "Filtrar por temporada", choices = NULL),
-  plotlyOutput("KDA_Season", height = 642)
-)
-```
-À direita, adicionamos elementos interativos para seleção de jogador `selectInput` e temporada, além de um gráfico de desempenho sazonal (KDA_Season).
+## Painel de informações do jogador 
 
-Em geral, aplicaremos essas funções aos três gráficos, ajustando apenas alguns parâmetros, nomes e estruturas, pois cada caso é único e deve ser tratado de maneira específica.
+![Tomando o exemplo do renomado jogador Faker na temporada 12](InfoPainel.png)
 
+Este painel fornece uma visão das estatísticas de desempenho do jogador selecionado durante a temporada especificada pelos filtros, onde:
 
+Time: Refere-se à equipe à qual o jogador estava afiliado durante a temporada em questão.
+
+Média de KDA (Kill, Deaths, Assists): Essa métrica é uma representação da participação do jogador em cada partida. Calculada pela fórmula ((K+A)/D), onde K representa eliminações, D representa mortes e A representa assistências.
+
+Média de Minions por Minuto: Ela indica quantas tropas o jogador consegue abater, em média, a cada minuto de jogo, refletindo sua habilidade em acumular recursos e ganhar vantagem econômica.
+
+Média de Dano: Esta estatística revela a média de dano causado pelo jogador ao longo de todas as partidas do campeonato na temporada em questão.

@@ -2,7 +2,7 @@ project:
   type: website
   output-dir: docs
 
-code-block-bg: "#DDDDDD"
+code-block-bg: "#EEEEEE"
 highlight-style: github
 code-block-border-left: "#334061"
 sidebar: false
@@ -29,9 +29,7 @@ website:
             - href: projetos/LolDashIC/parte1/index.qmd
               text: Pré-processamento dos dados
             - href: projetos/LolDashIC/parte2/index.qmd
-              text: Shiny Dashboard (UI)
-            - href: projetos/LolDashIC/parte3/index.qmd
-              text: Shiny Dashboard (Server)
+              text: Shiny Dashboard
 
 format:
   html:
