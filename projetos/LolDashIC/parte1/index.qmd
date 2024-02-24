@@ -1,35 +1,13 @@
 ---
-title: Pré-processamento dos dados
+title: Análise exploratória
+description: Nesta etapa, vamos conhecer e tratar os dados usando algumas funcionalidades do [R](https://www.r-project.org/other-docs.html) e o pacote [Tidyverse](https://www.tidyverse.org/packages/).
 ---
 
 
-Nesta etapa, vamos manipular os dados usando algumas funcionalidades do R e seus pacotes.
-
-## Pacotes
-
-[Tidyverse](https://www.tidyverse.org/packages/), fornece ferramentas para manipulação, visualização e análise de dados de maneira consistente e eficiente.
-
-[Plotly](https://plotly.com/r/), para criação de gráficos interativos e visualizações de dados.
-
-[Shiny](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html), para a criação de aplicativos web interativos, permitindo a construção de interfaces dinâmicas e reativas para análise de dados.
-
-[ShinyDashboard](https://rstudio.github.io/shinydashboard/get_started.html), extensão do pacote Shiny que simplifica a criação de dashboards interativos.
-
-Para instalar e carregar essas bibliotecas, utilize o código abaixo:
-
 ```{r}
-#| eval: false
-install.packages(c("tidyverse","plotly","shiny","shinydashboard"))
-```
-*Instalação*
-```{r}
-#| output: false
+#| include: false
 library(tidyverse)
-library(plotly)
-library(shiny)
-library(shinydashboard)
 ```
-*Leitura*
 
 ## Bases de dados
 
@@ -58,43 +36,43 @@ Nessa etapa, nossa abordagem inicial visa compreender a estrutura das bases de d
 str(Champions)
 ```
 
-*A função str() fornece uma visão geral da estrutura do dataframe "Champions". Ela exibe informações sobre as variáveis, seus tipos de dados e as primeiras observações dos dados.*
+*A função `str()` fornece uma visão geral da estrutura do dataframe "Champions". Ela exibe informações sobre as variáveis, seus tipos de dados e as primeiras observações dos dados.*
 
 ```{r}
 #| class-output: custom-code-output
 table(Champions$season)
 ```
 
-*Aqui, estou utilizando table() para contar a ocorrência de valores únicos na coluna "season" do dataframe "Champions". Isso é útil para entender a distribuição dos dados ao longo das temporadas.*
+*Aqui, estou utilizando `table()` para contar a ocorrência de valores únicos na coluna "season" do dataframe "Champions". Isso é útil para entender a distribuição dos dados ao longo das temporadas.*
 
 ```{r}
 #| class-output: custom-code-output
 table(Champions$event)
 ```
 
-*Esta linha utiliza table() para contar as diferentes categorias na coluna "event" do dataframe "Champions". Isso fornece uma visão sobre os tipos de eventos, distinguindo entre jogos classificatórios ("Play in") e o torneio principal ("Main").*
+*Esta linha utiliza `table()` para contar as diferentes categorias na coluna "event" do dataframe "Champions". Isso fornece uma visão sobre os tipos de eventos, distinguindo entre jogos classificatórios ("Play in") e o torneio principal ("Main").*
 
 ```{r}
 #| class-output: custom-code-output
 table(Champions$champion)
 ```
 
-*Aqui, estou usando table() para contar as ocorrências de cada campeão na coluna "champion" do dataframe "Champions". Isso ajuda a verificar se existem diferentes formas de nomeação para os mesmos campeões.*
+*Aqui, estou usando `table()` para contar as ocorrências de cada campeão na coluna "champion" do dataframe "Champions". Isso ajuda a verificar se existem diferentes formas de nomeação para os mesmos campeões.*
 
 ```{r}
 #| class-output: custom-code-output
-str(Matchs)
 # patch são atualizações mensais que fazem no jogo.
 # os primeiros elementos da coluna patch, tem valores NA pois antigamente não faziam essas atualizações no jogo.
+str(Matchs)
 ```
 
-*Esta linha novamente utiliza str() para dar uma visão geral da estrutura do dataframe "Matchs", incluindo informações sobre variáveis e tipos de dados.*
+*Esta linha novamente utiliza `str()` para dar uma visão geral da estrutura do dataframe "Matchs", incluindo informações sobre variáveis e tipos de dados.*
 
 ```{r}
 #| class-output: custom-code-output
-table(Matchs$blue_team)
 # é importante ter atenção no nome dos times pois alguns trocaram de nome, mas represantam a mesma coisa;
 # ex: SK_Telecom_T1 == T1, DWG_KIA == Dplus_KIA,  Gen_g == Gen_2e-G == KSV eSports e etc...
+table(Matchs$blue_team)
 ```
 
 *Aqui, estou contando as ocorrências dos times presentes na coluna "blue_team" do dataframe "Matchs". A observação sobre os nomes dos times é relevante para garantir consistência nos dados.*
@@ -104,7 +82,7 @@ table(Matchs$blue_team)
 str(Player)
 ```
 
-*Mais uma vez, str() é utilizado para fornecer informações sobre a estrutura do dataframe "Player".*
+*Mais uma vez, `str()` é utilizado para fornecer informações sobre a estrutura do dataframe "Player".*
 
 ```{r}
 #| class-output: custom-code-output
@@ -159,7 +137,7 @@ Player <- Player %>%
 
 ```
 
-*Como discutido anteriormente, alguns times podem alterar seus nomes ao longo das temporadas. Para padronizar a nomenclatura desses times, implementamos essas substituições. O uso da função case_when oferece uma abordagem mais eficiente e legível, eliminando a necessidade de múltiplas instruções ifelse e simplificando o processo de substituição de forma prática.*
+*Como discutido anteriormente, alguns times podem alterar seus nomes ao longo das temporadas. Para padronizar a nomenclatura desses times, implementei essas substituições. O uso da função `case_when()` oferece uma abordagem mais eficiente e legível, eliminando a necessidade de múltiplas instruções ifelse e simplificando o processo de substituição de forma prática.*
 
 ```{r}
 Champions <- Champions %>%

@@ -19,7 +19,6 @@ website:
       - href: Projetos.qmd
         text: Projetos
   favicon: iconfav.png
-  
   sidebar:
     - id: loldash
       contents:
@@ -27,14 +26,13 @@ website:
         - section: Prática
           contents:
             - href: projetos/LolDashIC/parte1/index.qmd
-              text: Pré-processamento dos dados
             - href: projetos/LolDashIC/parte2/index.qmd
-              text: Shiny Dashboard
 
 format:
   html:
     css: styles.css
     code-overflow: scroll
+    code-link: true
     lang: pt
     theme: 
       light: lux

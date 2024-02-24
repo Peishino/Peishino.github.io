@@ -2,11 +2,11 @@
 title: "CepScraping"
 image: BrasilRegioesUF.jpg
 categories: ["Python","WebScraping"]
-title-block-style: none
 description: Extração de todos os ceps do Brasil utilizando python e o pacote BeautifulSoup4.
 jupyter: python3
 execute:
   eval: false
+date: "11/11/2023"
 ---
 
 ## Explicação do projeto

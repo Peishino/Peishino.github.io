@@ -1,14 +1,39 @@
 ---
-title: "Worlds Analisis"
+title: "Análise dos mundias de League of Legends"
 image: LeagueoflegendsIcon.png
 image-shape: round
-categories: ["R","Shiny","DashBoard"]
-title-block-style: none
-description: Utilizando dados relacionados aos campeonatos mundiais de League of Legends (LOL) para criar Dashboards interativos no ambiente Shiny.
+categories: ["R","Analise exploratória","Shiny","Dashboard"]
+description: "Utilizando dados relacionados aos campeonatos mundiais de League of Legends (LOL) para criar Dashboards interativos no ambiente Shiny."
+date: "01/23/2024" 
 ---
 
+## Explicação do projeto
 
-O objetivo deste projeto é criar um dashboard interativo e informativo dedicado aos campeonatos mundiais de League of Legends. A ferramenta será desenvolvida utilizando a linguagem de programação [R](https://www.r-project.org/other-docs.html) para manipulação de dados e o framework [Shiny](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html) para construção do dashboard interativo.
+O objetivo deste projeto é criar um dashboard interativo e informativo dedicado aos campeonatos mundiais de League of Legends. A ferramenta será desenvolvida utilizando a linguagem de programação [R](https://www.r-project.org/other-docs.html) e alguns pacotes para todo estruturamento das bases de dados e a construção do dashboard interativo.
+
+## Pacotes
+
+[Tidyverse](https://www.tidyverse.org/packages/), fornece ferramentas para manipulação, visualização e análise de dados de maneira consistente e eficiente.
+
+[Plotly](https://plotly.com/r/), para criação de gráficos interativos e visualizações de dados.
+
+[Shiny](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html), para a criação de aplicativos web interativos, permitindo a construção de interfaces dinâmicas e reativas para análise de dados.
+
+[ShinyDashboard](https://rstudio.github.io/shinydashboard/get_started.html), extensão do pacote Shiny que simplifica a criação de dashboards interativos.
+
+Para instalar e carregar essas bibliotecas, utilize o código abaixo:
+
+```{r}
+#| eval: false
+install.packages(c("tidyverse","plotly","shiny","shinydashboard"))
+
+library(tidyverse)
+library(plotly)
+library(shiny)
+library(shinydashboard)
+```
+
+## Dados 
 
 Os dados referentes aos mundiais de 2011 a 2022 foram obtidos no [Kaggle](https://www.kaggle.com/datasets/pedrocsar/league-of-legends-worlds-20112022-stats).
 
@@ -19,4 +44,5 @@ O conjunto de dados consiste em três arquivos CSV, cada um fornecendo informaç
 - Um arquivo que apresenta os personagens utilizados durante os campeonatos, acompanhado de suas estatísticas relevantes.
 
 - Um arquivo que fornece informações sobre cada partida, incluindo detalhes dos jogadores e os vencedores de cada confronto.
+
 

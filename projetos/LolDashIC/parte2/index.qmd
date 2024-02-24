@@ -1,9 +1,15 @@
-## Shiny Dashboard
+---
+title: Shiny Dashboard
+description: Nesta etapa, vamos montar os dashboards por meio do R-Shiny.
+---
+
+## Contexto
 
 Por meio do pacote Shiny, desenvolvi três visualizações distintas, cada uma dedicada às bases de dados previamente exploradas na página anterior. 
 
 O código inteiro deste Dashboard pode ser acessado no [Github](https://github.com/Peishino/I.C/blob/main/LOLDashBoard/app.R). Aqui, fornecerei explicações apenas sobre a primeira visualização das 3 que montei. Caso deseje examinar o código completo, sinta-se à vontade para visitar o repositório. Além disso, estou aberto a sugestões e feedback.
 
+O objetivo da minha primeira visualização "Player" é contar uma história do jogador, mostrando seu desempenho durante todas as temporadas. Essa ferramenta pode ser usada por um jogador qualquer para se basear nas métricas de um profissional e saber em quais aspectos ele deve melhorar para alcançar um melhor desempenho em suas partidas. Além disso, também pode ser útil para um time comparar jogadores e saber qual se encaixa melhor no perfil desejado para o time. 
 
 ## Carregando a base "Player" que tratamos:
 
@@ -57,7 +63,7 @@ Players_Inputs <- reactive({ # <4>
 
 2. É uma expressão reativa que observa mudanças no ambiente e, sempre que ocorrem, atualiza o input da seleção "Player" na interface gráfica.
 
-3. Observa eventos relacionados à seleção no input "Player".Sempre que o usuário seleciona um jogador a base é filtrada pelo nome do jogador, em seguida atualiza o input da seleção "Season" fazendo com que mostre somente as temporadas onde aquele jogador atuou.
+3. Observa eventos relacionados à seleção no input "Player". Sempre que o usuário seleciona um jogador a base é filtrada pelo nome do jogador, em seguida atualiza o input da seleção "Season" fazendo com que mostre somente as temporadas onde aquele jogador atuou.
 
 4. Por fim criamos outra base reativa, que irá interagir diretamente com os filtros feitos pelo usuário.
 
@@ -78,11 +84,11 @@ Média de Dano: Esta estatística revela a média de dano causado pelo jogador a
 ``` r
 # UI
 box(width = 12, status = "warning",solidHeader = T, # <1>
-              infoBoxOutput("Team", width = 3), # <1>
-              infoBoxOutput("KDA", width = 3), # <1>
-              infoBoxOutput("CreepScore", width = 3), # <1>
-              infoBoxOutput("Damage", width = 3) # <1>
-          ) # <1>
+    infoBoxOutput("Team", width = 3), # <1>
+    infoBoxOutput("KDA", width = 3), # <1>
+    infoBoxOutput("CreepScore", width = 3), # <1>
+    infoBoxOutput("Damage", width = 3) # <1>
+   ) # <1>
 
 # Server
 output$Team <- renderInfoBox({ # <2>
@@ -123,13 +129,64 @@ output$Damage <- renderInfoBox({ # <2>
 
 1. Configuramos a caixa com os mesmos parâmetros mencionados anteriormente. No entanto, agora estamos focando em gerar caixas de informação dentro dessa estrutura. Utilizando a função `infoboxOutput`, a declaramos com um tamanho de 3, já que teremos um total de 4 caixas, permitindo que ocupem todo o espaço disponível (12).
 
-2. Com o `output$Nome` selecionamos o output que quero trabalhar. A função `renderInfoBox` diz que quero renderizar uma caixa de informações. Em seguida, chamo a função `infoBox` para passar os parametros que conterá em cada caixa de informação que são o título, o valor, o ícone e a cor
+2. Com o `output$Nome` seleciono o output que quero trabalhar. A função `renderInfoBox` diz que quero renderizar uma caixa de informações. Em seguida, chamo a função `infoBox` para passar os parametros que conterá em cada caixa de informação que são respectivamente o título, o valor, o ícone e a cor.
 
+## Gráfico Vitórias e derrtas por temporada
 
+![](WLGrafico.png)
 
+Esse gráfico tem como objetivo informar a quantidade de vitórias e derrodas do jogador em temporadas jogadas pelo mesmo.
 
+``` r
+# UI
+box(width = 12, status = "warning", solidHeader = T,
+    plotlyOutput("Wr_Season")
+   )
+                 
+# Server
+output$Wr_Season <- renderPlotly({
+  df <- PlayersData()
+  df_filtered <- df %>% filter(player == input$Player)
+      
+  plot_ly(df_filtered, x = ~factor(season), y = ~wins, type = 'scatter', mode = 'lines+markers', name = 'Win', marker = list(color = 'green')) %>%
+    add_trace(y = ~loses, name = 'Lose', marker = list(color = 'red')) %>%
+    layout(title = "Vitórias e Derrotas por Temporada", xaxis = list(title = "Temporada"), yaxis = list(title = "Quantidade"))
+    })
+```
 
+## Gráfico Taxa de vitórias do jogador
 
+![](WRGrafico.png)
+``` r
+# UI
+box(width = 12, status = "warning",solidHeader = T,
+    plotlyOutput("WR_gauge")
+   )
+# Server
+output$WR_gauge <- renderPlotly({
+  df <- PlayersData()
+  df_filtered <- df %>% filter(player == input$Player)
+  valor <- sum(df_filtered$wins)/sum(df_filtered$games_played)*100
+      
+  plot_ly(
+    type = "indicator",
+    title = "Winrate do jogador",
+    mode = "gauge+number",
+    value = valor,
+    gauge = list(
+      axis = list(range = list(0, 100)),
+      bar = list(color = "#ff9933"),
+      steps = list(
+        list(range = c(0, 25), color = "#ffd9b3"),
+        list(range = c(25, 50), color = "#ffcc99"),
+        list(range = c(50, 75), color = "#ffbf80"),
+        list(range = c(75, 100), color = "#ffb366")
+      )
+    )
+  )
+})
+```
 
+## Gráfico Média de KDA pro temporada
 
-
+![](KDAGrafico.png)

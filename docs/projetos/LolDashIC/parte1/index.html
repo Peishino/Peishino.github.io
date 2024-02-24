@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
-
+<meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>Gabriel Moreira   DataScientist   - Pré-processamento dos dados</title>
+<meta name="description" content="Nesta etapa, vamos conhecer e tratar os dados usando algumas funcionalidades do R e o pacote Tidyverse.">
+<title>Gabriel Moreira  DataScientist   - Análise exploratória</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +20,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -56,7 +54,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
@@ -75,20 +72,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "Nenhum resultado",
     "search-matching-documents-text": "documentos correspondentes",
@@ -97,26 +87,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "mais correspondência neste documento",
     "search-more-matches-text": "mais correspondências neste documento",
     "search-clear-button-title": "Limpar",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancelar",
     "search-submit-button-title": "Enviar",
     "search-label": "Procurar"
   }
-}</script>
-
-
-<link rel="stylesheet" href="../../../styles.css">
+}</script><link rel="stylesheet" href="../../../styles.css">
 </head>
-
 <body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../../index.html">
-    <span class="navbar-title">Gabriel Moreira <br> <small> <em>DataScientist </em> </small></span>
+    <span class="navbar-title">Gabriel Moreira <br><small> <em>DataScientist </em> </small></span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Procurar"></div>
@@ -125,45 +108,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../../index.html"> 
-<span class="menu-text">Home</span></a>
+<li class="nav-item">
+    <a class="nav-link" href="../../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../About.html"> 
-<span class="menu-text">Sobre</span></a>
+    <a class="nav-link" href="../../../About.html" rel="" target="">
+ <span class="menu-text">Sobre</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../Projetos.html"> 
-<span class="menu-text">Projetos</span></a>
+    <a class="nav-link" href="../../../Projetos.html" rel="" target="">
+ <span class="menu-text">Projetos</span></a>
   </li>  
 </ul>
-          </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+<div class="quarto-navbar-tools ms-auto">
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
-    </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../projetos/LolDashIC/parte1/index.html">Prática</a></li><li class="breadcrumb-item"><a href="../../../projetos/LolDashIC/parte1/index.html">Pré-processamento dos dados</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../projetos/LolDashIC/parte1/index.html">Prática</a></li><li class="breadcrumb-item"><a href="../../../projetos/LolDashIC/parte1/index.html">Análise exploratória</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../projetos/LolDashIC/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Worlds Analisis</span></a>
+ <span class="menu-text">Análise dos mundias de League of Legends</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -174,11 +151,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../projetos/LolDashIC/parte1/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Pré-processamento dos dados</span></a>
+ <span class="menu-text">Análise exploratória</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -187,40 +164,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Shiny Dashboard</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../projetos/LolDashIC/parte3/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Shiny Dashboard (Server)</span></a>
-  </div>
-</li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Nesta página</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#pacotes" id="toc-pacotes" class="nav-link active" data-scroll-target="#pacotes">Pacotes</a></li>
-  <li><a href="#bases-de-dados" id="toc-bases-de-dados" class="nav-link" data-scroll-target="#bases-de-dados">Bases de dados</a></li>
-  <li><a href="#análise-exploratória" id="toc-análise-exploratória" class="nav-link" data-scroll-target="#análise-exploratória">Análise exploratória</a></li>
+<li><a href="#bases-de-dados" id="toc-bases-de-dados" class="nav-link active" data-scroll-target="#bases-de-dados">Bases de dados</a></li>
+  <li><a href="#an%C3%A1lise-explorat%C3%B3ria" id="toc-análise-exploratória" class="nav-link" data-scroll-target="#an%C3%A1lise-explorat%C3%B3ria">Análise exploratória</a></li>
   <li><a href="#tratamento-dos-dados" id="toc-tratamento-dos-dados" class="nav-link" data-scroll-target="#tratamento-dos-dados">Tratamento dos dados</a></li>
   <li><a href="#salvar-bases-tratadas" id="toc-salvar-bases-tratadas" class="nav-link" data-scroll-target="#salvar-bases-tratadas">Salvar bases tratadas</a></li>
-  </ul>
-</nav>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../projetos/LolDashIC/parte1/index.html">Prática</a></li><li class="breadcrumb-item"><a href="../../../projetos/LolDashIC/parte1/index.html">Pré-processamento dos dados</a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title">Pré-processamento dos dados</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Análise exploratória</h1>
 </div>
 
+<div>
+  <div class="description">
+    Nesta etapa, vamos conhecer e tratar os dados usando algumas funcionalidades do <a href="https://www.r-project.org/other-docs.html">R</a> e o pacote <a href="https://www.tidyverse.org/packages/">Tidyverse</a>.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -231,32 +200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-
-</header>
-
-
-<p>Nesta etapa, vamos manipular os dados usando algumas funcionalidades do R e seus pacotes.</p>
-<section id="pacotes" class="level2">
-<h2 class="anchored" data-anchor-id="pacotes">Pacotes</h2>
-<p><a href="https://www.tidyverse.org/packages/">Tidyverse</a>, fornece ferramentas para manipulação, visualização e análise de dados de maneira consistente e eficiente.</p>
-<p><a href="https://plotly.com/r/">Plotly</a>, para criação de gráficos interativos e visualizações de dados.</p>
-<p><a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html">Shiny</a>, para a criação de aplicativos web interativos, permitindo a construção de interfaces dinâmicas e reativas para análise de dados.</p>
-<p><a href="https://rstudio.github.io/shinydashboard/get_started.html">ShinyDashboard</a>, extensão do pacote Shiny que simplifica a criação de dashboards interativos.</p>
-<p>Para instalar e carregar essas bibliotecas, utilize o código abaixo:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>,<span class="st">"plotly"</span>,<span class="st">"shiny"</span>,<span class="st">"shinydashboard"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><em>Instalação</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinydashboard)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><em>Leitura</em></p>
-</section>
-<section id="bases-de-dados" class="level2">
-<h2 class="anchored" data-anchor-id="bases-de-dados">Bases de dados</h2>
+</header><section id="bases-de-dados" class="level2"><h2 class="anchored" data-anchor-id="bases-de-dados">Bases de dados</h2>
 <p>Como mencionado anteriormente os dados fundamentais para esta análise estão organizados em três arquivos CSV:</p>
 <ul>
 <li><p>champions_stats, que inclui estatísticas relacionadas aos personagens do jogo;</p></li>
@@ -264,17 +208,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>player_stats, que contém informações detalhadas sobre os jogadores.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Champions <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"champions_stats.csv"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Matchs <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"matchs_stats.csv"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Player <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"players_stats.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Champions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"champions_stats.csv"</span><span class="op">)</span></span>
+<span><span class="va">Matchs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"matchs_stats.csv"</span><span class="op">)</span></span>
+<span><span class="va">Player</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"players_stats.csv"</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Este trecho de código realiza a leitura dos arquivos CSV e os salva nas variáveis “Champions”, “Matchs” e “Player”.</em></p>
-</section>
-<section id="análise-exploratória" class="level2">
-<h2 class="anchored" data-anchor-id="análise-exploratória">Análise exploratória</h2>
+</section><section id="análise-exploratória" class="level2"><h2 class="anchored" data-anchor-id="análise-exploratória">Análise exploratória</h2>
 <p>Nessa etapa, nossa abordagem inicial visa compreender a estrutura das bases de dados disponíveis. Investigamos os tipos de variáveis, diferenciando entre quantitativas e qualitativas e examinamos a presença de dados faltantes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Champions)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">Champions</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="custom-code-output"><code>'data.frame':   1345 obs. of  24 variables:
  $ season                     : int  1 1 1 1 1 1 1 1 1 1 ...
@@ -303,27 +245,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ gold_share                 : num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 </div>
 </div>
-<p><em>A função str() fornece uma visão geral da estrutura do dataframe “Champions”. Ela exibe informações sobre as variáveis, seus tipos de dados e as primeiras observações dos dados.</em></p>
+<p><em>A função <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> fornece uma visão geral da estrutura do dataframe “Champions”. Ela exibe informações sobre as variáveis, seus tipos de dados e as primeiras observações dos dados.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Champions<span class="sc">$</span>season)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">Champions</span><span class="op">$</span><span class="va">season</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="custom-code-output"><code>
   1   2   3   4   5   6   7   8   9  10  11  12 
  46  59  69  61  74  57 146 157 174 158 160 184 </code></pre>
 </div>
 </div>
-<p><em>Aqui, estou utilizando table() para contar a ocorrência de valores únicos na coluna “season” do dataframe “Champions”. Isso é útil para entender a distribuição dos dados ao longo das temporadas.</em></p>
+<p><em>Aqui, estou utilizando <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> para contar a ocorrência de valores únicos na coluna “season” do dataframe “Champions”. Isso é útil para entender a distribuição dos dados ao longo das temporadas.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Champions<span class="sc">$</span>event)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">Champions</span><span class="op">$</span><span class="va">event</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="custom-code-output"><code>
    Main Play in 
     867     478 </code></pre>
 </div>
 </div>
-<p><em>Esta linha utiliza table() para contar as diferentes categorias na coluna “event” do dataframe “Champions”. Isso fornece uma visão sobre os tipos de eventos, distinguindo entre jogos classificatórios (“Play in”) e o torneio principal (“Main”).</em></p>
+<p><em>Esta linha utiliza <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> para contar as diferentes categorias na coluna “event” do dataframe “Champions”. Isso fornece uma visão sobre os tipos de eventos, distinguindo entre jogos classificatórios (“Play in”) e o torneio principal (“Main”).</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Champions<span class="sc">$</span>champion)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">Champions</span><span class="op">$</span><span class="va">champion</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="custom-code-output"><code>
       Aatrox         Ahri        Akali      Alistar        Amumu       Anivia 
@@ -382,9 +324,11 @@ Renata Glasc     Renekton       Rengar        Riven       Rumble         Ryze
            3 </code></pre>
 </div>
 </div>
-<p><em>Aqui, estou usando table() para contar as ocorrências de cada campeão na coluna “champion” do dataframe “Champions”. Isso ajuda a verificar se existem diferentes formas de nomeação para os mesmos campeões.</em></p>
+<p><em>Aqui, estou usando <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> para contar as ocorrências de cada campeão na coluna “champion” do dataframe “Champions”. Isso ajuda a verificar se existem diferentes formas de nomeação para os mesmos campeões.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Matchs)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># patch são atualizações mensais que fazem no jogo.</span></span>
+<span><span class="co"># os primeiros elementos da coluna patch, tem valores NA pois antigamente não faziam essas atualizações no jogo.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">Matchs</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="custom-code-output"><code>'data.frame':   1070 obs. of  37 variables:
  $ season           : int  1 1 1 1 1 1 1 1 1 1 ...
@@ -425,12 +369,12 @@ Renata Glasc     Renekton       Rengar        Riven       Rumble         Ryze
  $ adc_red_team     : chr  " Lamia" " YellOwStaR" " TheRainMan" " Chaox" ...
  $ support_red_team : chr  " Mellisan" " Kujaa" " Xpecial" " Xpecial" ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># patch são atualizações mensais que fazem no jogo.</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># os primeiros elementos da coluna patch, tem valores NA pois antigamente não faziam essas atualizações no jogo.</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><em>Esta linha novamente utiliza str() para dar uma visão geral da estrutura do dataframe “Matchs”, incluindo informações sobre variáveis e tipos de dados.</em></p>
+<p><em>Esta linha novamente utiliza <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> para dar uma visão geral da estrutura do dataframe “Matchs”, incluindo informações sobre variáveis e tipos de dados.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Matchs<span class="sc">$</span>blue_team)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># é importante ter atenção no nome dos times pois alguns trocaram de nome, mas represantam a mesma coisa;</span></span>
+<span><span class="co"># ex: SK_Telecom_T1 == T1, DWG_KIA == Dplus_KIA,  Gen_g == Gen_2e-G == KSV eSports e etc...</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">Matchs</span><span class="op">$</span><span class="va">blue_team</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="custom-code-output"><code>
                                  100_Thieves 
@@ -658,12 +602,10 @@ Lyon_Gaming__28-2013_Latin_American_Team_29-
                             Young_Generation 
                                            3 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># é importante ter atenção no nome dos times pois alguns trocaram de nome, mas represantam a mesma coisa;</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ex: SK_Telecom_T1 == T1, DWG_KIA == Dplus_KIA,  Gen_g == Gen_2e-G == KSV eSports e etc...</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Aqui, estou contando as ocorrências dos times presentes na coluna “blue_team” do dataframe “Matchs”. A observação sobre os nomes dos times é relevante para garantir consistência nos dados.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Player)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">Player</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="custom-code-output"><code>'data.frame':   1283 obs. of  21 variables:
  $ season                 : int  1 1 1 1 1 1 1 1 1 1 ...
@@ -689,9 +631,9 @@ Lyon_Gaming__28-2013_Latin_American_Team_29-
  $ gold_share             : num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 </div>
 </div>
-<p><em>Mais uma vez, str() é utilizado para fornecer informações sobre a estrutura do dataframe “Player”.</em></p>
+<p><em>Mais uma vez, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> é utilizado para fornecer informações sobre a estrutura do dataframe “Player”.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Player<span class="sc">$</span>player)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">Player</span><span class="op">$</span><span class="va">player</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="custom-code-output"><code>
          007x           369            3Z          4LaN           957 
@@ -970,77 +912,75 @@ Lyon_Gaming__28-2013_Latin_American_Team_29-
 </div>
 <p><em>Esta linha conta as ocorrências de cada jogador na coluna “player” do dataframe “Player”. A observação sobre a consistência dos nomes dos jogadores é importante para evitar ambiguidades.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Player<span class="sc">$</span>teste <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Player<span class="sc">$</span>wins <span class="sc">+</span> Player<span class="sc">$</span>loses <span class="sc">==</span> Player<span class="sc">$</span>games_played,<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Player</span><span class="op">$</span><span class="va">teste</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">Player</span><span class="op">$</span><span class="va">wins</span> <span class="op">+</span> <span class="va">Player</span><span class="op">$</span><span class="va">loses</span> <span class="op">==</span> <span class="va">Player</span><span class="op">$</span><span class="va">games_played</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Aqui, estou criando uma nova variável chamada “teste” que indica se a soma de vitórias e derrotas de um jogador é igual ao número total de jogos jogados. Essa linha serve como uma verificação de consistência nos dados.</em></p>
-</section>
-<section id="tratamento-dos-dados" class="level2">
-<h2 class="anchored" data-anchor-id="tratamento-dos-dados">Tratamento dos dados</h2>
+</section><section id="tratamento-dos-dados" class="level2"><h2 class="anchored" data-anchor-id="tratamento-dos-dados">Tratamento dos dados</h2>
 <p>Nesta etapa, focamos na correção de inconsistências, valores faltantes e outliers que possam prejudicar a qualidade das análises. O objetivo é preparar os dados de forma confiável e robusta, otimizando a qualidade para análises posteriores.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Matchs <span class="ot">&lt;-</span> Matchs <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">blue_team =</span> <span class="fu">case_when</span>(</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>      blue_team <span class="sc">==</span> <span class="st">"SK_Telecom_T1"</span> <span class="sc">~</span> <span class="st">"T1"</span>,</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>      blue_team <span class="sc">==</span> <span class="st">"Gen_2e-G"</span> <span class="sc">~</span> <span class="st">"Gen_g"</span>,</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>      blue_team <span class="sc">==</span> <span class="st">"DWG_KIA"</span> <span class="sc">~</span> <span class="st">"Dplus_KIA"</span>,</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> blue_team</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">red_team =</span> <span class="fu">case_when</span>(</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>      red_team <span class="sc">==</span> <span class="st">"SK_Telecom_T1"</span> <span class="sc">~</span> <span class="st">"T1"</span>,</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>      red_team <span class="sc">==</span> <span class="st">"Gen_2e-G"</span> <span class="sc">~</span> <span class="st">"Gen_g"</span>,</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>      red_team <span class="sc">==</span> <span class="st">"DWG_KIA"</span> <span class="sc">~</span> <span class="st">"Dplus_KIA"</span>,</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> red_team</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">winner =</span> <span class="fu">case_when</span>(</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>      winner <span class="sc">==</span> <span class="st">"SK_Telecom_T1"</span> <span class="sc">~</span> <span class="st">"T1"</span>,</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>      winner <span class="sc">==</span> <span class="st">"Gen_2e-G"</span> <span class="sc">~</span> <span class="st">"Gen_g"</span>,</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>      winner <span class="sc">==</span> <span class="st">"DWG_KIA"</span> <span class="sc">~</span> <span class="st">"Dplus_KIA"</span>,</span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> winner</span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>Player <span class="ot">&lt;-</span> Player <span class="sc">%&gt;%</span></span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">team =</span> <span class="fu">case_when</span>(</span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>      team <span class="sc">==</span> <span class="st">"SK_Telecom_T1"</span> <span class="sc">~</span> <span class="st">"T1"</span>,</span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>      team <span class="sc">==</span> <span class="st">"Gen_2e-G"</span> <span class="sc">~</span> <span class="st">"Gen_g"</span>,</span>
-<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>      team <span class="sc">==</span> <span class="st">"DWG_KIA"</span> <span class="sc">~</span> <span class="st">"Dplus_KIA"</span>,</span>
-<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> team</span>
-<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Matchs</span> <span class="op">&lt;-</span> <span class="va">Matchs</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    blue_team <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>      <span class="va">blue_team</span> <span class="op">==</span> <span class="st">"SK_Telecom_T1"</span> <span class="op">~</span> <span class="st">"T1"</span>,</span>
+<span>      <span class="va">blue_team</span> <span class="op">==</span> <span class="st">"Gen_2e-G"</span> <span class="op">~</span> <span class="st">"Gen_g"</span>,</span>
+<span>      <span class="va">blue_team</span> <span class="op">==</span> <span class="st">"DWG_KIA"</span> <span class="op">~</span> <span class="st">"Dplus_KIA"</span>,</span>
+<span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">blue_team</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    red_team <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>      <span class="va">red_team</span> <span class="op">==</span> <span class="st">"SK_Telecom_T1"</span> <span class="op">~</span> <span class="st">"T1"</span>,</span>
+<span>      <span class="va">red_team</span> <span class="op">==</span> <span class="st">"Gen_2e-G"</span> <span class="op">~</span> <span class="st">"Gen_g"</span>,</span>
+<span>      <span class="va">red_team</span> <span class="op">==</span> <span class="st">"DWG_KIA"</span> <span class="op">~</span> <span class="st">"Dplus_KIA"</span>,</span>
+<span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">red_team</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    winner <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>      <span class="va">winner</span> <span class="op">==</span> <span class="st">"SK_Telecom_T1"</span> <span class="op">~</span> <span class="st">"T1"</span>,</span>
+<span>      <span class="va">winner</span> <span class="op">==</span> <span class="st">"Gen_2e-G"</span> <span class="op">~</span> <span class="st">"Gen_g"</span>,</span>
+<span>      <span class="va">winner</span> <span class="op">==</span> <span class="st">"DWG_KIA"</span> <span class="op">~</span> <span class="st">"Dplus_KIA"</span>,</span>
+<span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">winner</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">Player</span> <span class="op">&lt;-</span> <span class="va">Player</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    team <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>      <span class="va">team</span> <span class="op">==</span> <span class="st">"SK_Telecom_T1"</span> <span class="op">~</span> <span class="st">"T1"</span>,</span>
+<span>      <span class="va">team</span> <span class="op">==</span> <span class="st">"Gen_2e-G"</span> <span class="op">~</span> <span class="st">"Gen_g"</span>,</span>
+<span>      <span class="va">team</span> <span class="op">==</span> <span class="st">"DWG_KIA"</span> <span class="op">~</span> <span class="st">"Dplus_KIA"</span>,</span>
+<span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">team</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><em>Como discutido anteriormente, alguns times podem alterar seus nomes ao longo das temporadas. Para padronizar a nomenclatura desses times, implementamos essas substituições. O uso da função case_when oferece uma abordagem mais eficiente e legível, eliminando a necessidade de múltiplas instruções ifelse e simplificando o processo de substituição de forma prática.</em></p>
+<p><em>Como discutido anteriormente, alguns times podem alterar seus nomes ao longo das temporadas. Para padronizar a nomenclatura desses times, implementei essas substituições. O uso da função <code>case_when()</code> oferece uma abordagem mais eficiente e legível, eliminando a necessidade de múltiplas instruções ifelse e simplificando o processo de substituição de forma prática.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Champions <span class="ot">&lt;-</span> Champions <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">banned_games =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(banned_games), <span class="dv">0</span>, banned_games),</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">played_games =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(played_games), <span class="dv">0</span>, played_games),</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">played_by_number_of_players =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(played_by_number_of_players), <span class="dv">0</span>, played_by_number_of_players),</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">damage =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(damage), <span class="dv">0</span>, damage),</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">damage.min =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(damage.min), <span class="dv">0</span>, damage.min),</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">kill_participation =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(kill_participation), <span class="dv">0</span>, kill_participation),</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">kill_share =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(kill_share), <span class="dv">0</span>, kill_share),</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">gold_share =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(gold_share), <span class="dv">0</span>, gold_share)</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>Player <span class="ot">&lt;-</span> Player <span class="sc">%&gt;%</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">damage =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(damage), <span class="dv">0</span>, damage),</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">damage.min =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(damage.min), <span class="dv">0</span>, damage.min),</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">kill_participation =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(kill_participation), <span class="dv">0</span>, kill_participation),</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">kill_share =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(kill_share), <span class="dv">0</span>, kill_share),</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">gold_share =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(gold_share), <span class="dv">0</span>, gold_share)</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Champions</span> <span class="op">&lt;-</span> <span class="va">Champions</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    banned_games <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">banned_games</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">banned_games</span><span class="op">)</span>,</span>
+<span>    played_games <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">played_games</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">played_games</span><span class="op">)</span>,</span>
+<span>    played_by_number_of_players <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">played_by_number_of_players</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">played_by_number_of_players</span><span class="op">)</span>,</span>
+<span>    damage <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">damage</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">damage</span><span class="op">)</span>,</span>
+<span>    damage.min <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">damage.min</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">damage.min</span><span class="op">)</span>,</span>
+<span>    kill_participation <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">kill_participation</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">kill_participation</span><span class="op">)</span>,</span>
+<span>    kill_share <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">kill_share</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">kill_share</span><span class="op">)</span>,</span>
+<span>    gold_share <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">gold_share</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">gold_share</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">Player</span> <span class="op">&lt;-</span> <span class="va">Player</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    damage <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">damage</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">damage</span><span class="op">)</span>,</span>
+<span>    damage.min <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">damage.min</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">damage.min</span><span class="op">)</span>,</span>
+<span>    kill_participation <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">kill_participation</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">kill_participation</span><span class="op">)</span>,</span>
+<span>    kill_share <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">kill_share</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">kill_share</span><span class="op">)</span>,</span>
+<span>    gold_share <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">gold_share</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">gold_share</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Nesse código, tratamos os valores ausentes, identificados anteriormente, atribuindo a eles o valor zero. Essa abordagem se mostrou adequada para a essa análise específica. Entretanto, é importante se manter a atento e examinar cuidadosamente a natureza da variável antes de aplicar tal tratamento. Algumas pessoas optam por simplesmente remover os valores ausentes, mas é importante reconhecer que essa abordagem pode resultar na perda de informações valiosas para a análise em questão.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ChampsRotas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Champs =</span> <span class="fu">unique</span>(Champions<span class="sc">$</span>champion))</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>ChampsRotas<span class="sc">$</span>Rota <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"adc"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>, <span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"adc"</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>Champions<span class="sc">$</span>lane <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Champions<span class="sc">$</span>champion <span class="sc">%in%</span> ChampsRotas<span class="sc">$</span>Champs, ChampsRotas<span class="sc">$</span>Rota[<span class="fu">match</span>(Champions<span class="sc">$</span>champion, ChampsRotas<span class="sc">$</span>Champs)], <span class="cn">NA</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ChampsRotas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Champs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">Champions</span><span class="op">$</span><span class="va">champion</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ChampsRotas</span><span class="op">$</span><span class="va">Rota</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"adc"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>, <span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"jg"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"mid"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"adc"</span>,<span class="st">"top"</span>,<span class="st">"mid"</span>,<span class="st">"sup"</span>,<span class="st">"top"</span>,<span class="st">"sup"</span>,<span class="st">"jg"</span>,<span class="st">"mid"</span>,<span class="st">"jg"</span>,<span class="st">"sup"</span>,<span class="st">"adc"</span>,<span class="st">"adc"</span><span class="op">)</span></span>
+<span><span class="va">Champions</span><span class="op">$</span><span class="va">lane</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">Champions</span><span class="op">$</span><span class="va">champion</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">ChampsRotas</span><span class="op">$</span><span class="va">Champs</span>, <span class="va">ChampsRotas</span><span class="op">$</span><span class="va">Rota</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">Champions</span><span class="op">$</span><span class="va">champion</span>, <span class="va">ChampsRotas</span><span class="op">$</span><span class="va">Champs</span><span class="op">)</span><span class="op">]</span>, <span class="cn">NA</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Senti falta de uma coluna com as rotas dos personagens, então resolvi criá-la por conta própria. Levei em consideração que um mesmo personagem pode atuar em diferentes rotas, e optei por considerar as rotas “principais” de cada personagem.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Matchs)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">Matchs</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="custom-code-output"><code>  season       date event patch             blue_team              red_team
 1      1 2011-06-20  Main    NA Against_All_authority                Fnatic
@@ -1099,7 +1039,7 @@ Lyon_Gaming__28-2013_Latin_American_Team_29-
 5         Dan Dinh        Salce        Dyrus       Doublelift
 6            Linak         sOAZ   YellOwStaR            Kujaa</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Player)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">Player</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="custom-code-output"><code>  season event                  team     player games_played wins loses
 1      1  Main Against_All_authority      Kujaa           12    7     5
@@ -1123,7 +1063,7 @@ Lyon_Gaming__28-2013_Latin_American_Team_29-
 5      333      0          0                  0          0          0     0
 6      275      0          0                  0          0          0     0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Champions)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">Champions</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="custom-code-output"><code>  season event     champion games_contests pick_ban_ratio banned_games
 1      1  Main         Nunu             27           96.4            9
@@ -1155,21 +1095,16 @@ Lyon_Gaming__28-2013_Latin_American_Team_29-
 6          0                  0          0          0  mid</code></pre>
 </div>
 </div>
-</section>
-<section id="salvar-bases-tratadas" class="level2">
-<h2 class="anchored" data-anchor-id="salvar-bases-tratadas">Salvar bases tratadas</h2>
+</section><section id="salvar-bases-tratadas" class="level2"><h2 class="anchored" data-anchor-id="salvar-bases-tratadas">Salvar bases tratadas</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(Matchs, <span class="at">file =</span> <span class="st">"Matchs.RData"</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(Player, <span class="at">file =</span> <span class="st">"Player.RData"</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(Champions, <span class="at">file =</span> <span class="st">"Champions.RData"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">Matchs</span>, file <span class="op">=</span> <span class="st">"Matchs.RData"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">Player</span>, file <span class="op">=</span> <span class="st">"Player.RData"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">Champions</span>, file <span class="op">=</span> <span class="st">"Champions.RData"</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Salvando as 3 bases em arquivos .RData, para trabalharmos com elas no dashboard.</em></p>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1248,9 +1183,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1260,17 +1196,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1283,125 +1210,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1445,7 +1253,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1471,32 +1278,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1555,21 +1336,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../../../projetos/LolDashIC/index.html" class="pagination-link  aria-label=" worlds="" analisis"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Worlds Analisis</span>
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../../../projetos/LolDashIC/index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Análise dos mundias de League of Legends</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../projetos/LolDashIC/parte2/index.html" class="pagination-link" aria-label="Shiny Dashboard">
+      <a href="../../../projetos/LolDashIC/parte2/index.html" class="pagination-link">
         <span class="nav-page-text">Shiny Dashboard</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-
 
 
 
