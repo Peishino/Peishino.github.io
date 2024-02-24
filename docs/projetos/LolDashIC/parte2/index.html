@@ -64,7 +64,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../projetos/LolDashIC/parte3/index.html" rel="next">
 <link href="../../../projetos/LolDashIC/parte1/index.html" rel="prev">
 <link href="../../../iconfav.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
@@ -187,12 +186,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Shiny Dashboard</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../projetos/LolDashIC/parte3/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Shiny Dashboard (Server)</span></a>
-  </div>
-</li>
       </ul>
   </li>
     </ul>
@@ -307,6 +300,59 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Média de KDA (Kill, Deaths, Assists): Essa métrica é uma representação da participação do jogador em cada partida. Calculada pela fórmula ((K+A)/D), onde K representa eliminações, D representa mortes e A representa assistências.</p>
 <p>Média de Minions por Minuto: Ela indica quantas tropas o jogador consegue abater, em média, a cada minuto de jogo, refletindo sua habilidade em acumular recursos e ganhar vantagem econômica.</p>
 <p>Média de Dano: Esta estatística revela a média de dano causado pelo jogador ao longo de todas as partidas do campeonato na temporada em questão.</p>
+<div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># UI</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-3-2" class="code-annotation-target"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>, <span class="at">status =</span> <span class="st">"warning"</span>,<span class="at">solidHeader =</span> T,</span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">infoBoxOutput</span>(<span class="st">"Team"</span>, <span class="at">width =</span> <span class="dv">3</span>),</span>
+<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">infoBoxOutput</span>(<span class="st">"KDA"</span>, <span class="at">width =</span> <span class="dv">3</span>),</span>
+<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a>              <span class="fu">infoBoxOutput</span>(<span class="st">"CreepScore"</span>, <span class="at">width =</span> <span class="dv">3</span>),</span>
+<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">infoBoxOutput</span>(<span class="st">"Damage"</span>, <span class="at">width =</span> <span class="dv">3</span>)</span>
+<span id="annotated-cell-3-7"><a href="#annotated-cell-3-7" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="annotated-cell-3-8"><a href="#annotated-cell-3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-9"><a href="#annotated-cell-3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Server</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-3-10" class="code-annotation-target"><a href="#annotated-cell-3-10" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>Team <span class="ot">&lt;-</span> <span class="fu">renderInfoBox</span>({</span>
+<span id="annotated-cell-3-11"><a href="#annotated-cell-3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">infoBox</span>(</span>
+<span id="annotated-cell-3-12"><a href="#annotated-cell-3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Time"</span>,</span>
+<span id="annotated-cell-3-13"><a href="#annotated-cell-3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">Players_Inputs</span>()<span class="sc">$</span>team,</span>
+<span id="annotated-cell-3-14"><a href="#annotated-cell-3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">"headset"</span>),</span>
+<span id="annotated-cell-3-15"><a href="#annotated-cell-3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"yellow"</span></span>
+<span id="annotated-cell-3-16"><a href="#annotated-cell-3-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="annotated-cell-3-17"><a href="#annotated-cell-3-17" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="annotated-cell-3-18"><a href="#annotated-cell-3-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="annotated-cell-3-19"><a href="#annotated-cell-3-19" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>KDA <span class="ot">&lt;-</span> <span class="fu">renderInfoBox</span>({</span>
+<span id="annotated-cell-3-20"><a href="#annotated-cell-3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">infoBox</span>(</span>
+<span id="annotated-cell-3-21"><a href="#annotated-cell-3-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Média de KDA"</span>,</span>
+<span id="annotated-cell-3-22"><a href="#annotated-cell-3-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">mean</span>(<span class="fu">Players_Inputs</span>()<span class="sc">$</span>kill_death_assist_ratio),</span>
+<span id="annotated-cell-3-23"><a href="#annotated-cell-3-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">"hand-fist"</span>),</span>
+<span id="annotated-cell-3-24"><a href="#annotated-cell-3-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"yellow"</span></span>
+<span id="annotated-cell-3-25"><a href="#annotated-cell-3-25" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="annotated-cell-3-26"><a href="#annotated-cell-3-26" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="annotated-cell-3-27"><a href="#annotated-cell-3-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="annotated-cell-3-28"><a href="#annotated-cell-3-28" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>CreepScore <span class="ot">&lt;-</span> <span class="fu">renderInfoBox</span>({</span>
+<span id="annotated-cell-3-29"><a href="#annotated-cell-3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">infoBox</span>(</span>
+<span id="annotated-cell-3-30"><a href="#annotated-cell-3-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Média de Minions por minuto"</span>,</span>
+<span id="annotated-cell-3-31"><a href="#annotated-cell-3-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">mean</span>(<span class="fu">Players_Inputs</span>()<span class="sc">$</span>cs.min),</span>
+<span id="annotated-cell-3-32"><a href="#annotated-cell-3-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">"chess-pawn"</span>),</span>
+<span id="annotated-cell-3-33"><a href="#annotated-cell-3-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"yellow"</span></span>
+<span id="annotated-cell-3-34"><a href="#annotated-cell-3-34" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="annotated-cell-3-35"><a href="#annotated-cell-3-35" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="annotated-cell-3-36"><a href="#annotated-cell-3-36" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>Damage <span class="ot">&lt;-</span> <span class="fu">renderInfoBox</span>({</span>
+<span id="annotated-cell-3-37"><a href="#annotated-cell-3-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">infoBox</span>(</span>
+<span id="annotated-cell-3-38"><a href="#annotated-cell-3-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Média de Dano"</span>,</span>
+<span id="annotated-cell-3-39"><a href="#annotated-cell-3-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">mean</span>(<span class="fu">Players_Inputs</span>()<span class="sc">$</span>damage),</span>
+<span id="annotated-cell-3-40"><a href="#annotated-cell-3-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">"wand-sparkles"</span>),</span>
+<span id="annotated-cell-3-41"><a href="#annotated-cell-3-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"yellow"</span></span>
+<span id="annotated-cell-3-42"><a href="#annotated-cell-3-42" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="annotated-cell-3-43"><a href="#annotated-cell-3-43" aria-hidden="true" tabindex="-1"></a>})</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="2,3,4,5,6,7" data-code-annotation="1">Configuramos a caixa com os mesmos parâmetros mencionados anteriormente. No entanto, agora estamos focando em gerar caixas de informação dentro dessa estrutura. Utilizando a função <code>infoboxOutput</code>, a declaramos com um tamanho de 3, já que teremos um total de 4 caixas, permitindo que ocupem todo o espaço disponível (12).</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="10,11,12,13,14,15,16,17,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43" data-code-annotation="2">Com o <code>output$Nome</code> selecionamos o output que quero trabalhar. A função <code>renderInfoBox</code> diz que quero renderizar uma caixa de informações. Em seguida, chamo a função <code>infoBox</code> para passar os parametros que conterá em cada caixa de informação que são o título, o valor, o ícone e a cor</span>
+</dd>
+</dl>
 
 
 </section>
@@ -706,9 +752,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../projetos/LolDashIC/parte3/index.html" class="pagination-link" aria-label="Shiny Dashboard (Server)">
-        <span class="nav-page-text">Shiny Dashboard (Server)</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
