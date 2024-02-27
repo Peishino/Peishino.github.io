@@ -9,7 +9,7 @@ date: "01/23/2024"
 
 ## Explicação do projeto
 
-O objetivo deste projeto é criar um dashboard interativo e informativo dedicado aos campeonatos mundiais de League of Legends. A ferramenta será desenvolvida utilizando a linguagem de programação [R](https://www.r-project.org/other-docs.html) e alguns pacotes para todo estruturamento das bases de dados e a construção do dashboard interativo.
+O objetivo deste projeto é criar um dashboard interativo e informativo dedicado aos campeonatos mundiais de League of Legends. A ferramenta será desenvolvida utilizando a linguagem de programação [R](https://www.r-project.org/other-docs.html) e alguns pacotes para o estruturamento das bases de dados e a construção do dashboard interativo.
 
 ## Pacotes
 

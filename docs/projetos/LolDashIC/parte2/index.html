@@ -247,22 +247,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="1,2" data-code-cell="annotated-cell-1" data-code-annotation="1">Carrega dados previamente salvos em arquivo do tipo “.RData”.</span>
+<span data-code-lines="1,2" data-code-annotation="1" data-code-cell="annotated-cell-1">Carrega dados previamente salvos em arquivo do tipo “.RData”.</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="4,5,6,7,8,9" data-code-cell="annotated-cell-1" data-code-annotation="2">Chama essa base de forma reativa, ou seja, algo que é recalculado automaticamente quando as dependências mudam (é muito útil nesse caso onde a base muda toda vez que um filtro é realizado). Aproveitei para filtrar o evento como “Main” que seriam os jogos principais do campeonato.</span>
+<span data-code-lines="4,5,6,7,8,9" data-code-annotation="2" data-code-cell="annotated-cell-1">Chama essa base de forma reativa, ou seja, algo que é recalculado automaticamente quando as dependências mudam (é muito útil nesse caso onde a base muda toda vez que um filtro é realizado). Aproveitei para filtrar o evento como “Main” que seriam os jogos principais do campeonato.</span>
 </dd>
 </dl>
 </section>
 <section id="filtros-reações-aos-filtros" class="level2">
 <h2 class="anchored" data-anchor-id="filtros-reações-aos-filtros">Filtros &amp; Reações aos filtros</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Filtros.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Filtros</figcaption>
-</figure>
-</div>
+<p><img src="Filtros.png" class="img-fluid"></p>
 <p>Esses são os dois filtros que iremos utilizar nesse dashboard.</p>
 <p>Um para os jogadores, contendo os nomes de todos os jogadores que participaram de pelo menos um mundial.</p>
 <p>Outro para as temporadas, contendo as temporadas na qual aquele jogador participou.</p>
@@ -288,19 +283,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2,3,4" data-code-cell="annotated-cell-2" data-code-annotation="1">Criamos uma caixa com os parâmetros <code>width</code>, <code>status</code> e <code>solidHeader</code>, os quais são utilizados para personalizar a aparência dessa caixa específica. O parâmetro <code>width</code> foi definido como 12 (máximo), garantindo que a caixa ocupe toda a largura da coluna em que está inserida. O parâmetro <code>status</code> foi configurado como “warning”, dando à caixa uma coloração laranja no fundo. Já o <code>solidHeader</code> foi ajustado para verdadeiro (T), proporcionando um contorno laranja ao redor de toda a caixa. Em seguida, por meio da função <code>selectInput</code>, implementamos dois filtros (inputs) que estarão contidos dentro dessa caixa personalizada.</span>
+<span data-code-lines="2,3,4" data-code-annotation="1" data-code-cell="annotated-cell-2">Criamos uma caixa com os parâmetros <code>width</code>, <code>status</code> e <code>solidHeader</code>, os quais são utilizados para personalizar a aparência dessa caixa específica. O parâmetro <code>width</code> foi definido como 12 (máximo), garantindo que a caixa ocupe toda a largura da coluna em que está inserida. O parâmetro <code>status</code> foi configurado como “warning”, dando à caixa uma coloração laranja no fundo. Já o <code>solidHeader</code> foi ajustado para verdadeiro (T), proporcionando um contorno laranja ao redor de toda a caixa. Em seguida, por meio da função <code>selectInput</code>, implementamos dois filtros (inputs) que estarão contidos dentro dessa caixa personalizada.</span>
 </dd>
 <dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="7,8,9" data-code-cell="annotated-cell-2" data-code-annotation="2">É uma expressão reativa que observa mudanças no ambiente e, sempre que ocorrem, atualiza o input da seleção “Player” na interface gráfica.</span>
+<span data-code-lines="7,8,9" data-code-annotation="2" data-code-cell="annotated-cell-2">É uma expressão reativa que observa mudanças no ambiente e, sempre que ocorrem, atualiza o input da seleção “Player” na interface gráfica.</span>
 </dd>
 <dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="11,12,13,14" data-code-cell="annotated-cell-2" data-code-annotation="3">Observa eventos relacionados à seleção no input “Player”. Sempre que o usuário seleciona um jogador a base é filtrada pelo nome do jogador, em seguida atualiza o input da seleção “Season” fazendo com que mostre somente as temporadas onde aquele jogador atuou.</span>
+<span data-code-lines="11,12,13,14" data-code-annotation="3" data-code-cell="annotated-cell-2">Observa eventos relacionados à seleção no input “Player”. Sempre que o usuário seleciona um jogador a base é filtrada pelo nome do jogador, em seguida atualiza o input da seleção “Season” fazendo com que mostre somente as temporadas onde aquele jogador atuou.</span>
 </dd>
 <dt data-target-cell="annotated-cell-2" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-lines="16,17,18,19" data-code-cell="annotated-cell-2" data-code-annotation="4">Por fim criamos outra base reativa, que irá interagir diretamente com os filtros feitos pelo usuário.</span>
+<span data-code-lines="16,17,18,19" data-code-annotation="4" data-code-cell="annotated-cell-2">Por fim criamos outra base reativa, que irá interagir diretamente com os filtros feitos pelo usuário.</span>
 </dd>
 </dl>
 </section>
@@ -363,67 +358,94 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2,3,4,5,6,7" data-code-cell="annotated-cell-3" data-code-annotation="1">Configuramos a caixa com os mesmos parâmetros mencionados anteriormente. No entanto, agora estamos focando em gerar caixas de informação dentro dessa estrutura. Utilizando a função <code>infoboxOutput</code>, a declaramos com um tamanho de 3, já que teremos um total de 4 caixas, permitindo que ocupem todo o espaço disponível (12).</span>
+<span data-code-lines="2,3,4,5,6,7" data-code-annotation="1" data-code-cell="annotated-cell-3">Configuramos a caixa com os mesmos parâmetros mencionados anteriormente. No entanto, agora estamos focando em gerar caixas de informação dentro dessa estrutura. Utilizando a função <code>infoboxOutput</code>, a declaramos com um tamanho de 3, já que teremos um total de 4 caixas, permitindo que ocupem todo o espaço disponível (12).</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="10,11,12,13,14,15,16,17,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43" data-code-cell="annotated-cell-3" data-code-annotation="2">Com o <code>output$Nome</code> seleciono o output que quero trabalhar. A função <code>renderInfoBox</code> diz que quero renderizar uma caixa de informações. Em seguida, chamo a função <code>infoBox</code> para passar os parametros que conterá em cada caixa de informação que são respectivamente o título, o valor, o ícone e a cor.</span>
+<span data-code-lines="10,11,12,13,14,15,16,17,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43" data-code-annotation="2" data-code-cell="annotated-cell-3">Com o <code>output$Nome</code> seleciono o output que quero trabalhar. A função <code>renderInfoBox</code> diz que quero renderizar uma caixa de informações. Em seguida, chamo a função <code>infoBox</code> para passar os parametros que conterá em cada caixa de informação que são respectivamente o título, o valor, o ícone e a cor.</span>
 </dd>
 </dl>
 </section>
 <section id="gráfico-vitórias-e-derrtas-por-temporada" class="level2">
 <h2 class="anchored" data-anchor-id="gráfico-vitórias-e-derrtas-por-temporada">Gráfico Vitórias e derrtas por temporada</h2>
 <p><img src="WLGrafico.png" class="img-fluid"></p>
-<p>Esse gráfico tem como objetivo informar a quantidade de vitórias e derrodas do jogador em temporadas jogadas pelo mesmo.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># UI</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>, <span class="at">status =</span> <span class="st">"warning"</span>, <span class="at">solidHeader =</span> T,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plotlyOutput</span>(<span class="st">"Wr_Season"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>   )</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                 </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Server</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>Wr_Season <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">PlayersData</span>()</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  df_filtered <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(player <span class="sc">==</span> input<span class="sc">$</span>Player)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_ly</span>(df_filtered, <span class="at">x =</span> <span class="sc">~</span><span class="fu">factor</span>(season), <span class="at">y =</span> <span class="sc">~</span>wins, <span class="at">type =</span> <span class="st">'scatter'</span>, <span class="at">mode =</span> <span class="st">'lines+markers'</span>, <span class="at">name =</span> <span class="st">'Win'</span>, <span class="at">marker =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">'green'</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_trace</span>(<span class="at">y =</span> <span class="sc">~</span>loses, <span class="at">name =</span> <span class="st">'Lose'</span>, <span class="at">marker =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">'red'</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layout</span>(<span class="at">title =</span> <span class="st">"Vitórias e Derrotas por Temporada"</span>, <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Temporada"</span>), <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Quantidade"</span>))</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    })</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Esse gráfico tem como objetivo informar a quantidade de vitórias e derrotas do jogador em temporadas jogadas pelo mesmo.</p>
+<div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># UI </span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-4-2" class="code-annotation-target"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>, <span class="at">status =</span> <span class="st">"warning"</span>, <span class="at">solidHeader =</span> T,</span>
+<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plotlyOutput</span>(<span class="st">"WL_Season"</span>)</span>
+<span id="annotated-cell-4-4"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>   )</span>
+<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a>                 </span>
+<span id="annotated-cell-4-6"><a href="#annotated-cell-4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Server</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-4-7" class="code-annotation-target"><a href="#annotated-cell-4-7" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>WL_Season <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({</span>
+<span id="annotated-cell-4-8"><a href="#annotated-cell-4-8" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">PlayersData</span>()</span>
+<span id="annotated-cell-4-9"><a href="#annotated-cell-4-9" aria-hidden="true" tabindex="-1"></a>  df_filtered <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(player <span class="sc">==</span> input<span class="sc">$</span>Player)</span>
+<span id="annotated-cell-4-10"><a href="#annotated-cell-4-10" aria-hidden="true" tabindex="-1"></a>      </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-4-11" class="code-annotation-target"><a href="#annotated-cell-4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_ly</span>(df_filtered, <span class="at">x =</span> <span class="sc">~</span><span class="fu">factor</span>(season), <span class="at">y =</span> <span class="sc">~</span>wins, <span class="at">type =</span> <span class="st">'scatter'</span>, <span class="at">mode =</span> <span class="st">'lines+markers'</span>, <span class="at">name =</span> <span class="st">'Win'</span>, <span class="at">marker =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">'green'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="annotated-cell-4-12"><a href="#annotated-cell-4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_trace</span>(<span class="at">y =</span> <span class="sc">~</span>loses, <span class="at">name =</span> <span class="st">'Lose'</span>, <span class="at">marker =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">'red'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="annotated-cell-4-13"><a href="#annotated-cell-4-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layout</span>(<span class="at">title =</span> <span class="st">"Vitórias e Derrotas por Temporada"</span>, <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Temporada"</span>), <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Quantidade"</span>))</span>
+<span id="annotated-cell-4-14"><a href="#annotated-cell-4-14" aria-hidden="true" tabindex="-1"></a>    })</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-lines="2,3,4" data-code-annotation="1" data-code-cell="annotated-cell-4">Mesmo padrão de caixa, porém agora dentro dela quero criar um gráfico. Usei a função <code>plotlyOutput("WL_Season")</code> por se tratar de um gráfico com o plotly, se fosse um gráfico qualquer usaria a função <code>plotOutput()</code>. Passei como parametro o nome “WL_Season”, para ficar um nome com sentido ao que estou querendo mostrar, mas poderia ser qualquer nome.</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-lines="7,8,9" data-code-annotation="2" data-code-cell="annotated-cell-4">Nessa parte eu renderizo o gráfico, mas antes de começar a trabalhar nele, como eu queria que o gráfico mostrasse toda a informação do jogador sem segregar por temporada tive que chamar a base reativa <code>PlayersData()</code>, criada anteriormente, e realizar o filtro separadamente, salvando em uma variavel “df_filtered”.</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-lines="11,12,13,14" data-code-annotation="3" data-code-cell="annotated-cell-4">Agora sim, crio o gráfico normalmente, como no R.</span>
+</dd>
+</dl>
 </section>
 <section id="gráfico-taxa-de-vitórias-do-jogador" class="level2">
 <h2 class="anchored" data-anchor-id="gráfico-taxa-de-vitórias-do-jogador">Gráfico Taxa de vitórias do jogador</h2>
 <p><img src="WRGrafico.png" class="img-fluid"></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># UI</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>, <span class="at">status =</span> <span class="st">"warning"</span>,<span class="at">solidHeader =</span> T,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plotlyOutput</span>(<span class="st">"WR_gauge"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>   )</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Server</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>WR_gauge <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">PlayersData</span>()</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  df_filtered <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(player <span class="sc">==</span> input<span class="sc">$</span>Player)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  valor <span class="ot">&lt;-</span> <span class="fu">sum</span>(df_filtered<span class="sc">$</span>wins)<span class="sc">/</span><span class="fu">sum</span>(df_filtered<span class="sc">$</span>games_played)<span class="sc">*</span><span class="dv">100</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_ly</span>(</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"indicator"</span>,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Winrate do jogador"</span>,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">mode =</span> <span class="st">"gauge+number"</span>,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> valor,</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">gauge =</span> <span class="fu">list</span>(</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis =</span> <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">list</span>(<span class="dv">0</span>, <span class="dv">100</span>)),</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">bar =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"#ff9933"</span>),</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">steps =</span> <span class="fu">list</span>(</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">25</span>), <span class="at">color =</span> <span class="st">"#ffd9b3"</span>),</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">50</span>), <span class="at">color =</span> <span class="st">"#ffcc99"</span>),</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>), <span class="at">color =</span> <span class="st">"#ffbf80"</span>),</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">75</span>, <span class="dv">100</span>), <span class="at">color =</span> <span class="st">"#ffb366"</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># UI</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>, <span class="at">status =</span> <span class="st">"warning"</span>,<span class="at">solidHeader =</span> T,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plotlyOutput</span>(<span class="st">"Wr_gauge"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>   )</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Server</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>Wr_gauge <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">PlayersData</span>()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  df_filtered <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(player <span class="sc">==</span> input<span class="sc">$</span>Player)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  valor <span class="ot">&lt;-</span> <span class="fu">sum</span>(df_filtered<span class="sc">$</span>wins)<span class="sc">/</span><span class="fu">sum</span>(df_filtered<span class="sc">$</span>games_played)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_ly</span>(</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"indicator"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Winrate do jogador"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">mode =</span> <span class="st">"gauge+number"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> valor,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">gauge =</span> <span class="fu">list</span>(</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis =</span> <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">list</span>(<span class="dv">0</span>, <span class="dv">100</span>)),</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">bar =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"#ff9933"</span>),</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">steps =</span> <span class="fu">list</span>(</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">25</span>), <span class="at">color =</span> <span class="st">"#ffd9b3"</span>),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">50</span>), <span class="at">color =</span> <span class="st">"#ffcc99"</span>),</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>), <span class="at">color =</span> <span class="st">"#ffbf80"</span>),</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">list</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">75</span>, <span class="dv">100</span>), <span class="at">color =</span> <span class="st">"#ffb366"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="gráfico-média-de-kda-pro-temporada" class="level2">
 <h2 class="anchored" data-anchor-id="gráfico-média-de-kda-pro-temporada">Gráfico Média de KDA pro temporada</h2>
 <p><img src="KDAGrafico.png" class="img-fluid"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># UI</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>, <span class="at">status =</span> <span class="st">"warning"</span>, <span class="at">solidHeader =</span> T,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plotlyOutput</span>(<span class="st">"KDA_Season"</span>, <span class="at">height =</span> <span class="dv">642</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>   )</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Server</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>KDA_Season <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">PlayersData</span>()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  df_filtered <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(player <span class="sc">==</span> input<span class="sc">$</span>Player)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_ly</span>(df_filtered, <span class="at">x =</span> <span class="sc">~</span>kill_death_assist_ratio, <span class="at">y =</span> <span class="sc">~</span>season, <span class="at">type =</span> <span class="st">'bar'</span>,<span class="at">orientation =</span> <span class="st">'h'</span>, <span class="at">marker =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">'orange'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">title =</span> <span class="st">"Média de KDA por Temporada"</span>, <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"KDA Média"</span>), <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Temporada"</span>),</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sliders =</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">currentvalue =</span> <span class="fu">list</span>(<span class="at">prefix =</span> <span class="st">"Temporada:"</span>), <span class="at">steps =</span> <span class="fu">list</span>())))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    })</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>

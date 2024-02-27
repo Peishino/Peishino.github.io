@@ -30,7 +30,7 @@ PlayersData <- reactive({ # <2>
 
 ## Filtros & Reações aos filtros
 
-![Filtros](Filtros.png)
+![](Filtros.png)
 
 Esses são os dois filtros que iremos utilizar nesse dashboard.
 
@@ -135,24 +135,30 @@ output$Damage <- renderInfoBox({ # <2>
 
 ![](WLGrafico.png)
 
-Esse gráfico tem como objetivo informar a quantidade de vitórias e derrodas do jogador em temporadas jogadas pelo mesmo.
+Esse gráfico tem como objetivo informar a quantidade de vitórias e derrotas do jogador em temporadas jogadas pelo mesmo.
 
 ``` r
-# UI
-box(width = 12, status = "warning", solidHeader = T,
-    plotlyOutput("Wr_Season")
-   )
+# UI 
+box(width = 12, status = "warning", solidHeader = T, # <1>
+    plotlyOutput("WL_Season") # <1>
+   ) # <1>
                  
 # Server
-output$Wr_Season <- renderPlotly({
-  df <- PlayersData()
-  df_filtered <- df %>% filter(player == input$Player)
+output$WL_Season <- renderPlotly({ # <2>
+  df <- PlayersData() # <2>
+  df_filtered <- df %>% filter(player == input$Player) # <2>
       
-  plot_ly(df_filtered, x = ~factor(season), y = ~wins, type = 'scatter', mode = 'lines+markers', name = 'Win', marker = list(color = 'green')) %>%
-    add_trace(y = ~loses, name = 'Lose', marker = list(color = 'red')) %>%
-    layout(title = "Vitórias e Derrotas por Temporada", xaxis = list(title = "Temporada"), yaxis = list(title = "Quantidade"))
-    })
+  plot_ly(df_filtered, x = ~factor(season), y = ~wins, type = 'scatter', mode = 'lines+markers', name = 'Win', marker = list(color = 'green')) %>% # <3>
+    add_trace(y = ~loses, name = 'Lose', marker = list(color = 'red')) %>% # <3>
+    layout(title = "Vitórias e Derrotas por Temporada", xaxis = list(title = "Temporada"), yaxis = list(title = "Quantidade")) # <3>
+    }) # <3>
 ```
+
+1. Mesmo padrão de caixa, porém agora dentro dela quero criar um gráfico. Usei a função `plotlyOutput("WL_Season")` por se tratar de um gráfico com o plotly, se fosse um gráfico qualquer usaria a função `plotOutput()`. Passei como parametro o nome "WL_Season", para ficar um nome com sentido ao que estou querendo mostrar, mas poderia ser qualquer nome.
+
+2. Nessa parte eu renderizo o gráfico, mas antes de começar a trabalhar nele, como eu queria que o gráfico mostrasse toda a informação do jogador sem segregar por temporada tive que chamar a base reativa `PlayersData()`, criada anteriormente, e realizar o filtro separadamente, salvando em uma variavel "df_filtered".
+
+3. Agora sim, crio o gráfico normalmente, como no R.
 
 ## Gráfico Taxa de vitórias do jogador
 
@@ -160,10 +166,10 @@ output$Wr_Season <- renderPlotly({
 ``` r
 # UI
 box(width = 12, status = "warning",solidHeader = T,
-    plotlyOutput("WR_gauge")
+    plotlyOutput("Wr_gauge")
    )
 # Server
-output$WR_gauge <- renderPlotly({
+output$Wr_gauge <- renderPlotly({
   df <- PlayersData()
   df_filtered <- df %>% filter(player == input$Player)
   valor <- sum(df_filtered$wins)/sum(df_filtered$games_played)*100
@@ -190,3 +196,20 @@ output$WR_gauge <- renderPlotly({
 ## Gráfico Média de KDA pro temporada
 
 ![](KDAGrafico.png)
+
+
+``` r
+# UI
+box(width = 12, status = "warning", solidHeader = T,
+    plotlyOutput("KDA_Season", height = 642)
+   )
+# Server
+output$KDA_Season <- renderPlotly({
+  df <- PlayersData()
+  df_filtered <- df %>% filter(player == input$Player)
+      
+  plot_ly(df_filtered, x = ~kill_death_assist_ratio, y = ~season, type = 'bar',orientation = 'h', marker = list(color = 'orange')) %>%
+  layout(title = "Média de KDA por Temporada", xaxis = list(title = "KDA Média"), yaxis = list(title = "Temporada"),
+  sliders = list(list(currentvalue = list(prefix = "Temporada:"), steps = list())))
+    })
+```
