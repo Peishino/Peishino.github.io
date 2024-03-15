@@ -11,6 +11,8 @@ date: "01/23/2024"
 
 O objetivo deste projeto é criar um dashboard interativo e informativo dedicado aos campeonatos mundiais de League of Legends. A ferramenta será desenvolvida utilizando a linguagem de programação [R](https://www.r-project.org/other-docs.html) e alguns pacotes para o estruturamento das bases de dados e a construção do dashboard interativo.
 
+[![Um dos dashboards que construi nessa análise](DashPlayers.png)](https://peishino.shinyapps.io/LOLDashBoard/)
+
 ## Pacotes
 
 [Tidyverse](https://www.tidyverse.org/packages/), fornece ferramentas para manipulação, visualização e análise de dados de maneira consistente e eficiente.
@@ -33,16 +35,14 @@ library(shiny)
 library(shinydashboard)
 ```
 
-## Dados 
+## Dados
 
 Os dados referentes aos mundiais de 2011 a 2022 foram obtidos no [Kaggle](https://www.kaggle.com/datasets/pedrocsar/league-of-legends-worlds-20112022-stats).
 
 O conjunto de dados consiste em três arquivos CSV, cada um fornecendo informações específicas:
 
-- Um arquivo que detalha o desempenho dos jogadores em cada partida, incluindo estatísticas individuais.
+-   Um arquivo que detalha o desempenho dos jogadores em cada partida, incluindo estatísticas individuais.
 
-- Um arquivo que apresenta os personagens utilizados durante os campeonatos, acompanhado de suas estatísticas relevantes.
+-   Um arquivo que apresenta os personagens utilizados durante os campeonatos, acompanhado de suas estatísticas relevantes.
 
-- Um arquivo que fornece informações sobre cada partida, incluindo detalhes dos jogadores e os vencedores de cada confronto.
-
-
+-   Um arquivo que fornece informações sobre cada partida, incluindo detalhes dos jogadores e os vencedores de cada confronto.

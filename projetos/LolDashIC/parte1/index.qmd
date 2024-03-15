@@ -3,7 +3,6 @@ title: Análise exploratória
 description: Nesta etapa, vamos conhecer e tratar os dados usando algumas funcionalidades do [R](https://www.r-project.org/other-docs.html) e o pacote [Tidyverse](https://www.tidyverse.org/packages/).
 ---
 
-
 ```{r}
 #| include: false
 library(tidyverse)

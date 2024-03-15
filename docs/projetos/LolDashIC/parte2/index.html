@@ -162,12 +162,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Prática</span></a>
+ <span class="menu-text">Teoria</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Alternar seção">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../projetos/LolDashIC/parte0/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Shiny</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Prática</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../projetos/LolDashIC/parte1/index.html" class="sidebar-item-text sidebar-link">
@@ -247,11 +264,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="1,2" data-code-annotation="1" data-code-cell="annotated-cell-1">Carrega dados previamente salvos em arquivo do tipo “.RData”.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="1,2" data-code-annotation="1">Carrega dados previamente salvos em arquivo do tipo “.RData”.</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="4,5,6,7,8,9" data-code-annotation="2" data-code-cell="annotated-cell-1">Chama essa base de forma reativa, ou seja, algo que é recalculado automaticamente quando as dependências mudam (é muito útil nesse caso onde a base muda toda vez que um filtro é realizado). Aproveitei para filtrar o evento como “Main” que seriam os jogos principais do campeonato.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="4,5,6,7,8,9" data-code-annotation="2">Chama essa base de forma reativa, ou seja, algo que é recalculado automaticamente quando as dependências mudam (é muito útil nesse caso onde a base muda toda vez que um filtro é realizado). Aproveitei para filtrar o evento como “Main” que seriam os jogos principais do campeonato.</span>
 </dd>
 </dl>
 </section>
@@ -283,19 +300,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2,3,4" data-code-annotation="1" data-code-cell="annotated-cell-2">Criamos uma caixa com os parâmetros <code>width</code>, <code>status</code> e <code>solidHeader</code>, os quais são utilizados para personalizar a aparência dessa caixa específica. O parâmetro <code>width</code> foi definido como 12 (máximo), garantindo que a caixa ocupe toda a largura da coluna em que está inserida. O parâmetro <code>status</code> foi configurado como “warning”, dando à caixa uma coloração laranja no fundo. Já o <code>solidHeader</code> foi ajustado para verdadeiro (T), proporcionando um contorno laranja ao redor de toda a caixa. Em seguida, por meio da função <code>selectInput</code>, implementamos dois filtros (inputs) que estarão contidos dentro dessa caixa personalizada.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="2,3,4" data-code-annotation="1">Criamos uma caixa com os parâmetros <code>width</code>, <code>status</code> e <code>solidHeader</code>, os quais são utilizados para personalizar a aparência dessa caixa específica. O parâmetro <code>width</code> foi definido como 12 (máximo), garantindo que a caixa ocupe toda a largura da coluna em que está inserida. O parâmetro <code>status</code> foi configurado como “warning”, dando à caixa uma coloração laranja no fundo. Já o <code>solidHeader</code> foi ajustado para verdadeiro (T), proporcionando um contorno laranja ao redor de toda a caixa. Em seguida, por meio da função <code>selectInput</code>, implementamos dois filtros (inputs) que estarão contidos dentro dessa caixa personalizada.</span>
 </dd>
 <dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="7,8,9" data-code-annotation="2" data-code-cell="annotated-cell-2">É uma expressão reativa que observa mudanças no ambiente e, sempre que ocorrem, atualiza o input da seleção “Player” na interface gráfica.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="7,8,9" data-code-annotation="2">É uma expressão reativa que observa mudanças no ambiente e, sempre que ocorrem, atualiza o input da seleção “Player” na interface gráfica.</span>
 </dd>
 <dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="11,12,13,14" data-code-annotation="3" data-code-cell="annotated-cell-2">Observa eventos relacionados à seleção no input “Player”. Sempre que o usuário seleciona um jogador a base é filtrada pelo nome do jogador, em seguida atualiza o input da seleção “Season” fazendo com que mostre somente as temporadas onde aquele jogador atuou.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="11,12,13,14" data-code-annotation="3">Observa eventos relacionados à seleção no input “Player”. Sempre que o usuário seleciona um jogador a base é filtrada pelo nome do jogador, em seguida atualiza o input da seleção “Season” fazendo com que mostre somente as temporadas onde aquele jogador atuou.</span>
 </dd>
 <dt data-target-cell="annotated-cell-2" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-lines="16,17,18,19" data-code-annotation="4" data-code-cell="annotated-cell-2">Por fim criamos outra base reativa, que irá interagir diretamente com os filtros feitos pelo usuário.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="16,17,18,19" data-code-annotation="4">Por fim criamos outra base reativa, que irá interagir diretamente com os filtros feitos pelo usuário.</span>
 </dd>
 </dl>
 </section>
@@ -358,11 +375,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2,3,4,5,6,7" data-code-annotation="1" data-code-cell="annotated-cell-3">Configuramos a caixa com os mesmos parâmetros mencionados anteriormente. No entanto, agora estamos focando em gerar caixas de informação dentro dessa estrutura. Utilizando a função <code>infoboxOutput</code>, a declaramos com um tamanho de 3, já que teremos um total de 4 caixas, permitindo que ocupem todo o espaço disponível (12).</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="2,3,4,5,6,7" data-code-annotation="1">Configuramos a caixa com os mesmos parâmetros mencionados anteriormente. No entanto, agora estamos focando em gerar caixas de informação dentro dessa estrutura. Utilizando a função <code>infoboxOutput</code>, a declaramos com um tamanho de 3, já que teremos um total de 4 caixas, permitindo que ocupem todo o espaço disponível (12).</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="10,11,12,13,14,15,16,17,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43" data-code-annotation="2" data-code-cell="annotated-cell-3">Com o <code>output$Nome</code> seleciono o output que quero trabalhar. A função <code>renderInfoBox</code> diz que quero renderizar uma caixa de informações. Em seguida, chamo a função <code>infoBox</code> para passar os parametros que conterá em cada caixa de informação que são respectivamente o título, o valor, o ícone e a cor.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="10,11,12,13,14,15,16,17,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43" data-code-annotation="2">Com o <code>output$Nome</code> seleciono o output que quero trabalhar. A função <code>renderInfoBox</code> diz que quero renderizar uma caixa de informações. Em seguida, chamo a função <code>infoBox</code> para passar os parametros que conterá em cada caixa de informação que são respectivamente o título, o valor, o ícone e a cor.</span>
 </dd>
 </dl>
 </section>
@@ -387,15 +404,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2,3,4" data-code-annotation="1" data-code-cell="annotated-cell-4">Mesmo padrão de caixa, porém agora dentro dela quero criar um gráfico. Usei a função <code>plotlyOutput("WL_Season")</code> por se tratar de um gráfico com o plotly, se fosse um gráfico qualquer usaria a função <code>plotOutput()</code>. Passei como parametro o nome “WL_Season”, para ficar um nome com sentido ao que estou querendo mostrar, mas poderia ser qualquer nome.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="2,3,4" data-code-annotation="1">Mesmo padrão de caixa, porém agora dentro dela quero criar um gráfico. Usei a função <code>plotlyOutput("WL_Season")</code> por se tratar de um gráfico com o plotly, se fosse um gráfico qualquer usaria a função <code>plotOutput()</code>. Passei como parametro o nome “WL_Season”, para ficar um nome com sentido ao que estou querendo mostrar, mas poderia ser qualquer nome.</span>
 </dd>
 <dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="7,8,9" data-code-annotation="2" data-code-cell="annotated-cell-4">Nessa parte eu renderizo o gráfico, mas antes de começar a trabalhar nele, como eu queria que o gráfico mostrasse toda a informação do jogador sem segregar por temporada tive que chamar a base reativa <code>PlayersData()</code>, criada anteriormente, e realizar o filtro separadamente, salvando em uma variavel “df_filtered”.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="7,8,9" data-code-annotation="2">Nessa parte eu renderizo o gráfico, mas antes de começar a trabalhar nele, como eu queria que o gráfico mostrasse toda a informação do jogador sem segregar por temporada tive que chamar a base reativa <code>PlayersData()</code>, criada anteriormente, e realizar o filtro separadamente, salvando em uma variavel “df_filtered”.</span>
 </dd>
 <dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="11,12,13,14" data-code-annotation="3" data-code-cell="annotated-cell-4">Agora sim, crio o gráfico normalmente, como no R.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="11,12,13,14" data-code-annotation="3">Agora sim, crio o gráfico normalmente, como no R.</span>
 </dd>
 </dl>
 </section>

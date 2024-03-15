@@ -5,11 +5,11 @@ description: Nesta etapa, vamos montar os dashboards por meio do R-Shiny.
 
 ## Contexto
 
-Por meio do pacote Shiny, desenvolvi três visualizações distintas, cada uma dedicada às bases de dados previamente exploradas na página anterior. 
+Por meio do pacote Shiny, desenvolvi três visualizações distintas, cada uma dedicada às bases de dados previamente exploradas na página anterior.
 
 O código inteiro deste Dashboard pode ser acessado no [Github](https://github.com/Peishino/I.C/blob/main/LOLDashBoard/app.R). Aqui, fornecerei explicações apenas sobre a primeira visualização das 3 que montei. Caso deseje examinar o código completo, sinta-se à vontade para visitar o repositório. Além disso, estou aberto a sugestões e feedback.
 
-O objetivo da minha primeira visualização "Player" é contar uma história do jogador, mostrando seu desempenho durante todas as temporadas. Essa ferramenta pode ser usada por um jogador qualquer para se basear nas métricas de um profissional e saber em quais aspectos ele deve melhorar para alcançar um melhor desempenho em suas partidas. Além disso, também pode ser útil para um time comparar jogadores e saber qual se encaixa melhor no perfil desejado para o time. 
+O objetivo da minha primeira visualização "Player" é contar uma história do jogador, mostrando seu desempenho durante todas as temporadas. Essa ferramenta pode ser usada por um jogador qualquer para se basear nas métricas de um profissional e saber em quais aspectos ele deve melhorar para alcançar um melhor desempenho em suas partidas. Além disso, também pode ser útil para um time comparar jogadores e saber qual se encaixa melhor no perfil desejado para o time.
 
 ## Carregando a base "Player" que tratamos:
 
@@ -23,10 +23,10 @@ PlayersData <- reactive({ # <2>
       df <- df[df$event == "Main", ] # <2>
       return(df) # <2>
     }) # <2>
-
 ```
-1. Carrega dados previamente salvos em arquivo do tipo ".RData".
-2. Chama essa base de forma reativa, ou seja, algo que é recalculado automaticamente quando as dependências mudam (é muito útil nesse caso onde a base muda toda vez que um filtro é realizado). Aproveitei para filtrar o evento como "Main" que seriam os jogos principais do campeonato.
+
+1.  Carrega dados previamente salvos em arquivo do tipo ".RData".
+2.  Chama essa base de forma reativa, ou seja, algo que é recalculado automaticamente quando as dependências mudam (é muito útil nesse caso onde a base muda toda vez que um filtro é realizado). Aproveitei para filtrar o evento como "Main" que seriam os jogos principais do campeonato.
 
 ## Filtros & Reações aos filtros
 
@@ -38,7 +38,7 @@ Um para os jogadores, contendo os nomes de todos os jogadores que participaram d
 
 Outro para as temporadas, contendo as temporadas na qual aquele jogador participou.
 
-```r
+``` r
 # UI
 box(width = 12, status = "warning",solidHeader = T, # <1>
     selectInput("Player", "Selecione o jogador", choices =  NULL), # <1>
@@ -59,15 +59,16 @@ Players_Inputs <- reactive({ # <4>
       return(base) # <4>
     }) # <4>
 ```
-1. Criamos uma caixa com os parâmetros `width`, `status` e `solidHeader`, os quais são utilizados para personalizar a aparência dessa caixa específica. O parâmetro `width` foi definido como 12 (máximo), garantindo que a caixa ocupe toda a largura da coluna em que está inserida. O parâmetro `status` foi configurado como "warning", dando à caixa uma coloração laranja no fundo. Já o `solidHeader` foi ajustado para verdadeiro (T), proporcionando um contorno laranja ao redor de toda a caixa. Em seguida, por meio da função `selectInput`, implementamos dois filtros (inputs) que estarão contidos dentro dessa caixa personalizada.
 
-2. É uma expressão reativa que observa mudanças no ambiente e, sempre que ocorrem, atualiza o input da seleção "Player" na interface gráfica.
+1.  Criamos uma caixa com os parâmetros `width`, `status` e `solidHeader`, os quais são utilizados para personalizar a aparência dessa caixa específica. O parâmetro `width` foi definido como 12 (máximo), garantindo que a caixa ocupe toda a largura da coluna em que está inserida. O parâmetro `status` foi configurado como "warning", dando à caixa uma coloração laranja no fundo. Já o `solidHeader` foi ajustado para verdadeiro (T), proporcionando um contorno laranja ao redor de toda a caixa. Em seguida, por meio da função `selectInput`, implementamos dois filtros (inputs) que estarão contidos dentro dessa caixa personalizada.
 
-3. Observa eventos relacionados à seleção no input "Player". Sempre que o usuário seleciona um jogador a base é filtrada pelo nome do jogador, em seguida atualiza o input da seleção "Season" fazendo com que mostre somente as temporadas onde aquele jogador atuou.
+2.  É uma expressão reativa que observa mudanças no ambiente e, sempre que ocorrem, atualiza o input da seleção "Player" na interface gráfica.
 
-4. Por fim criamos outra base reativa, que irá interagir diretamente com os filtros feitos pelo usuário.
+3.  Observa eventos relacionados à seleção no input "Player". Sempre que o usuário seleciona um jogador a base é filtrada pelo nome do jogador, em seguida atualiza o input da seleção "Season" fazendo com que mostre somente as temporadas onde aquele jogador atuou.
 
-## Painel de informações do jogador 
+4.  Por fim criamos outra base reativa, que irá interagir diretamente com os filtros feitos pelo usuário.
+
+## Painel de informações do jogador
 
 ![Tomando o exemplo do renomado jogador Faker na temporada 12](InfoPainel.png)
 
@@ -127,9 +128,9 @@ output$Damage <- renderInfoBox({ # <2>
 }) # <2>
 ```
 
-1. Configuramos a caixa com os mesmos parâmetros mencionados anteriormente. No entanto, agora estamos focando em gerar caixas de informação dentro dessa estrutura. Utilizando a função `infoboxOutput`, a declaramos com um tamanho de 3, já que teremos um total de 4 caixas, permitindo que ocupem todo o espaço disponível (12).
+1.  Configuramos a caixa com os mesmos parâmetros mencionados anteriormente. No entanto, agora estamos focando em gerar caixas de informação dentro dessa estrutura. Utilizando a função `infoboxOutput`, a declaramos com um tamanho de 3, já que teremos um total de 4 caixas, permitindo que ocupem todo o espaço disponível (12).
 
-2. Com o `output$Nome` seleciono o output que quero trabalhar. A função `renderInfoBox` diz que quero renderizar uma caixa de informações. Em seguida, chamo a função `infoBox` para passar os parametros que conterá em cada caixa de informação que são respectivamente o título, o valor, o ícone e a cor.
+2.  Com o `output$Nome` seleciono o output que quero trabalhar. A função `renderInfoBox` diz que quero renderizar uma caixa de informações. Em seguida, chamo a função `infoBox` para passar os parametros que conterá em cada caixa de informação que são respectivamente o título, o valor, o ícone e a cor.
 
 ## Gráfico Vitórias e derrtas por temporada
 
@@ -154,15 +155,16 @@ output$WL_Season <- renderPlotly({ # <2>
     }) # <3>
 ```
 
-1. Mesmo padrão de caixa, porém agora dentro dela quero criar um gráfico. Usei a função `plotlyOutput("WL_Season")` por se tratar de um gráfico com o plotly, se fosse um gráfico qualquer usaria a função `plotOutput()`. Passei como parametro o nome "WL_Season", para ficar um nome com sentido ao que estou querendo mostrar, mas poderia ser qualquer nome.
+1.  Mesmo padrão de caixa, porém agora dentro dela quero criar um gráfico. Usei a função `plotlyOutput("WL_Season")` por se tratar de um gráfico com o plotly, se fosse um gráfico qualquer usaria a função `plotOutput()`. Passei como parametro o nome "WL_Season", para ficar um nome com sentido ao que estou querendo mostrar, mas poderia ser qualquer nome.
 
-2. Nessa parte eu renderizo o gráfico, mas antes de começar a trabalhar nele, como eu queria que o gráfico mostrasse toda a informação do jogador sem segregar por temporada tive que chamar a base reativa `PlayersData()`, criada anteriormente, e realizar o filtro separadamente, salvando em uma variavel "df_filtered".
+2.  Nessa parte eu renderizo o gráfico, mas antes de começar a trabalhar nele, como eu queria que o gráfico mostrasse toda a informação do jogador sem segregar por temporada tive que chamar a base reativa `PlayersData()`, criada anteriormente, e realizar o filtro separadamente, salvando em uma variavel "df_filtered".
 
-3. Agora sim, crio o gráfico normalmente, como no R.
+3.  Agora sim, crio o gráfico normalmente, como no R.
 
 ## Gráfico Taxa de vitórias do jogador
 
 ![](WRGrafico.png)
+
 ``` r
 # UI
 box(width = 12, status = "warning",solidHeader = T,
@@ -196,7 +198,6 @@ output$Wr_gauge <- renderPlotly({
 ## Gráfico Média de KDA pro temporada
 
 ![](KDAGrafico.png)
-
 
 ``` r
 # UI

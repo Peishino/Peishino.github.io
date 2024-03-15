@@ -1,7 +1,8 @@
 project:
   type: website
   output-dir: docs
-
+  
+lightbox: true
 code-block-bg: "#EEEEEE"
 highlight-style: github
 code-block-border-left: "#334061"
@@ -23,6 +24,10 @@ website:
     - id: loldash
       contents:
         - projetos/LolDashIC/index.qmd
+        - section: Teoria
+          contents:
+            - href: projetos/LolDashIC/parte0/index.qmd
+            
         - section: Prática
           contents:
             - href: projetos/LolDashIC/parte1/index.qmd

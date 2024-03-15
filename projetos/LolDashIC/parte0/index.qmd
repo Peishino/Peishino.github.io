@@ -1,0 +1,93 @@
+---
+title: Shiny
+description: Aqui irei falar um pouco sobre o shiny e suas funcionalidades.
+
+---
+
+# O que é Shiny?
+
+Shiny é uma biblioteca do R que facilita a criação de aplicações interativas Web. Elimina a necessidade de um extenso conhecimento em HTML, CSS e JavaScript para entrar na área de desenvolvimento. No entanto, ter alguma familiaridade com essas linguagens pode destacar ainda mais a qualidade da interface do usuário que você cria.
+
+
+![](hex-shiny.png){width=30% fig-align="center"}
+
+
+Além de ser gratuito, uma das grandes vantagens dessa ferramenta é sua capacidade de desenvolver praticamente tudo o que um analista de dados precisa, seja criando dashboards para visualização de dados ou ferramentas que executam cálculos com base nas informações inseridas pelo usuário. Existem vários outros pacotes criados pela comunidade que trazem mais elementos visuais e funcionais para o Shiny, como o ShinyDashboard (que utilizarei neste projeto), que diminuem ainda mais a necessidade de conhecermos HTML, CSS e JavaScript. 
+
+## Estrutura de um Shinny App
+
+Um aplicativo Shiny é composto por três elementos principais:
+
+- A Interface do Usuário (UI)
+- O Servidor
+- Uma função que chama o ShinyApp
+
+A Interface do Usuário (UI) é responsável pelo visual da sua aplicação web. É onde se declara o posicionamento de todas as informações, define as cores iniciais, o tamanho de cada estrutura e outros aspectos relacionados ao design da interface.
+
+O servidor desempenha um papel fundamental na criação da lógica por trás da aplicação web. É nele que são criadas bases reativas, funcionalidades para botões, realização de cálculos e até mesmo a possibilidade de alterar o estilo da interface em resposta a determinados eventos.
+
+E, por fim, a função shinyApp cria a aplicação em si, executando simultaneamente a UI e o servidor.
+
+Ao criar um Shinny App ele retorna um exemplo pronto, vamos analisa-lo:
+
+![Exemplo default do Shinny](ShinyAppDefault.png)
+
+### UI
+
+```r
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+
+    # Application title
+    titlePanel("Old Faithful Geyser Data"),
+
+    # Sidebar with a slider input for number of bins 
+    sidebarLayout(
+        sidebarPanel(
+            sliderInput("bins",
+                        "Number of bins:",
+                        min = 1,
+                        max = 50,
+                        value = 30)
+        ),
+
+        # Show a plot of the generated distribution
+        mainPanel(
+           plotOutput("distPlot")
+        )
+    )
+)
+```
+
+Neste código, a `ui` é construída utilizando a função `fluidPage()`, que é usada para criar uma interface fluida e responsiva para aplicativos web no Shiny. Essa função proporciona uma estrutura básica para a página.
+
+- `titlePanel()`: Esta função define o título principal da aplicação, neste caso, "Old Faithful Geyser Data".
+
+- `sidebarLayout()`: Esta função organiza o layout da página em uma estrutura de barra lateral e painel principal. O conteúdo dentro de `sidebarPanel()` é exibido na barra lateral, onde `sliderInput()` é usado para criar um controle deslizante que permite ao usuário definir o número de bins para o histograma.
+
+- `mainPanel()`: Esta função define o painel principal da aplicação, onde `plotOutput("distPlot")` é usado para preparar um espaço para a exibição do gráfico. O identificador "distPlot" será usado posteriormente no servidor para renderizar o gráfico correspondente..
+
+### Server
+
+```r
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+
+    output$distPlot <- renderPlot({
+        # generate bins based on input$bins from ui.R
+        x    <- faithful[, 2]
+        bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+        # draw the histogram with the specified number of bins
+        hist(x, breaks = bins, col = 'darkgray', border = 'white',
+             xlab = 'Waiting time to next eruption (in mins)',
+             main = 'Histogram of waiting times')
+    })
+}
+```
+
+Neste trecho de código, o `server` é definido como uma função que toma como entrada os objetos `input` e `output`. 
+
+- `output$distPlot`: Aqui, estamos definindo a saída `distPlot`, que corresponde ao gráfico a ser renderizado na interface do usuário. Utilizamos a função `renderPlot()` para gerar o gráfico dinamicamente com base nos inputs fornecidos pelo usuário.
+
+- `renderPlot({ ... })`: Dentro desta função, estamos gerando o histograma. Primeiro, selecionamos os dados relevantes, neste caso, a segunda coluna do conjunto de dados 'faithful', que representa os tempos de espera. Em seguida, geramos os limites dos bins com base no número especificado pelo usuário utilizando a função `seq()`. Finalmente, desenhamos o histograma usando `hist()` com os parâmetros adequados, como a cor de preenchimento, cor da borda, rótulo do eixo x e título do gráfico.
