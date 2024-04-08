@@ -35,23 +35,23 @@ Ao criar um Shinny App ele retorna um exemplo pronto, vamos analisa-lo:
 ### UI
 
 ```r
-# Define UI for application that draws a histogram
+# Define a interface do usuário para a aplicação que desenha um histograma
 ui <- fluidPage(
 
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
+    # Título da aplicação
+    titlePanel("Dados do Gêiser Old Faithful"),
 
-    # Sidebar with a slider input for number of bins 
+    # Barra lateral com um controle deslizante para o número de intervalos (bins)
     sidebarLayout(
         sidebarPanel(
             sliderInput("bins",
-                        "Number of bins:",
+                        "Número de intervalos:",
                         min = 1,
                         max = 50,
                         value = 30)
         ),
 
-        # Show a plot of the generated distribution
+        # Mostra um gráfico da distribuição gerada
         mainPanel(
            plotOutput("distPlot")
         )
@@ -70,18 +70,18 @@ Neste código, a `ui` é construída utilizando a função `fluidPage()`, que é
 ### Server
 
 ```r
-# Define server logic required to draw a histogram
+# Define a lógica do servidor necessária para desenhar um histograma
 server <- function(input, output) {
 
     output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
+        # gera os intervalos baseados na entrada input$bins de ui.R
         x    <- faithful[, 2]
         bins <- seq(min(x), max(x), length.out = input$bins + 1)
 
-        # draw the histogram with the specified number of bins
+        # desenha o histograma com o número de intervalos especificado
         hist(x, breaks = bins, col = 'darkgray', border = 'white',
-             xlab = 'Waiting time to next eruption (in mins)',
-             main = 'Histogram of waiting times')
+             xlab = 'Tempo de espera até a próxima erupção (em minutos)',
+             main = 'Histograma dos tempos de espera')
     })
 }
 ```
