@@ -21,8 +21,7 @@ about:
 
 <h3>Meu nome é Gabriel Moreira!</h3>
 
-*Eu sou um estudante de estatística, me especializando em Data Science.*
+Eu sou um estudante de estatística, me especializando em Data Science.
 
-<br>
 
-<h4>Aqui você encontrará informações [sobre mim](About.qmd) e alguns dos meus [projetos](Projetos.qmd).</h4>
+<h3>Aqui você encontrará informações [sobre mim](About.qmd) e alguns dos meus [projetos](Projetos.qmd).</h3>

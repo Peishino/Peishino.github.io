@@ -8,6 +8,9 @@ highlight-style: github
 code-block-border-left: "#334061"
 sidebar: false
 
+python:
+  path: "C:/Users/Gabriel/AppData/Local/Microsoft/WindowsApps/python.exe"
+
 website:
   title: "Gabriel Moreira  <br> <small> *DataScientist * </small>"
   page-navigation: true
@@ -32,7 +35,6 @@ website:
           contents:
             - href: projetos/LolDashIC/parte1/index.qmd
             - href: projetos/LolDashIC/parte2/index.qmd
-
 format:
   html:
     css: styles.css
@@ -40,8 +42,8 @@ format:
     code-link: true
     lang: pt
     theme: 
-      light: lux
-    linkcolor: red
+      light: flatly
+      dark: darkly
     toc: true
 editor: visual
 
