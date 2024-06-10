@@ -12,7 +12,7 @@ python:
   path: "C:/Users/Gabriel/AppData/Local/Microsoft/WindowsApps/python.exe"
 
 website:
-  title: "Gabriel Moreira  <br> <small> *DataScientist * </small>"
+  title: "Portfólio Gabriel Moreira"
   page-navigation: true
   navbar:
     left:
